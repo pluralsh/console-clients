@@ -18,9 +18,14 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
     meta?: Record<string, unknown>;
 };
 
-export const listAgentRuns = <ThrowOnError extends boolean = false>(options?: Options<ListAgentRunsData, ThrowOnError>) => (options?.client ?? client).get<ListAgentRunsResponses, unknown, ThrowOnError>({ url: '/v1/api/ai/runs', ...options });
+export const listAgentRuns = <ThrowOnError extends boolean = false>(options?: Options<ListAgentRunsData, ThrowOnError>) => (options?.client ?? client).get<ListAgentRunsResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/runs',
+    ...options
+});
 
 export const createAgentRun = <ThrowOnError extends boolean = false>(options: Options<CreateAgentRunData, ThrowOnError>) => (options.client ?? client).post<CreateAgentRunResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/ai/runs',
     ...options,
     headers: {
@@ -29,25 +34,62 @@ export const createAgentRun = <ThrowOnError extends boolean = false>(options: Op
     }
 });
 
-export const getAgentRun = <ThrowOnError extends boolean = false>(options: Options<GetAgentRunData, ThrowOnError>) => (options.client ?? client).get<GetAgentRunResponses, unknown, ThrowOnError>({ url: '/v1/api/ai/runs/{id}', ...options });
+export const getAgentRun = <ThrowOnError extends boolean = false>(options: Options<GetAgentRunData, ThrowOnError>) => (options.client ?? client).get<GetAgentRunResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/runs/{id}',
+    ...options
+});
 
-export const listAgentRuntimes = <ThrowOnError extends boolean = false>(options?: Options<ListAgentRuntimesData, ThrowOnError>) => (options?.client ?? client).get<ListAgentRuntimesResponses, unknown, ThrowOnError>({ url: '/v1/api/ai/runtimes', ...options });
+export const listAgentRuntimes = <ThrowOnError extends boolean = false>(options?: Options<ListAgentRuntimesData, ThrowOnError>) => (options?.client ?? client).get<ListAgentRuntimesResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/runtimes',
+    ...options
+});
 
-export const getAgentRuntime = <ThrowOnError extends boolean = false>(options: Options<GetAgentRuntimeData, ThrowOnError>) => (options.client ?? client).get<GetAgentRuntimeResponses, unknown, ThrowOnError>({ url: '/v1/api/ai/runtimes/{id}', ...options });
+export const getAgentRuntime = <ThrowOnError extends boolean = false>(options: Options<GetAgentRuntimeData, ThrowOnError>) => (options.client ?? client).get<GetAgentRuntimeResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/runtimes/{id}',
+    ...options
+});
 
-export const getSentinelRun = <ThrowOnError extends boolean = false>(options: Options<GetSentinelRunData, ThrowOnError>) => (options.client ?? client).get<GetSentinelRunResponses, unknown, ThrowOnError>({ url: '/v1/api/ai/sentinelruns/{id}', ...options });
+export const getSentinelRun = <ThrowOnError extends boolean = false>(options: Options<GetSentinelRunData, ThrowOnError>) => (options.client ?? client).get<GetSentinelRunResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/sentinelruns/{id}',
+    ...options
+});
 
-export const listSentinels = <ThrowOnError extends boolean = false>(options?: Options<ListSentinelsData, ThrowOnError>) => (options?.client ?? client).get<ListSentinelsResponses, unknown, ThrowOnError>({ url: '/v1/api/ai/sentinels', ...options });
+export const listSentinels = <ThrowOnError extends boolean = false>(options?: Options<ListSentinelsData, ThrowOnError>) => (options?.client ?? client).get<ListSentinelsResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/sentinels',
+    ...options
+});
 
-export const getSentinel = <ThrowOnError extends boolean = false>(options: Options<GetSentinelData, ThrowOnError>) => (options.client ?? client).get<GetSentinelResponses, unknown, ThrowOnError>({ url: '/v1/api/ai/sentinels/{id}', ...options });
+export const getSentinel = <ThrowOnError extends boolean = false>(options: Options<GetSentinelData, ThrowOnError>) => (options.client ?? client).get<GetSentinelResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/sentinels/{id}',
+    ...options
+});
 
-export const triggerSentinel = <ThrowOnError extends boolean = false>(options: Options<TriggerSentinelData, ThrowOnError>) => (options.client ?? client).post<TriggerSentinelResponses, unknown, ThrowOnError>({ url: '/v1/api/ai/sentinels/{id}/trigger', ...options });
+export const triggerSentinel = <ThrowOnError extends boolean = false>(options: Options<TriggerSentinelData, ThrowOnError>) => (options.client ?? client).post<TriggerSentinelResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/sentinels/{id}/trigger',
+    ...options
+});
 
-export const listSentinelRuns = <ThrowOnError extends boolean = false>(options: Options<ListSentinelRunsData, ThrowOnError>) => (options.client ?? client).get<ListSentinelRunsResponses, unknown, ThrowOnError>({ url: '/v1/api/ai/sentinels/{sentinel_id}/runs', ...options });
+export const listSentinelRuns = <ThrowOnError extends boolean = false>(options: Options<ListSentinelRunsData, ThrowOnError>) => (options.client ?? client).get<ListSentinelRunsResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/sentinels/{sentinel_id}/runs',
+    ...options
+});
 
-export const listAgentSessions = <ThrowOnError extends boolean = false>(options?: Options<ListAgentSessionsData, ThrowOnError>) => (options?.client ?? client).get<ListAgentSessionsResponses, unknown, ThrowOnError>({ url: '/v1/api/ai/sessions', ...options });
+export const listAgentSessions = <ThrowOnError extends boolean = false>(options?: Options<ListAgentSessionsData, ThrowOnError>) => (options?.client ?? client).get<ListAgentSessionsResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/sessions',
+    ...options
+});
 
 export const createAgentSession = <ThrowOnError extends boolean = false>(options: Options<CreateAgentSessionData, ThrowOnError>) => (options.client ?? client).post<CreateAgentSessionResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/ai/sessions',
     ...options,
     headers: {
@@ -56,11 +98,20 @@ export const createAgentSession = <ThrowOnError extends boolean = false>(options
     }
 });
 
-export const getAgentSession = <ThrowOnError extends boolean = false>(options: Options<GetAgentSessionData, ThrowOnError>) => (options.client ?? client).get<GetAgentSessionResponses, unknown, ThrowOnError>({ url: '/v1/api/ai/sessions/{id}', ...options });
+export const getAgentSession = <ThrowOnError extends boolean = false>(options: Options<GetAgentSessionData, ThrowOnError>) => (options.client ?? client).get<GetAgentSessionResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/sessions/{id}',
+    ...options
+});
 
-export const listClusters = <ThrowOnError extends boolean = false>(options?: Options<ListClustersData, ThrowOnError>) => (options?.client ?? client).get<ListClustersResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/clusters', ...options });
+export const listClusters = <ThrowOnError extends boolean = false>(options?: Options<ListClustersData, ThrowOnError>) => (options?.client ?? client).get<ListClustersResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/clusters',
+    ...options
+});
 
 export const createCluster = <ThrowOnError extends boolean = false>(options: Options<CreateClusterData, ThrowOnError>) => (options.client ?? client).post<CreateClusterResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/cd/clusters',
     ...options,
     headers: {
@@ -69,11 +120,20 @@ export const createCluster = <ThrowOnError extends boolean = false>(options: Opt
     }
 });
 
-export const deleteCluster = <ThrowOnError extends boolean = false>(options: Options<DeleteClusterData, ThrowOnError>) => (options.client ?? client).delete<DeleteClusterResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/clusters/{id}', ...options });
+export const deleteCluster = <ThrowOnError extends boolean = false>(options: Options<DeleteClusterData, ThrowOnError>) => (options.client ?? client).delete<DeleteClusterResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/clusters/{id}',
+    ...options
+});
 
-export const getCluster = <ThrowOnError extends boolean = false>(options: Options<GetClusterData, ThrowOnError>) => (options.client ?? client).get<GetClusterResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/clusters/{id}', ...options });
+export const getCluster = <ThrowOnError extends boolean = false>(options: Options<GetClusterData, ThrowOnError>) => (options.client ?? client).get<GetClusterResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/clusters/{id}',
+    ...options
+});
 
 export const updateCluster = <ThrowOnError extends boolean = false>(options: Options<UpdateClusterData, ThrowOnError>) => (options.client ?? client).put<UpdateClusterResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/cd/clusters/{id}',
     ...options,
     headers: {
@@ -83,6 +143,7 @@ export const updateCluster = <ThrowOnError extends boolean = false>(options: Opt
 });
 
 export const createClusterUpgrade = <ThrowOnError extends boolean = false>(options: Options<CreateClusterUpgradeData, ThrowOnError>) => (options.client ?? client).post<CreateClusterUpgradeResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/cd/clusters/{id}/upgrade',
     ...options,
     headers: {
@@ -91,11 +152,20 @@ export const createClusterUpgrade = <ThrowOnError extends boolean = false>(optio
     }
 });
 
-export const getClusterUpgrade = <ThrowOnError extends boolean = false>(options: Options<GetClusterUpgradeData, ThrowOnError>) => (options.client ?? client).get<GetClusterUpgradeResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/clusterupgrade/{id}', ...options });
+export const getClusterUpgrade = <ThrowOnError extends boolean = false>(options: Options<GetClusterUpgradeData, ThrowOnError>) => (options.client ?? client).get<GetClusterUpgradeResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/clusterupgrade/{id}',
+    ...options
+});
 
-export const listGitRepositories = <ThrowOnError extends boolean = false>(options?: Options<ListGitRepositoriesData, ThrowOnError>) => (options?.client ?? client).get<ListGitRepositoriesResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/git/repositories', ...options });
+export const listGitRepositories = <ThrowOnError extends boolean = false>(options?: Options<ListGitRepositoriesData, ThrowOnError>) => (options?.client ?? client).get<ListGitRepositoriesResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/git/repositories',
+    ...options
+});
 
 export const createGitRepository = <ThrowOnError extends boolean = false>(options: Options<CreateGitRepositoryData, ThrowOnError>) => (options.client ?? client).post<CreateGitRepositoryResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/cd/git/repositories',
     ...options,
     headers: {
@@ -104,13 +174,26 @@ export const createGitRepository = <ThrowOnError extends boolean = false>(option
     }
 });
 
-export const getGitRepositoryByUrl = <ThrowOnError extends boolean = false>(options: Options<GetGitRepositoryByUrlData, ThrowOnError>) => (options.client ?? client).get<GetGitRepositoryByUrlResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/git/repositories/url', ...options });
+export const getGitRepositoryByUrl = <ThrowOnError extends boolean = false>(options: Options<GetGitRepositoryByUrlData, ThrowOnError>) => (options.client ?? client).get<GetGitRepositoryByUrlResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/git/repositories/url',
+    ...options
+});
 
-export const deleteGitRepository = <ThrowOnError extends boolean = false>(options: Options<DeleteGitRepositoryData, ThrowOnError>) => (options.client ?? client).delete<DeleteGitRepositoryResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/git/repositories/{id}', ...options });
+export const deleteGitRepository = <ThrowOnError extends boolean = false>(options: Options<DeleteGitRepositoryData, ThrowOnError>) => (options.client ?? client).delete<DeleteGitRepositoryResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/git/repositories/{id}',
+    ...options
+});
 
-export const getGitRepository = <ThrowOnError extends boolean = false>(options: Options<GetGitRepositoryData, ThrowOnError>) => (options.client ?? client).get<GetGitRepositoryResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/git/repositories/{id}', ...options });
+export const getGitRepository = <ThrowOnError extends boolean = false>(options: Options<GetGitRepositoryData, ThrowOnError>) => (options.client ?? client).get<GetGitRepositoryResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/git/repositories/{id}',
+    ...options
+});
 
 export const updateGitRepository = <ThrowOnError extends boolean = false>(options: Options<UpdateGitRepositoryData, ThrowOnError>) => (options.client ?? client).put<UpdateGitRepositoryResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/cd/git/repositories/{id}',
     ...options,
     headers: {
@@ -119,9 +202,14 @@ export const updateGitRepository = <ThrowOnError extends boolean = false>(option
     }
 });
 
-export const listGlobalServices = <ThrowOnError extends boolean = false>(options?: Options<ListGlobalServicesData, ThrowOnError>) => (options?.client ?? client).get<ListGlobalServicesResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/globalservices', ...options });
+export const listGlobalServices = <ThrowOnError extends boolean = false>(options?: Options<ListGlobalServicesData, ThrowOnError>) => (options?.client ?? client).get<ListGlobalServicesResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/globalservices',
+    ...options
+});
 
 export const createGlobalService = <ThrowOnError extends boolean = false>(options: Options<CreateGlobalServiceData, ThrowOnError>) => (options.client ?? client).post<CreateGlobalServiceResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/cd/globalservices',
     ...options,
     headers: {
@@ -130,11 +218,20 @@ export const createGlobalService = <ThrowOnError extends boolean = false>(option
     }
 });
 
-export const deleteGlobalService = <ThrowOnError extends boolean = false>(options: Options<DeleteGlobalServiceData, ThrowOnError>) => (options.client ?? client).delete<DeleteGlobalServiceResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/globalservices/{id}', ...options });
+export const deleteGlobalService = <ThrowOnError extends boolean = false>(options: Options<DeleteGlobalServiceData, ThrowOnError>) => (options.client ?? client).delete<DeleteGlobalServiceResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/globalservices/{id}',
+    ...options
+});
 
-export const getGlobalService = <ThrowOnError extends boolean = false>(options: Options<GetGlobalServiceData, ThrowOnError>) => (options.client ?? client).get<GetGlobalServiceResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/globalservices/{id}', ...options });
+export const getGlobalService = <ThrowOnError extends boolean = false>(options: Options<GetGlobalServiceData, ThrowOnError>) => (options.client ?? client).get<GetGlobalServiceResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/globalservices/{id}',
+    ...options
+});
 
 export const updateGlobalService = <ThrowOnError extends boolean = false>(options: Options<UpdateGlobalServiceData, ThrowOnError>) => (options.client ?? client).put<UpdateGlobalServiceResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/cd/globalservices/{id}',
     ...options,
     headers: {
@@ -143,11 +240,20 @@ export const updateGlobalService = <ThrowOnError extends boolean = false>(option
     }
 });
 
-export const syncGlobalService = <ThrowOnError extends boolean = false>(options: Options<SyncGlobalServiceData, ThrowOnError>) => (options.client ?? client).post<SyncGlobalServiceResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/globalservices/{id}/sync', ...options });
+export const syncGlobalService = <ThrowOnError extends boolean = false>(options: Options<SyncGlobalServiceData, ThrowOnError>) => (options.client ?? client).post<SyncGlobalServiceResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/globalservices/{id}/sync',
+    ...options
+});
 
-export const listHelmRepositories = <ThrowOnError extends boolean = false>(options?: Options<ListHelmRepositoriesData, ThrowOnError>) => (options?.client ?? client).get<ListHelmRepositoriesResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/helm/repositories', ...options });
+export const listHelmRepositories = <ThrowOnError extends boolean = false>(options?: Options<ListHelmRepositoriesData, ThrowOnError>) => (options?.client ?? client).get<ListHelmRepositoriesResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/helm/repositories',
+    ...options
+});
 
 export const upsertHelmRepository = <ThrowOnError extends boolean = false>(options: Options<UpsertHelmRepositoryData, ThrowOnError>) => (options.client ?? client).post<UpsertHelmRepositoryResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/cd/helm/repositories',
     ...options,
     headers: {
@@ -156,23 +262,39 @@ export const upsertHelmRepository = <ThrowOnError extends boolean = false>(optio
     }
 });
 
-export const getHelmRepositoryByUrl = <ThrowOnError extends boolean = false>(options: Options<GetHelmRepositoryByUrlData, ThrowOnError>) => (options.client ?? client).get<GetHelmRepositoryByUrlResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/helm/repositories/url', ...options });
+export const getHelmRepositoryByUrl = <ThrowOnError extends boolean = false>(options: Options<GetHelmRepositoryByUrlData, ThrowOnError>) => (options.client ?? client).get<GetHelmRepositoryByUrlResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/helm/repositories/url',
+    ...options
+});
 
-export const getHelmRepository = <ThrowOnError extends boolean = false>(options: Options<GetHelmRepositoryData, ThrowOnError>) => (options.client ?? client).get<GetHelmRepositoryResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/helm/repositories/{id}', ...options });
+export const getHelmRepository = <ThrowOnError extends boolean = false>(options: Options<GetHelmRepositoryData, ThrowOnError>) => (options.client ?? client).get<GetHelmRepositoryResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/helm/repositories/{id}',
+    ...options
+});
 
 /**
  * List all pipelines
  *
  * Returns a paginated list of all pipelines the authenticated user has access to
  */
-export const listPipelines = <ThrowOnError extends boolean = false>(options?: Options<ListPipelinesData, ThrowOnError>) => (options?.client ?? client).get<ListPipelinesResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/pipelines', ...options });
+export const listPipelines = <ThrowOnError extends boolean = false>(options?: Options<ListPipelinesData, ThrowOnError>) => (options?.client ?? client).get<ListPipelinesResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/pipelines',
+    ...options
+});
 
 /**
  * Get a pipeline by ID
  *
  * Retrieves a single pipeline by its unique identifier, including its stages, edges, and gates
  */
-export const getPipeline = <ThrowOnError extends boolean = false>(options: Options<GetPipelineData, ThrowOnError>) => (options.client ?? client).get<GetPipelineResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/pipelines/{id}', ...options });
+export const getPipeline = <ThrowOnError extends boolean = false>(options: Options<GetPipelineData, ThrowOnError>) => (options.client ?? client).get<GetPipelineResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/pipelines/{id}',
+    ...options
+});
 
 /**
  * Trigger a pipeline run
@@ -180,6 +302,7 @@ export const getPipeline = <ThrowOnError extends boolean = false>(options: Optio
  * Creates a new pipeline context to trigger a pipeline run. The context data flows through stages and can be used for PR automations.
  */
 export const triggerPipeline = <ThrowOnError extends boolean = false>(options: Options<TriggerPipelineData, ThrowOnError>) => (options.client ?? client).post<TriggerPipelineResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/cd/pipelines/{id}/trigger',
     ...options,
     headers: {
@@ -188,9 +311,14 @@ export const triggerPipeline = <ThrowOnError extends boolean = false>(options: O
     }
 });
 
-export const listServices = <ThrowOnError extends boolean = false>(options?: Options<ListServicesData, ThrowOnError>) => (options?.client ?? client).get<ListServicesResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/services', ...options });
+export const listServices = <ThrowOnError extends boolean = false>(options?: Options<ListServicesData, ThrowOnError>) => (options?.client ?? client).get<ListServicesResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/services',
+    ...options
+});
 
 export const createService = <ThrowOnError extends boolean = false>(options: Options<CreateServiceData, ThrowOnError>) => (options.client ?? client).post<CreateServiceResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/cd/services',
     ...options,
     headers: {
@@ -199,11 +327,20 @@ export const createService = <ThrowOnError extends boolean = false>(options: Opt
     }
 });
 
-export const deleteService = <ThrowOnError extends boolean = false>(options: Options<DeleteServiceData, ThrowOnError>) => (options.client ?? client).delete<DeleteServiceResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/services/{id}', ...options });
+export const deleteService = <ThrowOnError extends boolean = false>(options: Options<DeleteServiceData, ThrowOnError>) => (options.client ?? client).delete<DeleteServiceResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/services/{id}',
+    ...options
+});
 
-export const getService = <ThrowOnError extends boolean = false>(options: Options<GetServiceData, ThrowOnError>) => (options.client ?? client).get<GetServiceResponses, unknown, ThrowOnError>({ url: '/v1/api/cd/services/{id}', ...options });
+export const getService = <ThrowOnError extends boolean = false>(options: Options<GetServiceData, ThrowOnError>) => (options.client ?? client).get<GetServiceResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/cd/services/{id}',
+    ...options
+});
 
 export const updateService = <ThrowOnError extends boolean = false>(options: Options<UpdateServiceData, ThrowOnError>) => (options.client ?? client).put<UpdateServiceResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/cd/services/{id}',
     ...options,
     headers: {
@@ -212,25 +349,42 @@ export const updateService = <ThrowOnError extends boolean = false>(options: Opt
     }
 });
 
-export const me = <ThrowOnError extends boolean = false>(options?: Options<MeData, ThrowOnError>) => (options?.client ?? client).get<MeResponses, unknown, ThrowOnError>({ url: '/v1/api/me', ...options });
+export const me = <ThrowOnError extends boolean = false>(options?: Options<MeData, ThrowOnError>) => (options?.client ?? client).get<MeResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/me',
+    ...options
+});
 
 /**
  * List all projects
  *
  * Returns a paginated list of all projects the authenticated user has access to
  */
-export const listProjects = <ThrowOnError extends boolean = false>(options?: Options<ListProjectsData, ThrowOnError>) => (options?.client ?? client).get<ListProjectsResponses, unknown, ThrowOnError>({ url: '/v1/api/projects', ...options });
+export const listProjects = <ThrowOnError extends boolean = false>(options?: Options<ListProjectsData, ThrowOnError>) => (options?.client ?? client).get<ListProjectsResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/projects',
+    ...options
+});
 
 /**
  * Get a project by ID
  *
  * Retrieves a single project by its unique identifier
  */
-export const getProject = <ThrowOnError extends boolean = false>(options: Options<GetProjectData, ThrowOnError>) => (options.client ?? client).get<GetProjectResponses, unknown, ThrowOnError>({ url: '/v1/api/projects/{id}', ...options });
+export const getProject = <ThrowOnError extends boolean = false>(options: Options<GetProjectData, ThrowOnError>) => (options.client ?? client).get<GetProjectResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/projects/{id}',
+    ...options
+});
 
-export const listCatalogs = <ThrowOnError extends boolean = false>(options?: Options<ListCatalogsData, ThrowOnError>) => (options?.client ?? client).get<ListCatalogsResponses, unknown, ThrowOnError>({ url: '/v1/api/scm/catalogs', ...options });
+export const listCatalogs = <ThrowOnError extends boolean = false>(options?: Options<ListCatalogsData, ThrowOnError>) => (options?.client ?? client).get<ListCatalogsResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/scm/catalogs',
+    ...options
+});
 
 export const upsertCatalog = <ThrowOnError extends boolean = false>(options: Options<UpsertCatalogData, ThrowOnError>) => (options.client ?? client).post<UpsertCatalogResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/scm/catalogs',
     ...options,
     headers: {
@@ -239,13 +393,26 @@ export const upsertCatalog = <ThrowOnError extends boolean = false>(options: Opt
     }
 });
 
-export const listPrAutomationsForCatalog = <ThrowOnError extends boolean = false>(options: Options<ListPrAutomationsForCatalogData, ThrowOnError>) => (options.client ?? client).get<ListPrAutomationsForCatalogResponses, unknown, ThrowOnError>({ url: '/v1/api/scm/catalogs/{catalog_id}/prautomations', ...options });
+export const listPrAutomationsForCatalog = <ThrowOnError extends boolean = false>(options: Options<ListPrAutomationsForCatalogData, ThrowOnError>) => (options.client ?? client).get<ListPrAutomationsForCatalogResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/scm/catalogs/{catalog_id}/prautomations',
+    ...options
+});
 
-export const deleteCatalog = <ThrowOnError extends boolean = false>(options: Options<DeleteCatalogData, ThrowOnError>) => (options.client ?? client).delete<DeleteCatalogResponses, unknown, ThrowOnError>({ url: '/v1/api/scm/catalogs/{id}', ...options });
+export const deleteCatalog = <ThrowOnError extends boolean = false>(options: Options<DeleteCatalogData, ThrowOnError>) => (options.client ?? client).delete<DeleteCatalogResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/scm/catalogs/{id}',
+    ...options
+});
 
-export const getCatalog = <ThrowOnError extends boolean = false>(options: Options<GetCatalogData, ThrowOnError>) => (options.client ?? client).get<GetCatalogResponses, unknown, ThrowOnError>({ url: '/v1/api/scm/catalogs/{id}', ...options });
+export const getCatalog = <ThrowOnError extends boolean = false>(options: Options<GetCatalogData, ThrowOnError>) => (options.client ?? client).get<GetCatalogResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/scm/catalogs/{id}',
+    ...options
+});
 
 export const updateCatalog = <ThrowOnError extends boolean = false>(options: Options<UpdateCatalogData, ThrowOnError>) => (options.client ?? client).put<UpdateCatalogResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/scm/catalogs/{id}',
     ...options,
     headers: {
@@ -254,9 +421,14 @@ export const updateCatalog = <ThrowOnError extends boolean = false>(options: Opt
     }
 });
 
-export const listScmConnections = <ThrowOnError extends boolean = false>(options?: Options<ListScmConnectionsData, ThrowOnError>) => (options?.client ?? client).get<ListScmConnectionsResponses, unknown, ThrowOnError>({ url: '/v1/api/scm/connections', ...options });
+export const listScmConnections = <ThrowOnError extends boolean = false>(options?: Options<ListScmConnectionsData, ThrowOnError>) => (options?.client ?? client).get<ListScmConnectionsResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/scm/connections',
+    ...options
+});
 
 export const createScmConnection = <ThrowOnError extends boolean = false>(options: Options<CreateScmConnectionData, ThrowOnError>) => (options.client ?? client).post<CreateScmConnectionResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/scm/connections',
     ...options,
     headers: {
@@ -265,11 +437,20 @@ export const createScmConnection = <ThrowOnError extends boolean = false>(option
     }
 });
 
-export const deleteScmConnection = <ThrowOnError extends boolean = false>(options: Options<DeleteScmConnectionData, ThrowOnError>) => (options.client ?? client).delete<DeleteScmConnectionResponses, unknown, ThrowOnError>({ url: '/v1/api/scm/connections/{id}', ...options });
+export const deleteScmConnection = <ThrowOnError extends boolean = false>(options: Options<DeleteScmConnectionData, ThrowOnError>) => (options.client ?? client).delete<DeleteScmConnectionResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/scm/connections/{id}',
+    ...options
+});
 
-export const getScmConnection = <ThrowOnError extends boolean = false>(options: Options<GetScmConnectionData, ThrowOnError>) => (options.client ?? client).get<GetScmConnectionResponses, unknown, ThrowOnError>({ url: '/v1/api/scm/connections/{id}', ...options });
+export const getScmConnection = <ThrowOnError extends boolean = false>(options: Options<GetScmConnectionData, ThrowOnError>) => (options.client ?? client).get<GetScmConnectionResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/scm/connections/{id}',
+    ...options
+});
 
 export const updateScmConnection = <ThrowOnError extends boolean = false>(options: Options<UpdateScmConnectionData, ThrowOnError>) => (options.client ?? client).put<UpdateScmConnectionResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/scm/connections/{id}',
     ...options,
     headers: {
@@ -278,11 +459,20 @@ export const updateScmConnection = <ThrowOnError extends boolean = false>(option
     }
 });
 
-export const listPrAutomations = <ThrowOnError extends boolean = false>(options?: Options<ListPrAutomationsData, ThrowOnError>) => (options?.client ?? client).get<ListPrAutomationsResponses, unknown, ThrowOnError>({ url: '/v1/api/scm/prautomations', ...options });
+export const listPrAutomations = <ThrowOnError extends boolean = false>(options?: Options<ListPrAutomationsData, ThrowOnError>) => (options?.client ?? client).get<ListPrAutomationsResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/scm/prautomations',
+    ...options
+});
 
-export const getPrAutomation = <ThrowOnError extends boolean = false>(options: Options<GetPrAutomationData, ThrowOnError>) => (options.client ?? client).get<GetPrAutomationResponses, unknown, ThrowOnError>({ url: '/v1/api/scm/prautomations/{id}', ...options });
+export const getPrAutomation = <ThrowOnError extends boolean = false>(options: Options<GetPrAutomationData, ThrowOnError>) => (options.client ?? client).get<GetPrAutomationResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/scm/prautomations/{id}',
+    ...options
+});
 
 export const invokePrAutomation = <ThrowOnError extends boolean = false>(options: Options<InvokePrAutomationData, ThrowOnError>) => (options.client ?? client).post<InvokePrAutomationResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/scm/prautomations/{id}/invoke',
     ...options,
     headers: {
@@ -291,13 +481,26 @@ export const invokePrAutomation = <ThrowOnError extends boolean = false>(options
     }
 });
 
-export const listPullRequests = <ThrowOnError extends boolean = false>(options?: Options<ListPullRequestsData, ThrowOnError>) => (options?.client ?? client).get<ListPullRequestsResponses, unknown, ThrowOnError>({ url: '/v1/api/scm/pullrequests', ...options });
+export const listPullRequests = <ThrowOnError extends boolean = false>(options?: Options<ListPullRequestsData, ThrowOnError>) => (options?.client ?? client).get<ListPullRequestsResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/scm/pullrequests',
+    ...options
+});
 
-export const getPullRequest = <ThrowOnError extends boolean = false>(options: Options<GetPullRequestData, ThrowOnError>) => (options.client ?? client).get<GetPullRequestResponses, unknown, ThrowOnError>({ url: '/v1/api/scm/pullrequests/{id}', ...options });
+export const getPullRequest = <ThrowOnError extends boolean = false>(options: Options<GetPullRequestData, ThrowOnError>) => (options.client ?? client).get<GetPullRequestResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/scm/pullrequests/{id}',
+    ...options
+});
 
-export const listStacks = <ThrowOnError extends boolean = false>(options?: Options<ListStacksData, ThrowOnError>) => (options?.client ?? client).get<ListStacksResponses, unknown, ThrowOnError>({ url: '/v1/api/stacks', ...options });
+export const listStacks = <ThrowOnError extends boolean = false>(options?: Options<ListStacksData, ThrowOnError>) => (options?.client ?? client).get<ListStacksResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/stacks',
+    ...options
+});
 
 export const createStack = <ThrowOnError extends boolean = false>(options: Options<CreateStackData, ThrowOnError>) => (options.client ?? client).post<CreateStackResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/stacks',
     ...options,
     headers: {
@@ -306,11 +509,20 @@ export const createStack = <ThrowOnError extends boolean = false>(options: Optio
     }
 });
 
-export const deleteStack = <ThrowOnError extends boolean = false>(options: Options<DeleteStackData, ThrowOnError>) => (options.client ?? client).delete<DeleteStackResponses, unknown, ThrowOnError>({ url: '/v1/api/stacks/{id}', ...options });
+export const deleteStack = <ThrowOnError extends boolean = false>(options: Options<DeleteStackData, ThrowOnError>) => (options.client ?? client).delete<DeleteStackResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/stacks/{id}',
+    ...options
+});
 
-export const getStack = <ThrowOnError extends boolean = false>(options: Options<GetStackData, ThrowOnError>) => (options.client ?? client).get<GetStackResponses, unknown, ThrowOnError>({ url: '/v1/api/stacks/{id}', ...options });
+export const getStack = <ThrowOnError extends boolean = false>(options: Options<GetStackData, ThrowOnError>) => (options.client ?? client).get<GetStackResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/stacks/{id}',
+    ...options
+});
 
 export const updateStack = <ThrowOnError extends boolean = false>(options: Options<UpdateStackData, ThrowOnError>) => (options.client ?? client).put<UpdateStackResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/v1/api/stacks/{id}',
     ...options,
     headers: {
@@ -319,8 +531,20 @@ export const updateStack = <ThrowOnError extends boolean = false>(options: Optio
     }
 });
 
-export const restoreStack = <ThrowOnError extends boolean = false>(options: Options<RestoreStackData, ThrowOnError>) => (options.client ?? client).put<RestoreStackResponses, unknown, ThrowOnError>({ url: '/v1/api/stacks/{id}/restore', ...options });
+export const restoreStack = <ThrowOnError extends boolean = false>(options: Options<RestoreStackData, ThrowOnError>) => (options.client ?? client).put<RestoreStackResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/stacks/{id}/restore',
+    ...options
+});
 
-export const resyncStack = <ThrowOnError extends boolean = false>(options: Options<ResyncStackData, ThrowOnError>) => (options.client ?? client).post<ResyncStackResponses, unknown, ThrowOnError>({ url: '/v1/api/stacks/{id}/resync', ...options });
+export const resyncStack = <ThrowOnError extends boolean = false>(options: Options<ResyncStackData, ThrowOnError>) => (options.client ?? client).post<ResyncStackResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/stacks/{id}/resync',
+    ...options
+});
 
-export const triggerStackRun = <ThrowOnError extends boolean = false>(options: Options<TriggerStackRunData, ThrowOnError>) => (options.client ?? client).post<TriggerStackRunResponses, unknown, ThrowOnError>({ url: '/v1/api/stacks/{id}/trigger', ...options });
+export const triggerStackRun = <ThrowOnError extends boolean = false>(options: Options<TriggerStackRunData, ThrowOnError>) => (options.client ?? client).post<TriggerStackRunResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/stacks/{id}/trigger',
+    ...options
+});
