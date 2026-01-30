@@ -1,0 +1,46 @@
+# Sync OpenAPI spec from Plural Console repository.
+# Runs nightly and can be triggered manually.
+name: Sync OpenAPI spec
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch latest OpenAPI spec
+        run: |
+          curl -sSL "https://raw.githubusercontent.com/pluralsh/console/refs/heads/master/schema/openapi.json" -o openapi.new.json
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if [ -f openapi.json ] && diff -q openapi.json openapi.new.json > /dev/null 2>&1; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update openapi.json
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          mv openapi.new.json openapi.json
+
+      - name: Commit and push
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add openapi.json
+          git commit -m "chore: sync openapi.json from pluralsh/console"
+          git push
