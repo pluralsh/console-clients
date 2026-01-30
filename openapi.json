@@ -730,7 +730,9 @@
         "description": "A paginated list of sentinel runs",
         "properties": {
           "data": {
-            "items": "#/components/schemas/SentinelRun",
+            "items": {
+              "$ref": "#/components/schemas/SentinelRun"
+            },
             "type": "array"
           }
         },
