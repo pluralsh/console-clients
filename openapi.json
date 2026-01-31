@@ -57,7 +57,10 @@
           },
           "mode": {
             "description": "Mode of the agent run (analyze for read-only analysis, write for code modifications)",
-            "enum": ["analyze", "write"],
+            "enum": [
+              "analyze",
+              "write"
+            ],
             "type": "string"
           },
           "prompt": {
@@ -78,7 +81,13 @@
           },
           "status": {
             "description": "Current status of the agent run (pending, running, successful, failed, cancelled)",
-            "enum": ["pending", "running", "successful", "failed", "cancelled"],
+            "enum": [
+              "pending",
+              "running",
+              "successful",
+              "failed",
+              "cancelled"
+            ],
             "type": "string"
           },
           "updated_at": {
@@ -102,7 +111,10 @@
           },
           "mode": {
             "description": "Mode of the agent run (analyze for read-only, write for modifications)",
-            "enum": ["analyze", "write"],
+            "enum": [
+              "analyze",
+              "write"
+            ],
             "type": "string"
           },
           "prompt": {
@@ -122,7 +134,12 @@
             "type": "boolean"
           }
         },
-        "required": ["prompt", "repository", "mode", "runtime_id"],
+        "required": [
+          "prompt",
+          "repository",
+          "mode",
+          "runtime_id"
+        ],
         "type": "object"
       },
       "AgentRuntime": {
@@ -155,7 +172,12 @@
           },
           "type": {
             "description": "Type of agent runtime (claude, opencode, gemini, custom)",
-            "enum": ["claude", "opencode", "gemini", "custom"],
+            "enum": [
+              "claude",
+              "opencode",
+              "gemini",
+              "custom"
+            ],
             "type": "string"
           },
           "updated_at": {
@@ -275,10 +297,15 @@
           },
           "type": {
             "description": "Type of agent session (terraform, kubernetes)",
-            "enum": ["terraform", "kubernetes"]
+            "enum": [
+              "terraform",
+              "kubernetes"
+            ]
           }
         },
-        "required": ["prompt"],
+        "required": [
+          "prompt"
+        ],
         "type": "object"
       },
       "Cascade": {
@@ -391,7 +418,10 @@
             "type": "string"
           }
         },
-        "required": ["name", "author"],
+        "required": [
+          "name",
+          "author"
+        ],
         "type": "object"
       },
       "Cluster": {
@@ -431,7 +461,15 @@
           },
           "distro": {
             "description": "The distribution of kubernetes this cluster is running (generic, eks, aks, gke, rke, k3s, openshift)",
-            "enum": ["generic", "eks", "aks", "gke", "rke", "k3s", "openshift"],
+            "enum": [
+              "generic",
+              "eks",
+              "aks",
+              "gke",
+              "rke",
+              "k3s",
+              "openshift"
+            ],
             "type": "string"
           },
           "handle": {
@@ -583,7 +621,12 @@
           },
           "status": {
             "description": "Status of the upgrade (pending, in_progress, completed, failed)",
-            "enum": ["pending", "in_progress", "completed", "failed"],
+            "enum": [
+              "pending",
+              "in_progress",
+              "completed",
+              "failed"
+            ],
             "type": "string"
           },
           "steps": {
@@ -659,12 +702,21 @@
           },
           "status": {
             "description": "Status of the step (pending, in_progress, completed, failed)",
-            "enum": ["pending", "in_progress", "completed", "failed"],
+            "enum": [
+              "pending",
+              "in_progress",
+              "completed",
+              "failed"
+            ],
             "type": "string"
           },
           "type": {
             "description": "Type of step (addon, cloud_addon, infrastructure)",
-            "enum": ["addon", "cloud_addon", "infrastructure"],
+            "enum": [
+              "addon",
+              "cloud_addon",
+              "infrastructure"
+            ],
             "type": "string"
           },
           "updated_at": {
@@ -682,9 +734,7 @@
         "description": "A paginated list of agent runs",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/AgentRun"
-            },
+            "items": "Elixir.AgentRun",
             "type": "array"
           }
         },
@@ -694,9 +744,7 @@
         "description": "A paginated list of agent runtimes",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/AgentRuntime"
-            },
+            "items": "Elixir.AgentRuntime",
             "type": "array"
           }
         },
@@ -706,9 +754,7 @@
         "description": "A paginated list of agent sessions",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/AgentSession"
-            },
+            "items": "Elixir.AgentSession",
             "type": "array"
           }
         },
@@ -718,9 +764,7 @@
         "description": "A paginated list of sentinels",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/Sentinel"
-            },
+            "items": "Elixir.Sentinel",
             "type": "array"
           }
         },
@@ -730,9 +774,7 @@
         "description": "A paginated list of sentinel runs",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/SentinelRun"
-            },
+            "items": "Elixir.SentinelRun",
             "type": "array"
           }
         },
@@ -742,9 +784,7 @@
         "description": "A paginated list of clusters",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/Cluster"
-            },
+            "items": "Elixir.Cluster",
             "type": "array"
           }
         },
@@ -754,9 +794,7 @@
         "description": "A list of git repositories",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/GitRepository"
-            },
+            "items": "Elixir.Console.Schema.GitRepository",
             "type": "array"
           }
         },
@@ -766,9 +804,7 @@
         "description": "A paginated list of global services",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/GlobalService"
-            },
+            "items": "Elixir.GlobalService",
             "type": "array"
           }
         },
@@ -778,9 +814,7 @@
         "description": "A list of helm repositories",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/HelmRepository"
-            },
+            "items": "Elixir.Console.Schema.HelmRepository",
             "type": "array"
           }
         },
@@ -790,9 +824,7 @@
         "description": "A paginated list of pipelines",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/Pipeline"
-            },
+            "items": "Elixir.Pipeline",
             "type": "array"
           }
         },
@@ -802,9 +834,7 @@
         "description": "A paginated list of service deployments",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/Service"
-            },
+            "items": "Elixir.Service",
             "type": "array"
           }
         },
@@ -814,9 +844,7 @@
         "description": "A paginated list of projects",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/Project"
-            },
+            "items": "Elixir.Project",
             "type": "array"
           }
         },
@@ -826,9 +854,7 @@
         "description": "A paginated list of catalogs",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/Catalog"
-            },
+            "items": "Elixir.Catalog",
             "type": "array"
           }
         },
@@ -852,9 +878,7 @@
         "description": "A list of SCM connections",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/ScmConnection"
-            },
+            "items": "Elixir.Connection",
             "type": "array"
           }
         },
@@ -864,9 +888,7 @@
         "description": "A paginated list of PR automations",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/PrAutomation"
-            },
+            "items": "Elixir.PrAutomation",
             "type": "array"
           }
         },
@@ -876,9 +898,7 @@
         "description": "A paginated list of pull requests",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/PullRequest"
-            },
+            "items": "Elixir.PullRequest",
             "type": "array"
           }
         },
@@ -888,9 +908,7 @@
         "description": "A list of stacks",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/components/schemas/Stack"
-            },
+            "items": "Elixir.Stack",
             "type": "array"
           }
         },
@@ -903,7 +921,9 @@
             "type": "boolean"
           }
         },
-        "required": ["admin"],
+        "required": [
+          "admin"
+        ],
         "type": "object"
       },
       "CreatePullRequestInput": {
@@ -924,7 +944,9 @@
             "type": "string"
           }
         },
-        "required": ["context"],
+        "required": [
+          "context"
+        ],
         "type": "object"
       },
       "Git": {
@@ -945,7 +967,10 @@
         "description": "A git repository",
         "properties": {
           "auth_method": {
-            "enum": ["basic", "ssh"],
+            "enum": [
+              "basic",
+              "ssh"
+            ],
             "type": "string"
           },
           "error": {
@@ -953,7 +978,10 @@
             "type": "string"
           },
           "health": {
-            "enum": ["pullable", "failed"],
+            "enum": [
+              "pullable",
+              "failed"
+            ],
             "type": "string"
           },
           "https_path": {
@@ -1016,7 +1044,9 @@
             "type": "string"
           }
         },
-        "required": ["url"],
+        "required": [
+          "url"
+        ],
         "type": "object"
       },
       "GithubAppInput": {
@@ -1036,7 +1066,11 @@
             "type": "string"
           }
         },
-        "required": ["app_id", "installation_id", "private_key"],
+        "required": [
+          "app_id",
+          "installation_id",
+          "private_key"
+        ],
         "type": "object"
       },
       "GlobalService": {
@@ -1055,7 +1089,15 @@
           },
           "distro": {
             "description": "Target cluster distribution (e.g., eks, aks, gke, generic)",
-            "enum": ["generic", "eks", "aks", "gke", "rke", "k3s", "openshift"],
+            "enum": [
+              "generic",
+              "eks",
+              "aks",
+              "gke",
+              "rke",
+              "k3s",
+              "openshift"
+            ],
             "type": "string"
           },
           "id": {
@@ -1120,7 +1162,15 @@
           },
           "distro": {
             "description": "Target cluster distribution",
-            "enum": ["generic", "eks", "aks", "gke", "rke", "k3s", "openshift"],
+            "enum": [
+              "generic",
+              "eks",
+              "aks",
+              "gke",
+              "rke",
+              "k3s",
+              "openshift"
+            ],
             "type": "string"
           },
           "interval": {
@@ -1151,7 +1201,9 @@
             "$ref": "#/components/schemas/ServiceTemplateInput"
           }
         },
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "type": "object"
       },
       "HelmRepository": {
@@ -1163,7 +1215,10 @@
             "type": "string"
           },
           "health": {
-            "enum": ["pullable", "failed"],
+            "enum": [
+              "pullable",
+              "failed"
+            ],
             "type": "string"
           },
           "id": {
@@ -1174,7 +1229,13 @@
             "type": "string"
           },
           "provider": {
-            "enum": ["basic", "bearer", "gcp", "azure", "aws"],
+            "enum": [
+              "basic",
+              "bearer",
+              "gcp",
+              "azure",
+              "aws"
+            ],
             "type": "string"
           },
           "pulled_at": {
@@ -1278,7 +1339,13 @@
             "type": "object"
           },
           "provider": {
-            "enum": ["basic", "bearer", "gcp", "azure", "aws"],
+            "enum": [
+              "basic",
+              "bearer",
+              "gcp",
+              "azure",
+              "aws"
+            ],
             "type": "string"
           },
           "url": {
@@ -1473,7 +1540,9 @@
             "type": "object"
           }
         },
-        "required": ["context"],
+        "required": [
+          "context"
+        ],
         "type": "object"
       },
       "PipelineEdge": {
@@ -1533,12 +1602,22 @@
           },
           "state": {
             "description": "Current state of the gate (pending, open, closed, running)",
-            "enum": ["pending", "open", "closed", "running"],
+            "enum": [
+              "pending",
+              "open",
+              "closed",
+              "running"
+            ],
             "type": "string"
           },
           "type": {
             "description": "Type of gate (approval, window, job)",
-            "enum": ["approval", "window", "job", "sentinel"],
+            "enum": [
+              "approval",
+              "window",
+              "job",
+              "sentinel"
+            ],
             "type": "string"
           },
           "updated_at": {
@@ -1842,7 +1921,11 @@
           },
           "status": {
             "description": "Current status of the pull request (open, merged, closed)",
-            "enum": ["open", "merged", "closed"],
+            "enum": [
+              "open",
+              "merged",
+              "closed"
+            ],
             "type": "string"
           },
           "updated_at": {
@@ -1957,7 +2040,10 @@
             "type": "string"
           }
         },
-        "required": ["name", "type"],
+        "required": [
+          "name",
+          "type"
+        ],
         "type": "object"
       },
       "ScmConnectionInput": {
@@ -2006,7 +2092,10 @@
             "type": "string"
           }
         },
-        "required": ["name", "type"],
+        "required": [
+          "name",
+          "type"
+        ],
         "type": "object"
       },
       "Sentinel": {
@@ -2051,7 +2140,11 @@
           },
           "status": {
             "description": "Status of the sentinel's last run (pending, success, failed)",
-            "enum": ["pending", "success", "failed"],
+            "enum": [
+              "pending",
+              "success",
+              "failed"
+            ],
             "type": "string"
           },
           "updated_at": {
@@ -2079,7 +2172,11 @@
           },
           "type": {
             "description": "Type of check (log, kubernetes, integration_test)",
-            "enum": ["log", "kubernetes", "integration_test"],
+            "enum": [
+              "log",
+              "kubernetes",
+              "integration_test"
+            ],
             "type": "string"
           }
         },
@@ -2107,7 +2204,11 @@
           },
           "status": {
             "description": "Status of this check (pending, success, failed)",
-            "enum": ["pending", "success", "failed"],
+            "enum": [
+              "pending",
+              "success",
+              "failed"
+            ],
             "type": "string"
           },
           "successful_count": {
@@ -2154,7 +2255,11 @@
           },
           "status": {
             "description": "Current status of the run (pending, success, failed)",
-            "enum": ["pending", "success", "failed"],
+            "enum": [
+              "pending",
+              "success",
+              "failed"
+            ],
             "type": "string"
           },
           "updated_at": {
@@ -2183,7 +2288,10 @@
           },
           "format": {
             "description": "Output format of the job (plaintext, junit)",
-            "enum": ["plaintext", "junit"],
+            "enum": [
+              "plaintext",
+              "junit"
+            ],
             "type": "string"
           },
           "id": {
@@ -2208,7 +2316,12 @@
           },
           "status": {
             "description": "Current status of the job (pending, running, success, failed)",
-            "enum": ["pending", "running", "success", "failed"],
+            "enum": [
+              "pending",
+              "running",
+              "success",
+              "failed"
+            ],
             "type": "string"
           },
           "updated_at": {
@@ -2307,7 +2420,13 @@
           },
           "status": {
             "description": "Current status of the service deployment (e.g., stale, synced, healthy, failed, paused)",
-            "enum": ["stale", "synced", "healthy", "failed", "paused"],
+            "enum": [
+              "stale",
+              "synced",
+              "healthy",
+              "failed",
+              "paused"
+            ],
             "type": "string"
           },
           "templated": {
@@ -2334,7 +2453,9 @@
             "type": "string"
           }
         },
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "type": "object"
       },
       "ServiceError": {
@@ -2411,7 +2532,10 @@
             "type": "array"
           }
         },
-        "required": ["name", "namespace"],
+        "required": [
+          "name",
+          "namespace"
+        ],
         "type": "object"
       },
       "ServiceRenderer": {
@@ -2427,7 +2551,12 @@
           },
           "type": {
             "description": "Type of renderer (auto, raw, helm, kustomize)",
-            "enum": ["auto", "raw", "helm", "kustomize"],
+            "enum": [
+              "auto",
+              "raw",
+              "helm",
+              "kustomize"
+            ],
             "type": "string"
           }
         },
@@ -2446,11 +2575,19 @@
           },
           "type": {
             "description": "Type of renderer (auto, raw, helm, kustomize)",
-            "enum": ["auto", "raw", "helm", "kustomize"],
+            "enum": [
+              "auto",
+              "raw",
+              "helm",
+              "kustomize"
+            ],
             "type": "string"
           }
         },
-        "required": ["path", "type"],
+        "required": [
+          "path",
+          "type"
+        ],
         "type": "object"
       },
       "ServiceSource": {
@@ -2585,7 +2722,10 @@
             "type": "boolean"
           }
         },
-        "required": ["name", "namespace"],
+        "required": [
+          "name",
+          "namespace"
+        ],
         "type": "object"
       },
       "Stack": {
@@ -2649,7 +2789,11 @@
             "type": "string"
           },
           "type": {
-            "enum": ["terraform", "ansible", "custom"],
+            "enum": [
+              "terraform",
+              "ansible",
+              "custom"
+            ],
             "type": "string"
           },
           "updated_at": {
@@ -2700,7 +2844,11 @@
             "type": "string"
           },
           "type": {
-            "enum": ["terraform", "ansible", "custom"],
+            "enum": [
+              "terraform",
+              "ansible",
+              "custom"
+            ],
             "type": "string"
           },
           "workdir": {
@@ -2767,7 +2915,11 @@
             "type": "string"
           },
           "type": {
-            "enum": ["terraform", "ansible", "custom"],
+            "enum": [
+              "terraform",
+              "ansible",
+              "custom"
+            ],
             "type": "string"
           },
           "updated_at": {
@@ -2832,7 +2984,10 @@
             "type": "string"
           }
         },
-        "required": ["name", "value"],
+        "required": [
+          "name",
+          "value"
+        ],
         "type": "object"
       },
       "User": {
@@ -2861,7 +3016,11 @@
             "type": "string"
           }
         },
-        "required": ["id", "email", "inserted_at"],
+        "required": [
+          "id",
+          "email",
+          "inserted_at"
+        ],
         "type": "object"
       }
     }
@@ -2869,7 +3028,9 @@
   "paths": {
     "/v1/api/ai/runs": {
       "get": {
-        "tags": ["agent"],
+        "tags": [
+          "agent"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -2909,10 +3070,14 @@
             }
           }
         ],
-        "x-required-scopes": ["ai.read"]
+        "x-required-scopes": [
+          "ai.read"
+        ]
       },
       "post": {
-        "tags": ["agent"],
+        "tags": [
+          "agent"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -2936,12 +3101,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["ai.write"]
+        "x-required-scopes": [
+          "ai.write"
+        ]
       }
     },
     "/v1/api/ai/runs/{id}": {
       "get": {
-        "tags": ["agent"],
+        "tags": [
+          "agent"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -2965,12 +3134,16 @@
             }
           }
         ],
-        "x-required-scopes": ["ai.read"]
+        "x-required-scopes": [
+          "ai.read"
+        ]
       }
     },
     "/v1/api/ai/runtimes": {
       "get": {
-        "tags": ["agent"],
+        "tags": [
+          "agent"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -2990,7 +3163,12 @@
             "name": "type",
             "required": false,
             "schema": {
-              "enum": ["claude", "opencode", "gemini", "custom"],
+              "enum": [
+                "claude",
+                "opencode",
+                "gemini",
+                "custom"
+              ],
               "type": "string"
             }
           },
@@ -3011,12 +3189,16 @@
             }
           }
         ],
-        "x-required-scopes": ["ai.read"]
+        "x-required-scopes": [
+          "ai.read"
+        ]
       }
     },
     "/v1/api/ai/runtimes/{id}": {
       "get": {
-        "tags": ["agent"],
+        "tags": [
+          "agent"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3040,12 +3222,16 @@
             }
           }
         ],
-        "x-required-scopes": ["ai.read"]
+        "x-required-scopes": [
+          "ai.read"
+        ]
       }
     },
     "/v1/api/ai/sentinelruns/{id}": {
       "get": {
-        "tags": ["sentinel"],
+        "tags": [
+          "sentinel"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3069,12 +3255,16 @@
             }
           }
         ],
-        "x-required-scopes": ["ai.read"]
+        "x-required-scopes": [
+          "ai.read"
+        ]
       }
     },
     "/v1/api/ai/sentinels": {
       "get": {
-        "tags": ["sentinel"],
+        "tags": [
+          "sentinel"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3094,7 +3284,11 @@
             "name": "status",
             "required": false,
             "schema": {
-              "enum": ["pending", "success", "failed"],
+              "enum": [
+                "pending",
+                "success",
+                "failed"
+              ],
               "type": "string"
             }
           },
@@ -3123,12 +3317,16 @@
             }
           }
         ],
-        "x-required-scopes": ["ai.read"]
+        "x-required-scopes": [
+          "ai.read"
+        ]
       }
     },
     "/v1/api/ai/sentinels/{id}": {
       "get": {
-        "tags": ["sentinel"],
+        "tags": [
+          "sentinel"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3152,12 +3350,16 @@
             }
           }
         ],
-        "x-required-scopes": ["ai.read"]
+        "x-required-scopes": [
+          "ai.read"
+        ]
       }
     },
     "/v1/api/ai/sentinels/{id}/trigger": {
       "post": {
-        "tags": ["sentinel"],
+        "tags": [
+          "sentinel"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3181,12 +3383,16 @@
             }
           }
         ],
-        "x-required-scopes": ["ai.write"]
+        "x-required-scopes": [
+          "ai.write"
+        ]
       }
     },
     "/v1/api/ai/sentinels/{sentinel_id}/runs": {
       "get": {
-        "tags": ["sentinel"],
+        "tags": [
+          "sentinel"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3226,12 +3432,16 @@
             }
           }
         ],
-        "x-required-scopes": ["ai.read"]
+        "x-required-scopes": [
+          "ai.read"
+        ]
       }
     },
     "/v1/api/ai/sessions": {
       "get": {
-        "tags": ["agent"],
+        "tags": [
+          "agent"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3263,10 +3473,14 @@
             }
           }
         ],
-        "x-required-scopes": ["ai.read"]
+        "x-required-scopes": [
+          "ai.read"
+        ]
       },
       "post": {
-        "tags": ["agent"],
+        "tags": [
+          "agent"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3290,12 +3504,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["ai.write"]
+        "x-required-scopes": [
+          "ai.write"
+        ]
       }
     },
     "/v1/api/ai/sessions/{id}": {
       "get": {
-        "tags": ["agent"],
+        "tags": [
+          "agent"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3319,12 +3537,16 @@
             }
           }
         ],
-        "x-required-scopes": ["ai.read"]
+        "x-required-scopes": [
+          "ai.read"
+        ]
       }
     },
     "/v1/api/cd/clusters": {
       "get": {
-        "tags": ["cluster"],
+        "tags": [
+          "cluster"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3384,7 +3606,11 @@
             "name": "compliance",
             "required": false,
             "schema": {
-              "enum": ["latest", "compliant", "outdated"],
+              "enum": [
+                "latest",
+                "compliant",
+                "outdated"
+              ],
               "type": "string"
             }
           },
@@ -3405,10 +3631,14 @@
             }
           }
         ],
-        "x-required-scopes": ["cluster.read"]
+        "x-required-scopes": [
+          "cluster.read"
+        ]
       },
       "post": {
-        "tags": ["cluster"],
+        "tags": [
+          "cluster"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3432,12 +3662,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["cluster.write"]
+        "x-required-scopes": [
+          "cluster.write"
+        ]
       }
     },
     "/v1/api/cd/clusters/{id}": {
       "delete": {
-        "tags": ["cluster"],
+        "tags": [
+          "cluster"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3469,10 +3703,14 @@
             }
           }
         ],
-        "x-required-scopes": ["cluster.write"]
+        "x-required-scopes": [
+          "cluster.write"
+        ]
       },
       "get": {
-        "tags": ["cluster"],
+        "tags": [
+          "cluster"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3496,10 +3734,14 @@
             }
           }
         ],
-        "x-required-scopes": ["cluster.read"]
+        "x-required-scopes": [
+          "cluster.read"
+        ]
       },
       "put": {
-        "tags": ["cluster"],
+        "tags": [
+          "cluster"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3533,12 +3775,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["cluster.write"]
+        "x-required-scopes": [
+          "cluster.write"
+        ]
       }
     },
     "/v1/api/cd/clusters/{id}/upgrade": {
       "post": {
-        "tags": ["cluster-upgrade"],
+        "tags": [
+          "cluster-upgrade"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3572,12 +3818,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["cluster.write"]
+        "x-required-scopes": [
+          "cluster.write"
+        ]
       }
     },
     "/v1/api/cd/clusterupgrade/{id}": {
       "get": {
-        "tags": ["cluster-upgrade"],
+        "tags": [
+          "cluster-upgrade"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3601,12 +3851,16 @@
             }
           }
         ],
-        "x-required-scopes": ["cluster.read"]
+        "x-required-scopes": [
+          "cluster.read"
+        ]
       }
     },
     "/v1/api/cd/git/repositories": {
       "get": {
-        "tags": ["repos"],
+        "tags": [
+          "repos"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3638,10 +3892,14 @@
             }
           }
         ],
-        "x-required-scopes": ["repos.read"]
+        "x-required-scopes": [
+          "repos.read"
+        ]
       },
       "post": {
-        "tags": ["repos"],
+        "tags": [
+          "repos"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3665,12 +3923,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["repos.write"]
+        "x-required-scopes": [
+          "repos.write"
+        ]
       }
     },
     "/v1/api/cd/git/repositories/url": {
       "get": {
-        "tags": ["repos"],
+        "tags": [
+          "repos"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3694,12 +3956,16 @@
             }
           }
         ],
-        "x-required-scopes": ["repos.read"]
+        "x-required-scopes": [
+          "repos.read"
+        ]
       }
     },
     "/v1/api/cd/git/repositories/{id}": {
       "delete": {
-        "tags": ["repos"],
+        "tags": [
+          "repos"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3723,10 +3989,14 @@
             }
           }
         ],
-        "x-required-scopes": ["repos.write"]
+        "x-required-scopes": [
+          "repos.write"
+        ]
       },
       "get": {
-        "tags": ["repos"],
+        "tags": [
+          "repos"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3750,10 +4020,14 @@
             }
           }
         ],
-        "x-required-scopes": ["repos.read"]
+        "x-required-scopes": [
+          "repos.read"
+        ]
       },
       "put": {
-        "tags": ["repos"],
+        "tags": [
+          "repos"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3787,12 +4061,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["repos.write"]
+        "x-required-scopes": [
+          "repos.write"
+        ]
       }
     },
     "/v1/api/cd/globalservices": {
       "get": {
-        "tags": ["global"],
+        "tags": [
+          "global"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3840,10 +4118,14 @@
             }
           }
         ],
-        "x-required-scopes": ["global.read"]
+        "x-required-scopes": [
+          "global.read"
+        ]
       },
       "post": {
-        "tags": ["global"],
+        "tags": [
+          "global"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3877,12 +4159,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["global.write"]
+        "x-required-scopes": [
+          "global.write"
+        ]
       }
     },
     "/v1/api/cd/globalservices/{id}": {
       "delete": {
-        "tags": ["global"],
+        "tags": [
+          "global"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3906,10 +4192,14 @@
             }
           }
         ],
-        "x-required-scopes": ["global.write"]
+        "x-required-scopes": [
+          "global.write"
+        ]
       },
       "get": {
-        "tags": ["global"],
+        "tags": [
+          "global"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3933,10 +4223,14 @@
             }
           }
         ],
-        "x-required-scopes": ["global.read"]
+        "x-required-scopes": [
+          "global.read"
+        ]
       },
       "put": {
-        "tags": ["global"],
+        "tags": [
+          "global"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3970,12 +4264,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["global.write"]
+        "x-required-scopes": [
+          "global.write"
+        ]
       }
     },
     "/v1/api/cd/globalservices/{id}/sync": {
       "post": {
-        "tags": ["global"],
+        "tags": [
+          "global"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -3999,12 +4297,16 @@
             }
           }
         ],
-        "x-required-scopes": ["global.write"]
+        "x-required-scopes": [
+          "global.write"
+        ]
       }
     },
     "/v1/api/cd/helm/repositories": {
       "get": {
-        "tags": ["repos"],
+        "tags": [
+          "repos"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4036,10 +4338,14 @@
             }
           }
         ],
-        "x-required-scopes": ["repos.read"]
+        "x-required-scopes": [
+          "repos.read"
+        ]
       },
       "post": {
-        "tags": ["repos"],
+        "tags": [
+          "repos"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4063,12 +4369,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["repos.write"]
+        "x-required-scopes": [
+          "repos.write"
+        ]
       }
     },
     "/v1/api/cd/helm/repositories/url": {
       "get": {
-        "tags": ["repos"],
+        "tags": [
+          "repos"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4092,12 +4402,16 @@
             }
           }
         ],
-        "x-required-scopes": ["repos.read"]
+        "x-required-scopes": [
+          "repos.read"
+        ]
       }
     },
     "/v1/api/cd/helm/repositories/{id}": {
       "get": {
-        "tags": ["repos"],
+        "tags": [
+          "repos"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4121,12 +4435,16 @@
             }
           }
         ],
-        "x-required-scopes": ["repos.read"]
+        "x-required-scopes": [
+          "repos.read"
+        ]
       }
     },
     "/v1/api/cd/pipelines": {
       "get": {
-        "tags": ["pipelines"],
+        "tags": [
+          "pipelines"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4176,12 +4494,16 @@
           }
         ],
         "summary": "List all pipelines",
-        "x-required-scopes": ["pipelines.read"]
+        "x-required-scopes": [
+          "pipelines.read"
+        ]
       }
     },
     "/v1/api/cd/pipelines/{id}": {
       "get": {
-        "tags": ["pipelines"],
+        "tags": [
+          "pipelines"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4207,12 +4529,16 @@
           }
         ],
         "summary": "Get a pipeline by ID",
-        "x-required-scopes": ["pipelines.read"]
+        "x-required-scopes": [
+          "pipelines.read"
+        ]
       }
     },
     "/v1/api/cd/pipelines/{id}/trigger": {
       "post": {
-        "tags": ["pipelines"],
+        "tags": [
+          "pipelines"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4248,12 +4574,16 @@
           "required": true
         },
         "summary": "Trigger a pipeline run",
-        "x-required-scopes": ["pipelines.write"]
+        "x-required-scopes": [
+          "pipelines.write"
+        ]
       }
     },
     "/v1/api/cd/services": {
       "get": {
-        "tags": ["service"],
+        "tags": [
+          "service"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4309,10 +4639,14 @@
             }
           }
         ],
-        "x-required-scopes": ["service.read"]
+        "x-required-scopes": [
+          "service.read"
+        ]
       },
       "post": {
-        "tags": ["service"],
+        "tags": [
+          "service"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4346,12 +4680,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["service.write"]
+        "x-required-scopes": [
+          "service.write"
+        ]
       }
     },
     "/v1/api/cd/services/{id}": {
       "delete": {
-        "tags": ["service"],
+        "tags": [
+          "service"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4383,10 +4721,14 @@
             }
           }
         ],
-        "x-required-scopes": ["service.write"]
+        "x-required-scopes": [
+          "service.write"
+        ]
       },
       "get": {
-        "tags": ["service"],
+        "tags": [
+          "service"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4410,10 +4752,14 @@
             }
           }
         ],
-        "x-required-scopes": ["service.read"]
+        "x-required-scopes": [
+          "service.read"
+        ]
       },
       "put": {
-        "tags": ["service"],
+        "tags": [
+          "service"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4447,12 +4793,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["service.write"]
+        "x-required-scopes": [
+          "service.write"
+        ]
       }
     },
     "/v1/api/me": {
       "get": {
-        "tags": ["user"],
+        "tags": [
+          "user"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4470,7 +4820,9 @@
     },
     "/v1/api/projects": {
       "get": {
-        "tags": ["projects"],
+        "tags": [
+          "projects"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4504,12 +4856,16 @@
           }
         ],
         "summary": "List all projects",
-        "x-required-scopes": ["projects.read"]
+        "x-required-scopes": [
+          "projects.read"
+        ]
       }
     },
     "/v1/api/projects/{id}": {
       "get": {
-        "tags": ["projects"],
+        "tags": [
+          "projects"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4536,12 +4892,16 @@
           }
         ],
         "summary": "Get a project by ID",
-        "x-required-scopes": ["projects.read"]
+        "x-required-scopes": [
+          "projects.read"
+        ]
       }
     },
     "/v1/api/scm/catalogs": {
       "get": {
-        "tags": ["catalog"],
+        "tags": [
+          "catalog"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4589,10 +4949,14 @@
             }
           }
         ],
-        "x-required-scopes": ["catalog.read"]
+        "x-required-scopes": [
+          "catalog.read"
+        ]
       },
       "post": {
-        "tags": ["catalog"],
+        "tags": [
+          "catalog"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4616,12 +4980,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["catalog.write"]
+        "x-required-scopes": [
+          "catalog.write"
+        ]
       }
     },
     "/v1/api/scm/catalogs/{catalog_id}/prautomations": {
       "get": {
-        "tags": ["prautomation"],
+        "tags": [
+          "prautomation"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4669,12 +5037,16 @@
             }
           }
         ],
-        "x-required-scopes": ["catalog.read"]
+        "x-required-scopes": [
+          "catalog.read"
+        ]
       }
     },
     "/v1/api/scm/catalogs/{id}": {
       "delete": {
-        "tags": ["catalog"],
+        "tags": [
+          "catalog"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4698,10 +5070,14 @@
             }
           }
         ],
-        "x-required-scopes": ["catalog.write"]
+        "x-required-scopes": [
+          "catalog.write"
+        ]
       },
       "get": {
-        "tags": ["catalog"],
+        "tags": [
+          "catalog"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4725,10 +5101,14 @@
             }
           }
         ],
-        "x-required-scopes": ["catalog.read"]
+        "x-required-scopes": [
+          "catalog.read"
+        ]
       },
       "put": {
-        "tags": ["catalog"],
+        "tags": [
+          "catalog"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4762,12 +5142,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["catalog.write"]
+        "x-required-scopes": [
+          "catalog.write"
+        ]
       }
     },
     "/v1/api/scm/connections": {
       "get": {
-        "tags": ["scm"],
+        "tags": [
+          "scm"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4799,10 +5183,14 @@
             }
           }
         ],
-        "x-required-scopes": ["scm.read"]
+        "x-required-scopes": [
+          "scm.read"
+        ]
       },
       "post": {
-        "tags": ["scm"],
+        "tags": [
+          "scm"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4826,12 +5214,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["scm.write"]
+        "x-required-scopes": [
+          "scm.write"
+        ]
       }
     },
     "/v1/api/scm/connections/{id}": {
       "delete": {
-        "tags": ["scm"],
+        "tags": [
+          "scm"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4855,10 +5247,14 @@
             }
           }
         ],
-        "x-required-scopes": ["scm.write"]
+        "x-required-scopes": [
+          "scm.write"
+        ]
       },
       "get": {
-        "tags": ["scm"],
+        "tags": [
+          "scm"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4882,10 +5278,14 @@
             }
           }
         ],
-        "x-required-scopes": ["scm.read"]
+        "x-required-scopes": [
+          "scm.read"
+        ]
       },
       "put": {
-        "tags": ["scm"],
+        "tags": [
+          "scm"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4919,12 +5319,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["scm.write"]
+        "x-required-scopes": [
+          "scm.write"
+        ]
       }
     },
     "/v1/api/scm/prautomations": {
       "get": {
-        "tags": ["prautomation"],
+        "tags": [
+          "prautomation"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -4980,12 +5384,16 @@
             }
           }
         ],
-        "x-required-scopes": ["catalog.read"]
+        "x-required-scopes": [
+          "catalog.read"
+        ]
       }
     },
     "/v1/api/scm/prautomations/{id}": {
       "get": {
-        "tags": ["prautomation"],
+        "tags": [
+          "prautomation"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -5009,12 +5417,16 @@
             }
           }
         ],
-        "x-required-scopes": ["catalog.read"]
+        "x-required-scopes": [
+          "catalog.read"
+        ]
       }
     },
     "/v1/api/scm/prautomations/{id}/invoke": {
       "post": {
-        "tags": ["prautomation"],
+        "tags": [
+          "prautomation"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -5048,12 +5460,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["catalog.write"]
+        "x-required-scopes": [
+          "catalog.write"
+        ]
       }
     },
     "/v1/api/scm/pullrequests": {
       "get": {
-        "tags": ["pullrequest"],
+        "tags": [
+          "pullrequest"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -5125,12 +5541,16 @@
             }
           }
         ],
-        "x-required-scopes": ["catalog.read"]
+        "x-required-scopes": [
+          "catalog.read"
+        ]
       }
     },
     "/v1/api/scm/pullrequests/{id}": {
       "get": {
-        "tags": ["pullrequest"],
+        "tags": [
+          "pullrequest"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -5154,12 +5574,16 @@
             }
           }
         ],
-        "x-required-scopes": ["catalog.read"]
+        "x-required-scopes": [
+          "catalog.read"
+        ]
       }
     },
     "/v1/api/stacks": {
       "get": {
-        "tags": ["stacks"],
+        "tags": [
+          "stacks"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -5191,10 +5615,14 @@
             }
           }
         ],
-        "x-required-scopes": ["stacks.read"]
+        "x-required-scopes": [
+          "stacks.read"
+        ]
       },
       "post": {
-        "tags": ["stacks"],
+        "tags": [
+          "stacks"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -5218,12 +5646,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["stacks.write"]
+        "x-required-scopes": [
+          "stacks.write"
+        ]
       }
     },
     "/v1/api/stacks/{id}": {
       "delete": {
-        "tags": ["stacks"],
+        "tags": [
+          "stacks"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -5255,10 +5687,14 @@
             }
           }
         ],
-        "x-required-scopes": ["stacks.write"]
+        "x-required-scopes": [
+          "stacks.write"
+        ]
       },
       "get": {
-        "tags": ["stacks"],
+        "tags": [
+          "stacks"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -5282,10 +5718,14 @@
             }
           }
         ],
-        "x-required-scopes": ["stacks.read"]
+        "x-required-scopes": [
+          "stacks.read"
+        ]
       },
       "put": {
-        "tags": ["stacks"],
+        "tags": [
+          "stacks"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -5319,12 +5759,16 @@
           },
           "required": true
         },
-        "x-required-scopes": ["stacks.write"]
+        "x-required-scopes": [
+          "stacks.write"
+        ]
       }
     },
     "/v1/api/stacks/{id}/restore": {
       "put": {
-        "tags": ["stacks"],
+        "tags": [
+          "stacks"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -5348,12 +5792,16 @@
             }
           }
         ],
-        "x-required-scopes": ["stacks.write"]
+        "x-required-scopes": [
+          "stacks.write"
+        ]
       }
     },
     "/v1/api/stacks/{id}/resync": {
       "post": {
-        "tags": ["stacks"],
+        "tags": [
+          "stacks"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -5377,12 +5825,16 @@
             }
           }
         ],
-        "x-required-scopes": ["stacks.write"]
+        "x-required-scopes": [
+          "stacks.write"
+        ]
       }
     },
     "/v1/api/stacks/{id}/trigger": {
       "post": {
-        "tags": ["stacks"],
+        "tags": [
+          "stacks"
+        ],
         "responses": {
           "200": {
             "content": {
@@ -5406,7 +5858,9 @@
             }
           }
         ],
-        "x-required-scopes": ["stacks.write"]
+        "x-required-scopes": [
+          "stacks.write"
+        ]
       }
     }
   }
