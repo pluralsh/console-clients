@@ -1,44 +1,32 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.helm_repository import HelmRepository
-
-
-
+    from ..models.helm_repository import HelmRepository
 
 
 T = TypeVar("T", bound="ConsoleOpenAPICDHelmRepositoryList")
 
 
-
 @_attrs_define
 class ConsoleOpenAPICDHelmRepositoryList:
-    """ A list of helm repositories
+    """A list of helm repositories
 
-        Attributes:
-            data (list[HelmRepository] | Unset):
-     """
+    Attributes:
+        data (list[HelmRepository] | Unset):
+    """
 
     data: list[HelmRepository] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.helm_repository import HelmRepository
         data: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = []
@@ -46,23 +34,18 @@ class ConsoleOpenAPICDHelmRepositoryList:
                 data_item = data_item_data.to_dict()
                 data.append(data_item)
 
-
-
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if data is not UNSET:
             field_dict["data"] = data
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.helm_repository import HelmRepository
+
         d = dict(src_dict)
         _data = d.pop("data", UNSET)
         data: list[HelmRepository] | Unset = UNSET
@@ -71,15 +54,11 @@ class ConsoleOpenAPICDHelmRepositoryList:
             for data_item_data in _data:
                 data_item = HelmRepository.from_dict(data_item_data)
 
-
-
                 data.append(data_item)
-
 
         console_open_apicd_helm_repository_list = cls(
             data=data,
         )
-
 
         console_open_apicd_helm_repository_list.additional_properties = d
         return console_open_apicd_helm_repository_list

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class AgentRuntimeType(str, Enum):
     CLAUDE = "claude"
     CUSTOM = "custom"

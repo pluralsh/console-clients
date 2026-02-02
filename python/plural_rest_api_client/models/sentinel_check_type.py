@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class SentinelCheckType(str, Enum):
     INTEGRATION_TEST = "integration_test"
     KUBERNETES = "kubernetes"

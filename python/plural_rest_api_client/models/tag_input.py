@@ -1,56 +1,42 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
-
 T = TypeVar("T", bound="TagInput")
-
 
 
 @_attrs_define
 class TagInput:
-    """ A tag used for matching clusters
+    """A tag used for matching clusters
 
-        Attributes:
-            name (str): Tag name
-            value (str): Tag value
-     """
+    Attributes:
+        name (str): Tag name
+        value (str): Tag value
+    """
 
     name: str
     value: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         name = self.name
 
         value = self.value
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "name": name,
-            "value": value,
-        })
+        field_dict.update(
+            {
+                "name": name,
+                "value": value,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -63,7 +49,6 @@ class TagInput:
             name=name,
             value=value,
         )
-
 
         tag_input.additional_properties = d
         return tag_input

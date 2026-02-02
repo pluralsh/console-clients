@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class AgentRunInputMode(str, Enum):
     ANALYZE = "analyze"
     WRITE = "write"

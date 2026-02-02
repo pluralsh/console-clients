@@ -1,42 +1,33 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.agent_runtime_type import AgentRuntimeType
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="AgentRuntime")
 
 
-
 @_attrs_define
 class AgentRuntime:
-    """ An agent runtime configured on a cluster for executing AI coding agents
+    """An agent runtime configured on a cluster for executing AI coding agents
 
-        Attributes:
-            ai_proxy (bool | Unset): Whether this runtime uses the built-in Plural AI proxy for LLM requests
-            cluster_id (str | Unset): ID of the cluster this runtime is deployed on
-            default (bool | Unset): Whether this is the default runtime for coding agents
-            id (str | Unset): Unique identifier for the agent runtime
-            inserted_at (datetime.datetime | Unset):
-            name (str | Unset): Human-readable name of this runtime
-            type_ (AgentRuntimeType | Unset): Type of agent runtime (claude, opencode, gemini, custom)
-            updated_at (datetime.datetime | Unset):
-     """
+    Attributes:
+        ai_proxy (bool | Unset): Whether this runtime uses the built-in Plural AI proxy for LLM requests
+        cluster_id (str | Unset): ID of the cluster this runtime is deployed on
+        default (bool | Unset): Whether this is the default runtime for coding agents
+        id (str | Unset): Unique identifier for the agent runtime
+        inserted_at (datetime.datetime | Unset):
+        name (str | Unset): Human-readable name of this runtime
+        type_ (AgentRuntimeType | Unset): Type of agent runtime (claude, opencode, gemini, custom)
+        updated_at (datetime.datetime | Unset):
+    """
 
     ai_proxy: bool | Unset = UNSET
     cluster_id: str | Unset = UNSET
@@ -47,10 +38,6 @@ class AgentRuntime:
     type_: AgentRuntimeType | Unset = UNSET
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         ai_proxy = self.ai_proxy
@@ -71,16 +58,13 @@ class AgentRuntime:
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-
         updated_at: str | Unset = UNSET
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if ai_proxy is not UNSET:
             field_dict["ai_proxy"] = ai_proxy
         if cluster_id is not UNSET:
@@ -100,8 +84,6 @@ class AgentRuntime:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -115,35 +97,26 @@ class AgentRuntime:
 
         _inserted_at = d.pop("inserted_at", UNSET)
         inserted_at: datetime.datetime | Unset
-        if isinstance(_inserted_at,  Unset):
+        if isinstance(_inserted_at, Unset):
             inserted_at = UNSET
         else:
             inserted_at = isoparse(_inserted_at)
-
-
-
 
         name = d.pop("name", UNSET)
 
         _type_ = d.pop("type", UNSET)
         type_: AgentRuntimeType | Unset
-        if isinstance(_type_,  Unset):
+        if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = AgentRuntimeType(_type_)
 
-
-
-
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
-
-
-
 
         agent_runtime = cls(
             ai_proxy=ai_proxy,
@@ -155,7 +128,6 @@ class AgentRuntime:
             type_=type_,
             updated_at=updated_at,
         )
-
 
         agent_runtime.additional_properties = d
         return agent_runtime

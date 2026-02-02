@@ -1,54 +1,47 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.stack_run_status import StackRunStatus
 from ..models.stack_run_type import StackRunType
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.git import Git
-
-
-
+    from ..models.git import Git
 
 
 T = TypeVar("T", bound="StackRun")
 
 
-
 @_attrs_define
 class StackRun:
-    """ A stack run instance
+    """A stack run instance
 
-        Attributes:
-            approval (bool | Unset):
-            approved_at (datetime.datetime | Unset):
-            cancellation_reason (str | Unset):
-            cluster_id (str | Unset):
-            destroy (bool | Unset):
-            dry_run (bool | Unset):
-            git (Git | Unset): Git reference configuration
-            id (str | Unset):
-            inserted_at (datetime.datetime | Unset):
-            manage_state (bool | Unset):
-            message (str | Unset):
-            repository_id (str | Unset):
-            stack_id (str | Unset):
-            status (StackRunStatus | Unset):
-            type_ (StackRunType | Unset):
-            updated_at (datetime.datetime | Unset):
-            workdir (str | Unset):
-     """
+    Attributes:
+        approval (bool | Unset):
+        approved_at (datetime.datetime | Unset):
+        cancellation_reason (str | Unset):
+        cluster_id (str | Unset):
+        destroy (bool | Unset):
+        dry_run (bool | Unset):
+        git (Git | Unset): Git reference configuration
+        id (str | Unset):
+        inserted_at (datetime.datetime | Unset):
+        manage_state (bool | Unset):
+        message (str | Unset):
+        repository_id (str | Unset):
+        stack_id (str | Unset):
+        status (StackRunStatus | Unset):
+        type_ (StackRunType | Unset):
+        updated_at (datetime.datetime | Unset):
+        workdir (str | Unset):
+    """
 
     approval: bool | Unset = UNSET
     approved_at: datetime.datetime | Unset = UNSET
@@ -69,12 +62,7 @@ class StackRun:
     workdir: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.git import Git
         approval = self.approval
 
         approved_at: str | Unset = UNSET
@@ -111,11 +99,9 @@ class StackRun:
         if not isinstance(self.status, Unset):
             status = self.status.value
 
-
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
-
 
         updated_at: str | Unset = UNSET
         if not isinstance(self.updated_at, Unset):
@@ -123,11 +109,9 @@ class StackRun:
 
         workdir = self.workdir
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if approval is not UNSET:
             field_dict["approval"] = approval
         if approved_at is not UNSET:
@@ -165,23 +149,19 @@ class StackRun:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.git import Git
+
         d = dict(src_dict)
         approval = d.pop("approval", UNSET)
 
         _approved_at = d.pop("approved_at", UNSET)
         approved_at: datetime.datetime | Unset
-        if isinstance(_approved_at,  Unset):
+        if isinstance(_approved_at, Unset):
             approved_at = UNSET
         else:
             approved_at = isoparse(_approved_at)
-
-
-
 
         cancellation_reason = d.pop("cancellation_reason", UNSET)
 
@@ -193,25 +173,19 @@ class StackRun:
 
         _git = d.pop("git", UNSET)
         git: Git | Unset
-        if isinstance(_git,  Unset):
+        if isinstance(_git, Unset):
             git = UNSET
         else:
             git = Git.from_dict(_git)
-
-
-
 
         id = d.pop("id", UNSET)
 
         _inserted_at = d.pop("inserted_at", UNSET)
         inserted_at: datetime.datetime | Unset
-        if isinstance(_inserted_at,  Unset):
+        if isinstance(_inserted_at, Unset):
             inserted_at = UNSET
         else:
             inserted_at = isoparse(_inserted_at)
-
-
-
 
         manage_state = d.pop("manage_state", UNSET)
 
@@ -223,33 +197,24 @@ class StackRun:
 
         _status = d.pop("status", UNSET)
         status: StackRunStatus | Unset
-        if isinstance(_status,  Unset):
+        if isinstance(_status, Unset):
             status = UNSET
         else:
             status = StackRunStatus(_status)
 
-
-
-
         _type_ = d.pop("type", UNSET)
         type_: StackRunType | Unset
-        if isinstance(_type_,  Unset):
+        if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = StackRunType(_type_)
 
-
-
-
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
-
-
-
 
         workdir = d.pop("workdir", UNSET)
 
@@ -272,7 +237,6 @@ class StackRun:
             updated_at=updated_at,
             workdir=workdir,
         )
-
 
         stack_run.additional_properties = d
         return stack_run

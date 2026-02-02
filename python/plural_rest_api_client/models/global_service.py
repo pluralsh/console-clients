@@ -1,53 +1,46 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.global_service_distro import GlobalServiceDistro
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.cascade import Cascade
-  from ..models.service_template import ServiceTemplate
-  from ..models.tag import Tag
-
-
-
+    from ..models.cascade import Cascade
+    from ..models.service_template import ServiceTemplate
+    from ..models.tag import Tag
 
 
 T = TypeVar("T", bound="GlobalService")
 
 
-
 @_attrs_define
 class GlobalService:
-    """ A global service that deploys services across clusters matching specified criteria
+    """A global service that deploys services across clusters matching specified criteria
 
-        Attributes:
-            tags (list[Tag] | Unset): Tags used to match target clusters
-            cascade (Cascade | Unset): Cascade behavior when the global service is deleted
-            distro (GlobalServiceDistro | Unset): Target cluster distribution (e.g., eks, aks, gke, generic)
-            id (str | Unset): Unique identifier for the global service
-            inserted_at (datetime.datetime | Unset):
-            interval (str | Unset): Polling interval for syncing the global service (e.g., "5m", "1h")
-            mgmt (bool | Unset): If true, the global service will target the management cluster
-            name (str | Unset): Name of the global service
-            project_id (str | Unset): ID of the project this global service belongs to
-            provider_id (str | Unset): ID of the cluster provider to filter target clusters
-            reparent (bool | Unset): If true, allows reparenting of existing services owned by this global service
-            service_id (str | Unset): ID of the source service to clone (mutually exclusive with template)
-            template (ServiceTemplate | Unset): A service template that defines how services are created from a global
-                service
-            updated_at (datetime.datetime | Unset):
-     """
+    Attributes:
+        tags (list[Tag] | Unset): Tags used to match target clusters
+        cascade (Cascade | Unset): Cascade behavior when the global service is deleted
+        distro (GlobalServiceDistro | Unset): Target cluster distribution (e.g., eks, aks, gke, generic)
+        id (str | Unset): Unique identifier for the global service
+        inserted_at (datetime.datetime | Unset):
+        interval (str | Unset): Polling interval for syncing the global service (e.g., "5m", "1h")
+        mgmt (bool | Unset): If true, the global service will target the management cluster
+        name (str | Unset): Name of the global service
+        project_id (str | Unset): ID of the project this global service belongs to
+        provider_id (str | Unset): ID of the cluster provider to filter target clusters
+        reparent (bool | Unset): If true, allows reparenting of existing services owned by this global service
+        service_id (str | Unset): ID of the source service to clone (mutually exclusive with template)
+        template (ServiceTemplate | Unset): A service template that defines how services are created from a global
+            service
+        updated_at (datetime.datetime | Unset):
+    """
 
     tags: list[Tag] | Unset = UNSET
     cascade: Cascade | Unset = UNSET
@@ -65,22 +58,13 @@ class GlobalService:
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cascade import Cascade
-        from ..models.service_template import ServiceTemplate
-        from ..models.tag import Tag
         tags: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.tags, Unset):
             tags = []
             for tags_item_data in self.tags:
                 tags_item = tags_item_data.to_dict()
                 tags.append(tags_item)
-
-
 
         cascade: dict[str, Any] | Unset = UNSET
         if not isinstance(self.cascade, Unset):
@@ -89,7 +73,6 @@ class GlobalService:
         distro: str | Unset = UNSET
         if not isinstance(self.distro, Unset):
             distro = self.distro.value
-
 
         id = self.id
 
@@ -119,11 +102,9 @@ class GlobalService:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if tags is not UNSET:
             field_dict["tags"] = tags
         if cascade is not UNSET:
@@ -155,13 +136,12 @@ class GlobalService:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.cascade import Cascade
         from ..models.service_template import ServiceTemplate
         from ..models.tag import Tag
+
         d = dict(src_dict)
         _tags = d.pop("tags", UNSET)
         tags: list[Tag] | Unset = UNSET
@@ -170,42 +150,30 @@ class GlobalService:
             for tags_item_data in _tags:
                 tags_item = Tag.from_dict(tags_item_data)
 
-
-
                 tags.append(tags_item)
-
 
         _cascade = d.pop("cascade", UNSET)
         cascade: Cascade | Unset
-        if isinstance(_cascade,  Unset):
+        if isinstance(_cascade, Unset):
             cascade = UNSET
         else:
             cascade = Cascade.from_dict(_cascade)
 
-
-
-
         _distro = d.pop("distro", UNSET)
         distro: GlobalServiceDistro | Unset
-        if isinstance(_distro,  Unset):
+        if isinstance(_distro, Unset):
             distro = UNSET
         else:
             distro = GlobalServiceDistro(_distro)
-
-
-
 
         id = d.pop("id", UNSET)
 
         _inserted_at = d.pop("inserted_at", UNSET)
         inserted_at: datetime.datetime | Unset
-        if isinstance(_inserted_at,  Unset):
+        if isinstance(_inserted_at, Unset):
             inserted_at = UNSET
         else:
             inserted_at = isoparse(_inserted_at)
-
-
-
 
         interval = d.pop("interval", UNSET)
 
@@ -223,23 +191,17 @@ class GlobalService:
 
         _template = d.pop("template", UNSET)
         template: ServiceTemplate | Unset
-        if isinstance(_template,  Unset):
+        if isinstance(_template, Unset):
             template = UNSET
         else:
             template = ServiceTemplate.from_dict(_template)
 
-
-
-
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
-
-
-
 
         global_service = cls(
             tags=tags,
@@ -257,7 +219,6 @@ class GlobalService:
             template=template,
             updated_at=updated_at,
         )
-
 
         global_service.additional_properties = d
         return global_service

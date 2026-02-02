@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class StackInputType(str, Enum):
     ANSIBLE = "ansible"
     CUSTOM = "custom"

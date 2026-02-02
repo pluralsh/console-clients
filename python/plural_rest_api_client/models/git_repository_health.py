@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class GitRepositoryHealth(str, Enum):
     FAILED = "failed"
     PULLABLE = "pullable"

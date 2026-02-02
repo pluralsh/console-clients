@@ -1,37 +1,29 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="CatalogInput")
-
 
 
 @_attrs_define
 class CatalogInput:
-    """ Input for creating or updating a catalog
+    """Input for creating or updating a catalog
 
-        Attributes:
-            author (str): Author or maintainer of the catalog
-            name (str): Name for the catalog
-            category (str | Unset): Category for organizing the catalog
-            dark_icon (str | Unset): URL or reference to the catalog's icon for dark mode
-            description (str | Unset): Description of the catalog's purpose
-            icon (str | Unset): URL or reference to the catalog's icon for light mode
-            project_id (str | Unset): ID of the project this catalog belongs to
-     """
+    Attributes:
+        author (str): Author or maintainer of the catalog
+        name (str): Name for the catalog
+        category (str | Unset): Category for organizing the catalog
+        dark_icon (str | Unset): URL or reference to the catalog's icon for dark mode
+        description (str | Unset): Description of the catalog's purpose
+        icon (str | Unset): URL or reference to the catalog's icon for light mode
+        project_id (str | Unset): ID of the project this catalog belongs to
+    """
 
     author: str
     name: str
@@ -41,10 +33,6 @@ class CatalogInput:
     icon: str | Unset = UNSET
     project_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         author = self.author
@@ -61,13 +49,14 @@ class CatalogInput:
 
         project_id = self.project_id
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "author": author,
-            "name": name,
-        })
+        field_dict.update(
+            {
+                "author": author,
+                "name": name,
+            }
+        )
         if category is not UNSET:
             field_dict["category"] = category
         if dark_icon is not UNSET:
@@ -80,8 +69,6 @@ class CatalogInput:
             field_dict["project_id"] = project_id
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -109,7 +96,6 @@ class CatalogInput:
             icon=icon,
             project_id=project_id,
         )
-
 
         catalog_input.additional_properties = d
         return catalog_input

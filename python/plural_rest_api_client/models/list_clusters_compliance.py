@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ListClustersCompliance(str, Enum):
     COMPLIANT = "compliant"
     LATEST = "latest"
