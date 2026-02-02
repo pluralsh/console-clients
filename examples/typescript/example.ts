@@ -8,7 +8,7 @@ const token = process.env.CONSOLE_TOKEN;
 client.setConfig({
   baseUrl,
   ...(token && {
-    headers: new Headers({ Authorization: `Bearer ${token}` }),
+    headers: new Headers({ Authorization: `Token ${token}` }),
   }),
 });
 

@@ -18,7 +18,7 @@ def main():
     client = AuthenticatedClient(
         base_url=base_url,
         token=token,
-        prefix="Bearer",  # Authorization header will be "Bearer <token>"
+        prefix="Token",  # Authorization header will be "Token <token>"
     )
 
     # Get current user information
