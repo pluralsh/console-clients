@@ -1,17 +1,15 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...models.console_open_apiai_sentinel_run_list import ConsoleOpenAPIAISentinelRunList
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...client import AuthenticatedClient, Client
+from ...models.console_open_apiai_sentinel_run_list import (
+    ConsoleOpenAPIAISentinelRunList,
+)
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -19,38 +17,31 @@ def _get_kwargs(
     *,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
-
     params: dict[str, Any] = {}
 
     params["page"] = page
 
     params["per_page"] = per_page
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v1/api/ai/sentinels/{sentinel_id}/runs".format(sentinel_id=quote(str(sentinel_id), safe=""),),
+        "url": "/v1/api/ai/sentinels/{sentinel_id}/runs".format(
+            sentinel_id=quote(str(sentinel_id), safe=""),
+        ),
         "params": params,
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> ConsoleOpenAPIAISentinelRunList | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> ConsoleOpenAPIAISentinelRunList | None:
     if response.status_code == 200:
         response_200 = ConsoleOpenAPIAISentinelRunList.from_dict(response.json())
-
-
 
         return response_200
 
@@ -60,7 +51,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[ConsoleOpenAPIAISentinelRunList]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[ConsoleOpenAPIAISentinelRunList]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -75,9 +68,8 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> Response[ConsoleOpenAPIAISentinelRunList]:
-    """ 
+    """
     Args:
         sentinel_id (str):
         page (int | Unset):
@@ -89,14 +81,12 @@ def sync_detailed(
 
     Returns:
         Response[ConsoleOpenAPIAISentinelRunList]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         sentinel_id=sentinel_id,
-page=page,
-per_page=per_page,
-
+        page=page,
+        per_page=per_page,
     )
 
     response = client.get_httpx_client().request(
@@ -105,15 +95,15 @@ per_page=per_page,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     sentinel_id: str,
     *,
     client: AuthenticatedClient | Client,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> ConsoleOpenAPIAISentinelRunList | None:
-    """ 
+    """
     Args:
         sentinel_id (str):
         page (int | Unset):
@@ -125,16 +115,15 @@ def sync(
 
     Returns:
         ConsoleOpenAPIAISentinelRunList
-     """
-
+    """
 
     return sync_detailed(
         sentinel_id=sentinel_id,
-client=client,
-page=page,
-per_page=per_page,
-
+        client=client,
+        page=page,
+        per_page=per_page,
     ).parsed
+
 
 async def asyncio_detailed(
     sentinel_id: str,
@@ -142,9 +131,8 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> Response[ConsoleOpenAPIAISentinelRunList]:
-    """ 
+    """
     Args:
         sentinel_id (str):
         page (int | Unset):
@@ -156,21 +144,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[ConsoleOpenAPIAISentinelRunList]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         sentinel_id=sentinel_id,
-page=page,
-per_page=per_page,
-
+        page=page,
+        per_page=per_page,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     sentinel_id: str,
@@ -178,9 +163,8 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> ConsoleOpenAPIAISentinelRunList | None:
-    """ 
+    """
     Args:
         sentinel_id (str):
         page (int | Unset):
@@ -192,13 +176,13 @@ async def asyncio(
 
     Returns:
         ConsoleOpenAPIAISentinelRunList
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        sentinel_id=sentinel_id,
-client=client,
-page=page,
-per_page=per_page,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            sentinel_id=sentinel_id,
+            client=client,
+            page=page,
+            per_page=per_page,
+        )
+    ).parsed

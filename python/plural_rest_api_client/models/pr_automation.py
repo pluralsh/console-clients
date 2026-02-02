@@ -1,53 +1,46 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-from ..types import UNSET, Unset
 from dateutil.parser import isoparse
-from typing import cast
-import datetime
+
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-  from ..models.pr_configuration import PrConfiguration
-
-
-
+    from ..models.pr_configuration import PrConfiguration
 
 
 T = TypeVar("T", bound="PrAutomation")
 
 
-
 @_attrs_define
 class PrAutomation:
-    """ A PR automation template for creating infrastructure or application pull requests
+    """A PR automation template for creating infrastructure or application pull requests
 
-        Attributes:
-            title (str | Unset): Title template for generated pull requests
-            addon (str | Unset): Name of the addon this PR automation is associated with, if any
-            branch (str | Unset): Default branch name for generated pull requests
-            catalog_id (str | Unset): ID of the catalog this PR automation belongs to
-            cluster_id (str | Unset): ID of the cluster this PR automation is associated with, if any
-            configuration (list[PrConfiguration] | Unset): Configuration fields for the PR automation
-            connection_id (str | Unset): ID of the SCM connection used for creating pull requests
-            dark_icon (str | Unset): URL or reference to the PR automation's icon for dark mode
-            documentation (str | Unset): Documentation describing the PR automation's purpose and usage
-            icon (str | Unset): URL or reference to the PR automation's icon for light mode
-            id (str | Unset): Unique identifier for the PR automation
-            identifier (str | Unset): Repository identifier (e.g., owner/repo) for the PR automation
-            inserted_at (datetime.datetime | Unset):
-            message (str | Unset): Message/body template for generated pull requests
-            name (str | Unset): Name of the PR automation
-            project_id (str | Unset): ID of the project this PR automation belongs to
-            service_id (str | Unset): ID of the service this PR automation is associated with, if any
-            updated_at (datetime.datetime | Unset):
-     """
+    Attributes:
+        title (str | Unset): Title template for generated pull requests
+        addon (str | Unset): Name of the addon this PR automation is associated with, if any
+        branch (str | Unset): Default branch name for generated pull requests
+        catalog_id (str | Unset): ID of the catalog this PR automation belongs to
+        cluster_id (str | Unset): ID of the cluster this PR automation is associated with, if any
+        configuration (list[PrConfiguration] | Unset): Configuration fields for the PR automation
+        connection_id (str | Unset): ID of the SCM connection used for creating pull requests
+        dark_icon (str | Unset): URL or reference to the PR automation's icon for dark mode
+        documentation (str | Unset): Documentation describing the PR automation's purpose and usage
+        icon (str | Unset): URL or reference to the PR automation's icon for light mode
+        id (str | Unset): Unique identifier for the PR automation
+        identifier (str | Unset): Repository identifier (e.g., owner/repo) for the PR automation
+        inserted_at (datetime.datetime | Unset):
+        message (str | Unset): Message/body template for generated pull requests
+        name (str | Unset): Name of the PR automation
+        project_id (str | Unset): ID of the project this PR automation belongs to
+        service_id (str | Unset): ID of the service this PR automation is associated with, if any
+        updated_at (datetime.datetime | Unset):
+    """
 
     title: str | Unset = UNSET
     addon: str | Unset = UNSET
@@ -69,12 +62,7 @@ class PrAutomation:
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.pr_configuration import PrConfiguration
         title = self.title
 
         addon = self.addon
@@ -91,8 +79,6 @@ class PrAutomation:
             for configuration_item_data in self.configuration:
                 configuration_item = configuration_item_data.to_dict()
                 configuration.append(configuration_item)
-
-
 
         connection_id = self.connection_id
 
@@ -122,11 +108,9 @@ class PrAutomation:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if title is not UNSET:
             field_dict["title"] = title
         if addon is not UNSET:
@@ -166,11 +150,10 @@ class PrAutomation:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.pr_configuration import PrConfiguration
+
         d = dict(src_dict)
         title = d.pop("title", UNSET)
 
@@ -189,10 +172,7 @@ class PrAutomation:
             for configuration_item_data in _configuration:
                 configuration_item = PrConfiguration.from_dict(configuration_item_data)
 
-
-
                 configuration.append(configuration_item)
-
 
         connection_id = d.pop("connection_id", UNSET)
 
@@ -208,13 +188,10 @@ class PrAutomation:
 
         _inserted_at = d.pop("inserted_at", UNSET)
         inserted_at: datetime.datetime | Unset
-        if isinstance(_inserted_at,  Unset):
+        if isinstance(_inserted_at, Unset):
             inserted_at = UNSET
         else:
             inserted_at = isoparse(_inserted_at)
-
-
-
 
         message = d.pop("message", UNSET)
 
@@ -226,13 +203,10 @@ class PrAutomation:
 
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
-
-
-
 
         pr_automation = cls(
             title=title,
@@ -254,7 +228,6 @@ class PrAutomation:
             service_id=service_id,
             updated_at=updated_at,
         )
-
 
         pr_automation.additional_properties = d
         return pr_automation

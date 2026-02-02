@@ -1,70 +1,53 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.pipeline_context_input_context import PipelineContextInputContext
-
-
-
+    from ..models.pipeline_context_input_context import PipelineContextInputContext
 
 
 T = TypeVar("T", bound="PipelineContextInput")
 
 
-
 @_attrs_define
 class PipelineContextInput:
-    """ Input for creating a new pipeline context to trigger a pipeline run
+    """Input for creating a new pipeline context to trigger a pipeline run
 
-        Attributes:
-            context (PipelineContextInputContext): Arbitrary key-value data map to pass through the pipeline for PR
-                automations
-     """
+    Attributes:
+        context (PipelineContextInputContext): Arbitrary key-value data map to pass through the pipeline for PR
+            automations
+    """
 
     context: PipelineContextInputContext
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.pipeline_context_input_context import PipelineContextInputContext
         context = self.context.to_dict()
-
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "context": context,
-        })
+        field_dict.update(
+            {
+                "context": context,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.pipeline_context_input_context import PipelineContextInputContext
+
         d = dict(src_dict)
         context = PipelineContextInputContext.from_dict(d.pop("context"))
-
-
-
 
         pipeline_context_input = cls(
             context=context,
         )
-
 
         pipeline_context_input.additional_properties = d
         return pipeline_context_input

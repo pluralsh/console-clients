@@ -1,17 +1,14 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...models.console_open_apiscm_pr_automation_list import ConsoleOpenAPISCMPrAutomationList
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...client import AuthenticatedClient, Client
+from ...models.console_open_apiscm_pr_automation_list import (
+    ConsoleOpenAPISCMPrAutomationList,
+)
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -21,12 +18,7 @@ def _get_kwargs(
     q: str | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
-
     params: dict[str, Any] = {}
 
     params["project_id"] = project_id
@@ -39,9 +31,7 @@ def _get_kwargs(
 
     params["per_page"] = per_page
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -49,16 +39,14 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> ConsoleOpenAPISCMPrAutomationList | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> ConsoleOpenAPISCMPrAutomationList | None:
     if response.status_code == 200:
         response_200 = ConsoleOpenAPISCMPrAutomationList.from_dict(response.json())
-
-
 
         return response_200
 
@@ -68,7 +56,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[ConsoleOpenAPISCMPrAutomationList]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[ConsoleOpenAPISCMPrAutomationList]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -85,9 +75,8 @@ def sync_detailed(
     q: str | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> Response[ConsoleOpenAPISCMPrAutomationList]:
-    """ 
+    """
     Args:
         project_id (str | Unset):
         catalog_id (str | Unset):
@@ -101,16 +90,14 @@ def sync_detailed(
 
     Returns:
         Response[ConsoleOpenAPISCMPrAutomationList]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-catalog_id=catalog_id,
-q=q,
-page=page,
-per_page=per_page,
-
+        catalog_id=catalog_id,
+        q=q,
+        page=page,
+        per_page=per_page,
     )
 
     response = client.get_httpx_client().request(
@@ -118,6 +105,7 @@ per_page=per_page,
     )
 
     return _build_response(client=client, response=response)
+
 
 def sync(
     *,
@@ -127,9 +115,8 @@ def sync(
     q: str | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> ConsoleOpenAPISCMPrAutomationList | None:
-    """ 
+    """
     Args:
         project_id (str | Unset):
         catalog_id (str | Unset):
@@ -143,18 +130,17 @@ def sync(
 
     Returns:
         ConsoleOpenAPISCMPrAutomationList
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-project_id=project_id,
-catalog_id=catalog_id,
-q=q,
-page=page,
-per_page=per_page,
-
+        project_id=project_id,
+        catalog_id=catalog_id,
+        q=q,
+        page=page,
+        per_page=per_page,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
@@ -164,9 +150,8 @@ async def asyncio_detailed(
     q: str | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> Response[ConsoleOpenAPISCMPrAutomationList]:
-    """ 
+    """
     Args:
         project_id (str | Unset):
         catalog_id (str | Unset):
@@ -180,23 +165,20 @@ async def asyncio_detailed(
 
     Returns:
         Response[ConsoleOpenAPISCMPrAutomationList]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-catalog_id=catalog_id,
-q=q,
-page=page,
-per_page=per_page,
-
+        catalog_id=catalog_id,
+        q=q,
+        page=page,
+        per_page=per_page,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
@@ -206,9 +188,8 @@ async def asyncio(
     q: str | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> ConsoleOpenAPISCMPrAutomationList | None:
-    """ 
+    """
     Args:
         project_id (str | Unset):
         catalog_id (str | Unset):
@@ -222,15 +203,15 @@ async def asyncio(
 
     Returns:
         ConsoleOpenAPISCMPrAutomationList
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-project_id=project_id,
-catalog_id=catalog_id,
-q=q,
-page=page,
-per_page=per_page,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            project_id=project_id,
+            catalog_id=catalog_id,
+            q=q,
+            page=page,
+            per_page=per_page,
+        )
+    ).parsed

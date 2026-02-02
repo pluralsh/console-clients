@@ -1,42 +1,35 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-from ..types import UNSET, Unset
 from dateutil.parser import isoparse
-from typing import cast
-import datetime
+
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-  from ..models.pipeline_gate import PipelineGate
-
-
-
+    from ..models.pipeline_gate import PipelineGate
 
 
 T = TypeVar("T", bound="PipelineEdge")
 
 
-
 @_attrs_define
 class PipelineEdge:
-    """ An edge connecting two stages with optional promotion gates
+    """An edge connecting two stages with optional promotion gates
 
-        Attributes:
-            from_id (str | Unset): ID of the source stage
-            gates (list[PipelineGate] | Unset): Gates that must be satisfied for promotion
-            id (str | Unset): Unique identifier for the edge
-            inserted_at (datetime.datetime | Unset):
-            promoted_at (datetime.datetime | Unset): Timestamp when promotion last occurred through this edge
-            to_id (str | Unset): ID of the destination stage
-            updated_at (datetime.datetime | Unset):
-     """
+    Attributes:
+        from_id (str | Unset): ID of the source stage
+        gates (list[PipelineGate] | Unset): Gates that must be satisfied for promotion
+        id (str | Unset): Unique identifier for the edge
+        inserted_at (datetime.datetime | Unset):
+        promoted_at (datetime.datetime | Unset): Timestamp when promotion last occurred through this edge
+        to_id (str | Unset): ID of the destination stage
+        updated_at (datetime.datetime | Unset):
+    """
 
     from_id: str | Unset = UNSET
     gates: list[PipelineGate] | Unset = UNSET
@@ -47,12 +40,7 @@ class PipelineEdge:
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.pipeline_gate import PipelineGate
         from_id = self.from_id
 
         gates: list[dict[str, Any]] | Unset = UNSET
@@ -61,8 +49,6 @@ class PipelineEdge:
             for gates_item_data in self.gates:
                 gates_item = gates_item_data.to_dict()
                 gates.append(gates_item)
-
-
 
         id = self.id
 
@@ -80,11 +66,9 @@ class PipelineEdge:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if from_id is not UNSET:
             field_dict["from_id"] = from_id
         if gates is not UNSET:
@@ -102,11 +86,10 @@ class PipelineEdge:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.pipeline_gate import PipelineGate
+
         d = dict(src_dict)
         from_id = d.pop("from_id", UNSET)
 
@@ -117,44 +100,32 @@ class PipelineEdge:
             for gates_item_data in _gates:
                 gates_item = PipelineGate.from_dict(gates_item_data)
 
-
-
                 gates.append(gates_item)
-
 
         id = d.pop("id", UNSET)
 
         _inserted_at = d.pop("inserted_at", UNSET)
         inserted_at: datetime.datetime | Unset
-        if isinstance(_inserted_at,  Unset):
+        if isinstance(_inserted_at, Unset):
             inserted_at = UNSET
         else:
             inserted_at = isoparse(_inserted_at)
 
-
-
-
         _promoted_at = d.pop("promoted_at", UNSET)
         promoted_at: datetime.datetime | Unset
-        if isinstance(_promoted_at,  Unset):
+        if isinstance(_promoted_at, Unset):
             promoted_at = UNSET
         else:
             promoted_at = isoparse(_promoted_at)
-
-
-
 
         to_id = d.pop("to_id", UNSET)
 
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
-
-
-
 
         pipeline_edge = cls(
             from_id=from_id,
@@ -165,7 +136,6 @@ class PipelineEdge:
             to_id=to_id,
             updated_at=updated_at,
         )
-
 
         pipeline_edge.additional_properties = d
         return pipeline_edge

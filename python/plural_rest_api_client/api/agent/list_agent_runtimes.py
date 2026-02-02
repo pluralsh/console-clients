@@ -1,18 +1,15 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...models.console_open_apiai_agent_runtime_list import ConsoleOpenAPIAIAgentRuntimeList
+from ...client import AuthenticatedClient, Client
+from ...models.console_open_apiai_agent_runtime_list import (
+    ConsoleOpenAPIAIAgentRuntimeList,
+)
 from ...models.list_agent_runtimes_type import ListAgentRuntimesType
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -20,12 +17,7 @@ def _get_kwargs(
     type_: ListAgentRuntimesType | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
-
     params: dict[str, Any] = {}
 
     json_type_: str | Unset = UNSET
@@ -38,9 +30,7 @@ def _get_kwargs(
 
     params["per_page"] = per_page
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -48,16 +38,14 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> ConsoleOpenAPIAIAgentRuntimeList | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> ConsoleOpenAPIAIAgentRuntimeList | None:
     if response.status_code == 200:
         response_200 = ConsoleOpenAPIAIAgentRuntimeList.from_dict(response.json())
-
-
 
         return response_200
 
@@ -67,7 +55,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[ConsoleOpenAPIAIAgentRuntimeList]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[ConsoleOpenAPIAIAgentRuntimeList]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,9 +72,8 @@ def sync_detailed(
     type_: ListAgentRuntimesType | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> Response[ConsoleOpenAPIAIAgentRuntimeList]:
-    """ 
+    """
     Args:
         type_ (ListAgentRuntimesType | Unset):
         page (int | Unset):
@@ -96,14 +85,12 @@ def sync_detailed(
 
     Returns:
         Response[ConsoleOpenAPIAIAgentRuntimeList]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         type_=type_,
-page=page,
-per_page=per_page,
-
+        page=page,
+        per_page=per_page,
     )
 
     response = client.get_httpx_client().request(
@@ -112,15 +99,15 @@ per_page=per_page,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     type_: ListAgentRuntimesType | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> ConsoleOpenAPIAIAgentRuntimeList | None:
-    """ 
+    """
     Args:
         type_ (ListAgentRuntimesType | Unset):
         page (int | Unset):
@@ -132,16 +119,15 @@ def sync(
 
     Returns:
         ConsoleOpenAPIAIAgentRuntimeList
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-type_=type_,
-page=page,
-per_page=per_page,
-
+        type_=type_,
+        page=page,
+        per_page=per_page,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
@@ -149,9 +135,8 @@ async def asyncio_detailed(
     type_: ListAgentRuntimesType | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> Response[ConsoleOpenAPIAIAgentRuntimeList]:
-    """ 
+    """
     Args:
         type_ (ListAgentRuntimesType | Unset):
         page (int | Unset):
@@ -163,21 +148,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[ConsoleOpenAPIAIAgentRuntimeList]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         type_=type_,
-page=page,
-per_page=per_page,
-
+        page=page,
+        per_page=per_page,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
@@ -185,9 +167,8 @@ async def asyncio(
     type_: ListAgentRuntimesType | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> ConsoleOpenAPIAIAgentRuntimeList | None:
-    """ 
+    """
     Args:
         type_ (ListAgentRuntimesType | Unset):
         page (int | Unset):
@@ -199,13 +180,13 @@ async def asyncio(
 
     Returns:
         ConsoleOpenAPIAIAgentRuntimeList
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-type_=type_,
-page=page,
-per_page=per_page,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            type_=type_,
+            page=page,
+            per_page=per_page,
+        )
+    ).parsed

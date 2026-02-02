@@ -1,45 +1,33 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.sentinel_check_type import SentinelCheckType
 from ..types import UNSET, Unset
-
-
-
-
-
 
 T = TypeVar("T", bound="SentinelCheck")
 
 
-
 @_attrs_define
 class SentinelCheck:
-    """ A specific monitoring check within a sentinel
+    """A specific monitoring check within a sentinel
 
-        Attributes:
-            id (str | Unset): Unique identifier for the check
-            name (str | Unset): Name of this check
-            rule_file (str | Unset): Path to the rule file for this check within the repository
-            type_ (SentinelCheckType | Unset): Type of check (log, kubernetes, integration_test)
-     """
+    Attributes:
+        id (str | Unset): Unique identifier for the check
+        name (str | Unset): Name of this check
+        rule_file (str | Unset): Path to the rule file for this check within the repository
+        type_ (SentinelCheckType | Unset): Type of check (log, kubernetes, integration_test)
+    """
 
     id: str | Unset = UNSET
     name: str | Unset = UNSET
     rule_file: str | Unset = UNSET
     type_: SentinelCheckType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
@@ -52,12 +40,9 @@ class SentinelCheck:
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
         if name is not UNSET:
@@ -68,8 +53,6 @@ class SentinelCheck:
             field_dict["type"] = type_
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -82,13 +65,10 @@ class SentinelCheck:
 
         _type_ = d.pop("type", UNSET)
         type_: SentinelCheckType | Unset
-        if isinstance(_type_,  Unset):
+        if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = SentinelCheckType(_type_)
-
-
-
 
         sentinel_check = cls(
             id=id,
@@ -96,7 +76,6 @@ class SentinelCheck:
             rule_file=rule_file,
             type_=type_,
         )
-
 
         sentinel_check.additional_properties = d
         return sentinel_check

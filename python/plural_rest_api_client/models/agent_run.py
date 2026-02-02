@@ -1,54 +1,45 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.agent_run_language import AgentRunLanguage
 from ..models.agent_run_mode import AgentRunMode
 from ..models.agent_run_status import AgentRunStatus
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="AgentRun")
 
 
-
 @_attrs_define
 class AgentRun:
-    """ An execution of an AI coding agent processing a prompt against a repository
+    """An execution of an AI coding agent processing a prompt against a repository
 
-        Attributes:
-            branch (str | Unset): The git branch the agent is operating on (uses default branch if not set)
-            error (str | Unset): Error message if the agent run failed
-            flow_id (str | Unset): ID of the flow this agent run is associated with, if any
-            id (str | Unset): Unique identifier for the agent run
-            inserted_at (datetime.datetime | Unset):
-            language (AgentRunLanguage | Unset): Programming language used in the agent run (javascript, python, java, cpp,
-                csharp, go, ruby, php, terraform)
-            language_version (str | Unset): Specific version of the programming language to use
-            mode (AgentRunMode | Unset): Mode of the agent run (analyze for read-only analysis, write for code
-                modifications)
-            prompt (str | Unset): The prompt given to the AI agent to process
-            repository (str | Unset): The git repository URL the agent is working on
-            runtime_id (str | Unset): ID of the runtime executing this agent run
-            shared (bool | Unset): Whether this agent run is shared publicly
-            status (AgentRunStatus | Unset): Current status of the agent run (pending, running, successful, failed,
-                cancelled)
-            updated_at (datetime.datetime | Unset):
-            user_id (str | Unset): ID of the user who initiated this agent run
-     """
+    Attributes:
+        branch (str | Unset): The git branch the agent is operating on (uses default branch if not set)
+        error (str | Unset): Error message if the agent run failed
+        flow_id (str | Unset): ID of the flow this agent run is associated with, if any
+        id (str | Unset): Unique identifier for the agent run
+        inserted_at (datetime.datetime | Unset):
+        language (AgentRunLanguage | Unset): Programming language used in the agent run (javascript, python, java, cpp,
+            csharp, go, ruby, php, terraform)
+        language_version (str | Unset): Specific version of the programming language to use
+        mode (AgentRunMode | Unset): Mode of the agent run (analyze for read-only analysis, write for code
+            modifications)
+        prompt (str | Unset): The prompt given to the AI agent to process
+        repository (str | Unset): The git repository URL the agent is working on
+        runtime_id (str | Unset): ID of the runtime executing this agent run
+        shared (bool | Unset): Whether this agent run is shared publicly
+        status (AgentRunStatus | Unset): Current status of the agent run (pending, running, successful, failed,
+            cancelled)
+        updated_at (datetime.datetime | Unset):
+        user_id (str | Unset): ID of the user who initiated this agent run
+    """
 
     branch: str | Unset = UNSET
     error: str | Unset = UNSET
@@ -67,10 +58,6 @@ class AgentRun:
     user_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
         branch = self.branch
 
@@ -88,13 +75,11 @@ class AgentRun:
         if not isinstance(self.language, Unset):
             language = self.language.value
 
-
         language_version = self.language_version
 
         mode: str | Unset = UNSET
         if not isinstance(self.mode, Unset):
             mode = self.mode.value
-
 
         prompt = self.prompt
 
@@ -108,18 +93,15 @@ class AgentRun:
         if not isinstance(self.status, Unset):
             status = self.status.value
 
-
         updated_at: str | Unset = UNSET
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
         user_id = self.user_id
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if branch is not UNSET:
             field_dict["branch"] = branch
         if error is not UNSET:
@@ -153,8 +135,6 @@ class AgentRun:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -168,35 +148,26 @@ class AgentRun:
 
         _inserted_at = d.pop("inserted_at", UNSET)
         inserted_at: datetime.datetime | Unset
-        if isinstance(_inserted_at,  Unset):
+        if isinstance(_inserted_at, Unset):
             inserted_at = UNSET
         else:
             inserted_at = isoparse(_inserted_at)
 
-
-
-
         _language = d.pop("language", UNSET)
         language: AgentRunLanguage | Unset
-        if isinstance(_language,  Unset):
+        if isinstance(_language, Unset):
             language = UNSET
         else:
             language = AgentRunLanguage(_language)
-
-
-
 
         language_version = d.pop("language_version", UNSET)
 
         _mode = d.pop("mode", UNSET)
         mode: AgentRunMode | Unset
-        if isinstance(_mode,  Unset):
+        if isinstance(_mode, Unset):
             mode = UNSET
         else:
             mode = AgentRunMode(_mode)
-
-
-
 
         prompt = d.pop("prompt", UNSET)
 
@@ -208,23 +179,17 @@ class AgentRun:
 
         _status = d.pop("status", UNSET)
         status: AgentRunStatus | Unset
-        if isinstance(_status,  Unset):
+        if isinstance(_status, Unset):
             status = UNSET
         else:
             status = AgentRunStatus(_status)
 
-
-
-
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
-
-
-
 
         user_id = d.pop("user_id", UNSET)
 
@@ -245,7 +210,6 @@ class AgentRun:
             updated_at=updated_at,
             user_id=user_id,
         )
-
 
         agent_run.additional_properties = d
         return agent_run

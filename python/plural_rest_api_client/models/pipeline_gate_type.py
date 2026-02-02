@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class PipelineGateType(str, Enum):
     APPROVAL = "approval"
     JOB = "job"

@@ -1,38 +1,29 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-
-
-
-
-
-
 T = TypeVar("T", bound="HelmSpecInput")
-
 
 
 @_attrs_define
 class HelmSpecInput:
-    """ Helm chart configuration input
+    """Helm chart configuration input
 
-        Attributes:
-            chart (str | Unset): Name of the Helm chart to deploy
-            release (str | Unset): Desired Helm release name
-            repository_id (str | Unset): ID of a GitRepository to use for sourcing this helm chart
-            url (str | Unset): Helm chart repository URL
-            values (str | Unset): YAML configuration values for the Helm chart
-            values_files (list[str] | Unset): List of referenced values.yaml files to be used with the chart
-            version (str | Unset): Version of the Helm chart
-     """
+    Attributes:
+        chart (str | Unset): Name of the Helm chart to deploy
+        release (str | Unset): Desired Helm release name
+        repository_id (str | Unset): ID of a GitRepository to use for sourcing this helm chart
+        url (str | Unset): Helm chart repository URL
+        values (str | Unset): YAML configuration values for the Helm chart
+        values_files (list[str] | Unset): List of referenced values.yaml files to be used with the chart
+        version (str | Unset): Version of the Helm chart
+    """
 
     chart: str | Unset = UNSET
     release: str | Unset = UNSET
@@ -42,10 +33,6 @@ class HelmSpecInput:
     values_files: list[str] | Unset = UNSET
     version: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         chart = self.chart
@@ -62,15 +49,11 @@ class HelmSpecInput:
         if not isinstance(self.values_files, Unset):
             values_files = self.values_files
 
-
-
         version = self.version
-
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if chart is not UNSET:
             field_dict["chart"] = chart
         if release is not UNSET:
@@ -88,8 +71,6 @@ class HelmSpecInput:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -105,7 +86,6 @@ class HelmSpecInput:
 
         values_files = cast(list[str], d.pop("values_files", UNSET))
 
-
         version = d.pop("version", UNSET)
 
         helm_spec_input = cls(
@@ -117,7 +97,6 @@ class HelmSpecInput:
             values_files=values_files,
             version=version,
         )
-
 
         helm_spec_input.additional_properties = d
         return helm_spec_input

@@ -1,21 +1,22 @@
 from http import HTTPStatus
 from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.stack import Stack
+from ...models.project import Project
 from ...types import Response
 
 
 def _get_kwargs(
-    id: str,
+    id: UUID,
 ) -> dict[str, Any]:
     _kwargs: dict[str, Any] = {
-        "method": "put",
-        "url": "/v1/api/stacks/{id}/restore".format(
+        "method": "get",
+        "url": "/v1/api/projects/{id}".format(
             id=quote(str(id), safe=""),
         ),
     }
@@ -25,9 +26,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Stack | None:
+) -> Project | None:
     if response.status_code == 200:
-        response_200 = Stack.from_dict(response.json())
+        response_200 = Project.from_dict(response.json())
 
         return response_200
 
@@ -39,7 +40,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Stack]:
+) -> Response[Project]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -49,20 +50,23 @@ def _build_response(
 
 
 def sync_detailed(
-    id: str,
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-) -> Response[Stack]:
-    """
+) -> Response[Project]:
+    """Get a project by ID
+
+     Retrieves a single project by its unique identifier
+
     Args:
-        id (str):
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Stack]
+        Response[Project]
     """
 
     kwargs = _get_kwargs(
@@ -77,20 +81,23 @@ def sync_detailed(
 
 
 def sync(
-    id: str,
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-) -> Stack | None:
-    """
+) -> Project | None:
+    """Get a project by ID
+
+     Retrieves a single project by its unique identifier
+
     Args:
-        id (str):
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Stack
+        Project
     """
 
     return sync_detailed(
@@ -100,20 +107,23 @@ def sync(
 
 
 async def asyncio_detailed(
-    id: str,
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-) -> Response[Stack]:
-    """
+) -> Response[Project]:
+    """Get a project by ID
+
+     Retrieves a single project by its unique identifier
+
     Args:
-        id (str):
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Stack]
+        Response[Project]
     """
 
     kwargs = _get_kwargs(
@@ -126,20 +136,23 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: str,
+    id: UUID,
     *,
     client: AuthenticatedClient | Client,
-) -> Stack | None:
-    """
+) -> Project | None:
+    """Get a project by ID
+
+     Retrieves a single project by its unique identifier
+
     Args:
-        id (str):
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Stack
+        Project
     """
 
     return (

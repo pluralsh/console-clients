@@ -1,42 +1,30 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="ServiceError")
-
 
 
 @_attrs_define
 class ServiceError:
-    """ An error reported by the deployment operator during service sync
+    """An error reported by the deployment operator during service sync
 
-        Attributes:
-            message (str | Unset): Error message describing what went wrong
-            source (str | Unset): Source of the error (e.g., component name or sync stage)
-            warning (bool | Unset): If true, this is a warning rather than a fatal error
-     """
+    Attributes:
+        message (str | Unset): Error message describing what went wrong
+        source (str | Unset): Source of the error (e.g., component name or sync stage)
+        warning (bool | Unset): If true, this is a warning rather than a fatal error
+    """
 
     message: str | Unset = UNSET
     source: str | Unset = UNSET
     warning: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         message = self.message
@@ -45,11 +33,9 @@ class ServiceError:
 
         warning = self.warning
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if message is not UNSET:
             field_dict["message"] = message
         if source is not UNSET:
@@ -58,8 +44,6 @@ class ServiceError:
             field_dict["warning"] = warning
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -75,7 +59,6 @@ class ServiceError:
             source=source,
             warning=warning,
         )
-
 
         service_error.additional_properties = d
         return service_error

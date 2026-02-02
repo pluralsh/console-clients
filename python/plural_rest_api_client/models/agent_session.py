@@ -1,52 +1,43 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.agent_session_type import AgentSessionType
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="AgentSession")
 
 
-
 @_attrs_define
 class AgentSession:
-    """ An autonomous AI agent session working on infrastructure tasks
+    """An autonomous AI agent session working on infrastructure tasks
 
-        Attributes:
-            agent_id (str | Unset): Internal agent identifier
-            branch (str | Unset): The git branch this session's pull request is operating on
-            cluster_id (str | Unset): ID of the cluster associated with this session
-            commit_count (int | Unset): Number of commits made by this agent session
-            connection_id (str | Unset): ID of the cloud connection used by this session
-            done (bool | Unset): Whether the agent has declared the work for this session complete
-            id (str | Unset): Unique identifier for the agent session
-            initialized (bool | Unset): Whether the agent session has been initialized
-            inserted_at (datetime.datetime | Unset):
-            plan_confirmed (bool | Unset): Whether the provisioning plan has been confirmed by the user
-            prompt (str | Unset): The prompt given to the agent
-            pull_request_id (str | Unset): ID of the pull request created by this session
-            service_id (str | Unset): ID of the service associated with this session
-            stack_id (str | Unset): ID of the infrastructure stack associated with this session
-            thread_id (str | Unset): ID of the chat thread associated with this session
-            type_ (AgentSessionType | Unset): Type of agent session (terraform, kubernetes, provisioning, search, manifests,
-                chat, research)
-            updated_at (datetime.datetime | Unset):
-     """
+    Attributes:
+        agent_id (str | Unset): Internal agent identifier
+        branch (str | Unset): The git branch this session's pull request is operating on
+        cluster_id (str | Unset): ID of the cluster associated with this session
+        commit_count (int | Unset): Number of commits made by this agent session
+        connection_id (str | Unset): ID of the cloud connection used by this session
+        done (bool | Unset): Whether the agent has declared the work for this session complete
+        id (str | Unset): Unique identifier for the agent session
+        initialized (bool | Unset): Whether the agent session has been initialized
+        inserted_at (datetime.datetime | Unset):
+        plan_confirmed (bool | Unset): Whether the provisioning plan has been confirmed by the user
+        prompt (str | Unset): The prompt given to the agent
+        pull_request_id (str | Unset): ID of the pull request created by this session
+        service_id (str | Unset): ID of the service associated with this session
+        stack_id (str | Unset): ID of the infrastructure stack associated with this session
+        thread_id (str | Unset): ID of the chat thread associated with this session
+        type_ (AgentSessionType | Unset): Type of agent session (terraform, kubernetes, provisioning, search, manifests,
+            chat, research)
+        updated_at (datetime.datetime | Unset):
+    """
 
     agent_id: str | Unset = UNSET
     branch: str | Unset = UNSET
@@ -66,10 +57,6 @@ class AgentSession:
     type_: AgentSessionType | Unset = UNSET
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         agent_id = self.agent_id
@@ -108,16 +95,13 @@ class AgentSession:
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-
         updated_at: str | Unset = UNSET
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if agent_id is not UNSET:
             field_dict["agent_id"] = agent_id
         if branch is not UNSET:
@@ -155,8 +139,6 @@ class AgentSession:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -178,13 +160,10 @@ class AgentSession:
 
         _inserted_at = d.pop("inserted_at", UNSET)
         inserted_at: datetime.datetime | Unset
-        if isinstance(_inserted_at,  Unset):
+        if isinstance(_inserted_at, Unset):
             inserted_at = UNSET
         else:
             inserted_at = isoparse(_inserted_at)
-
-
-
 
         plan_confirmed = d.pop("plan_confirmed", UNSET)
 
@@ -200,23 +179,17 @@ class AgentSession:
 
         _type_ = d.pop("type", UNSET)
         type_: AgentSessionType | Unset
-        if isinstance(_type_,  Unset):
+        if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = AgentSessionType(_type_)
 
-
-
-
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
-
-
-
 
         agent_session = cls(
             agent_id=agent_id,
@@ -237,7 +210,6 @@ class AgentSession:
             type_=type_,
             updated_at=updated_at,
         )
-
 
         agent_session.additional_properties = d
         return agent_session

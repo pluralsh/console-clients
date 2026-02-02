@@ -1,51 +1,37 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
-
 T = TypeVar("T", bound="ConsoleOpenAPIUserRoles")
-
 
 
 @_attrs_define
 class ConsoleOpenAPIUserRoles:
-    """ The roles of the user
+    """The roles of the user
 
-        Attributes:
-            admin (bool):
-     """
+    Attributes:
+        admin (bool):
+    """
 
     admin: bool
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
         admin = self.admin
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "admin": admin,
-        })
+        field_dict.update(
+            {
+                "admin": admin,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -55,7 +41,6 @@ class ConsoleOpenAPIUserRoles:
         console_open_api_user_roles = cls(
             admin=admin,
         )
-
 
         console_open_api_user_roles.additional_properties = d
         return console_open_api_user_roles

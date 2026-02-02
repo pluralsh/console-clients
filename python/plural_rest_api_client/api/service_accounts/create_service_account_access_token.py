@@ -1,18 +1,14 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.access_token import AccessToken
 from ...models.access_token_input import AccessTokenInput
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -20,29 +16,24 @@ def _get_kwargs(
     *,
     body: AccessTokenInput,
     refresh: bool | Unset = UNSET,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
-
-
-    
 
     params: dict[str, Any] = {}
 
     params["refresh"] = refresh
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v1/api/serviceaccounts/{id}/token".format(id=quote(str(id), safe=""),),
+        "url": "/v1/api/serviceaccounts/{id}/token".format(
+            id=quote(str(id), safe=""),
+        ),
         "params": params,
     }
 
     _kwargs["json"] = body.to_dict()
-
 
     headers["Content-Type"] = "application/json"
 
@@ -50,12 +41,11 @@ def _get_kwargs(
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> AccessToken | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> AccessToken | None:
     if response.status_code == 200:
         response_200 = AccessToken.from_dict(response.json())
-
-
 
         return response_200
 
@@ -65,7 +55,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[AccessToken]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[AccessToken]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -80,9 +72,8 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     body: AccessTokenInput,
     refresh: bool | Unset = UNSET,
-
 ) -> Response[AccessToken]:
-    """ 
+    """
     Args:
         id (str):
         refresh (bool | Unset):
@@ -94,14 +85,12 @@ def sync_detailed(
 
     Returns:
         Response[AccessToken]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-refresh=refresh,
-
+        body=body,
+        refresh=refresh,
     )
 
     response = client.get_httpx_client().request(
@@ -110,15 +99,15 @@ refresh=refresh,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     id: str,
     *,
     client: AuthenticatedClient | Client,
     body: AccessTokenInput,
     refresh: bool | Unset = UNSET,
-
 ) -> AccessToken | None:
-    """ 
+    """
     Args:
         id (str):
         refresh (bool | Unset):
@@ -130,16 +119,15 @@ def sync(
 
     Returns:
         AccessToken
-     """
-
+    """
 
     return sync_detailed(
         id=id,
-client=client,
-body=body,
-refresh=refresh,
-
+        client=client,
+        body=body,
+        refresh=refresh,
     ).parsed
+
 
 async def asyncio_detailed(
     id: str,
@@ -147,9 +135,8 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     body: AccessTokenInput,
     refresh: bool | Unset = UNSET,
-
 ) -> Response[AccessToken]:
-    """ 
+    """
     Args:
         id (str):
         refresh (bool | Unset):
@@ -161,21 +148,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[AccessToken]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-refresh=refresh,
-
+        body=body,
+        refresh=refresh,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     id: str,
@@ -183,9 +167,8 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     body: AccessTokenInput,
     refresh: bool | Unset = UNSET,
-
 ) -> AccessToken | None:
-    """ 
+    """
     Args:
         id (str):
         refresh (bool | Unset):
@@ -197,13 +180,13 @@ async def asyncio(
 
     Returns:
         AccessToken
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        id=id,
-client=client,
-body=body,
-refresh=refresh,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            id=id,
+            client=client,
+            body=body,
+            refresh=refresh,
+        )
+    ).parsed

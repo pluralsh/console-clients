@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ClusterDistro(str, Enum):
     AKS = "aks"
     EKS = "eks"
