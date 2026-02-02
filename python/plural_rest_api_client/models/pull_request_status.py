@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class PullRequestStatus(str, Enum):
     CLOSED = "closed"
     MERGED = "merged"

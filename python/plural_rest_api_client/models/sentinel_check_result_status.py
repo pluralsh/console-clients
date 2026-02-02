@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class SentinelCheckResultStatus(str, Enum):
     FAILED = "failed"
     PENDING = "pending"

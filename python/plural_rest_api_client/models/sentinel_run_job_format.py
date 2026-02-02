@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class SentinelRunJobFormat(str, Enum):
     JUNIT = "junit"
     PLAINTEXT = "plaintext"

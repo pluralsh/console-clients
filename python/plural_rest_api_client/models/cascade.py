@@ -1,59 +1,43 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="Cascade")
-
 
 
 @_attrs_define
 class Cascade:
-    """ Cascade behavior when the global service is deleted
+    """Cascade behavior when the global service is deleted
 
-        Attributes:
-            delete (bool | Unset): If true, cascade delete all services owned by this global service
-            detach (bool | Unset): If true, immediately detach services from the database without draining
-     """
+    Attributes:
+        delete (bool | Unset): If true, cascade delete all services owned by this global service
+        detach (bool | Unset): If true, immediately detach services from the database without draining
+    """
 
     delete: bool | Unset = UNSET
     detach: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         delete = self.delete
 
         detach = self.detach
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if delete is not UNSET:
             field_dict["delete"] = delete
         if detach is not UNSET:
             field_dict["detach"] = detach
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -66,7 +50,6 @@ class Cascade:
             delete=delete,
             detach=detach,
         )
-
 
         cascade.additional_properties = d
         return cascade

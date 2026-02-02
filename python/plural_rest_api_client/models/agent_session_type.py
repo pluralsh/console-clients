@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class AgentSessionType(str, Enum):
     CHAT = "chat"
     KUBERNETES = "kubernetes"

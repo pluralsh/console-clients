@@ -1,48 +1,39 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.pull_request_status import PullRequestStatus
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="PullRequest")
 
 
-
 @_attrs_define
 class PullRequest:
-    """ A pull request reference tracked by the platform for deployment workflows
+    """A pull request reference tracked by the platform for deployment workflows
 
-        Attributes:
-            title (str | Unset): Title of the pull request
-            body (str | Unset): Body/description of the pull request
-            cluster_id (str | Unset): ID of the cluster this pull request is associated with, if any
-            creator (str | Unset): Username of the pull request creator in the source control provider
-            id (str | Unset): Unique identifier for the pull request record
-            inserted_at (datetime.datetime | Unset):
-            labels (list[str] | Unset): Labels applied to the pull request
-            ref (str | Unset): Git ref (branch name) for the pull request
-            service_id (str | Unset): ID of the service this pull request is associated with, if any
-            sha (str | Unset): Git SHA of the pull request head
-            stack_id (str | Unset): ID of the stack this pull request is associated with, if any
-            status (PullRequestStatus | Unset): Current status of the pull request (open, merged, closed)
-            updated_at (datetime.datetime | Unset):
-            url (str | Unset): URL of the pull request in the source control provider
-     """
+    Attributes:
+        title (str | Unset): Title of the pull request
+        body (str | Unset): Body/description of the pull request
+        cluster_id (str | Unset): ID of the cluster this pull request is associated with, if any
+        creator (str | Unset): Username of the pull request creator in the source control provider
+        id (str | Unset): Unique identifier for the pull request record
+        inserted_at (datetime.datetime | Unset):
+        labels (list[str] | Unset): Labels applied to the pull request
+        ref (str | Unset): Git ref (branch name) for the pull request
+        service_id (str | Unset): ID of the service this pull request is associated with, if any
+        sha (str | Unset): Git SHA of the pull request head
+        stack_id (str | Unset): ID of the stack this pull request is associated with, if any
+        status (PullRequestStatus | Unset): Current status of the pull request (open, merged, closed)
+        updated_at (datetime.datetime | Unset):
+        url (str | Unset): URL of the pull request in the source control provider
+    """
 
     title: str | Unset = UNSET
     body: str | Unset = UNSET
@@ -59,10 +50,6 @@ class PullRequest:
     updated_at: datetime.datetime | Unset = UNSET
     url: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         title = self.title
@@ -83,8 +70,6 @@ class PullRequest:
         if not isinstance(self.labels, Unset):
             labels = self.labels
 
-
-
         ref = self.ref
 
         service_id = self.service_id
@@ -97,18 +82,15 @@ class PullRequest:
         if not isinstance(self.status, Unset):
             status = self.status.value
 
-
         updated_at: str | Unset = UNSET
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
         url = self.url
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if title is not UNSET:
             field_dict["title"] = title
         if body is not UNSET:
@@ -140,8 +122,6 @@ class PullRequest:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -157,16 +137,12 @@ class PullRequest:
 
         _inserted_at = d.pop("inserted_at", UNSET)
         inserted_at: datetime.datetime | Unset
-        if isinstance(_inserted_at,  Unset):
+        if isinstance(_inserted_at, Unset):
             inserted_at = UNSET
         else:
             inserted_at = isoparse(_inserted_at)
 
-
-
-
         labels = cast(list[str], d.pop("labels", UNSET))
-
 
         ref = d.pop("ref", UNSET)
 
@@ -178,23 +154,17 @@ class PullRequest:
 
         _status = d.pop("status", UNSET)
         status: PullRequestStatus | Unset
-        if isinstance(_status,  Unset):
+        if isinstance(_status, Unset):
             status = UNSET
         else:
             status = PullRequestStatus(_status)
 
-
-
-
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
-
-
-
 
         url = d.pop("url", UNSET)
 
@@ -214,7 +184,6 @@ class PullRequest:
             updated_at=updated_at,
             url=url,
         )
-
 
         pull_request.additional_properties = d
         return pull_request

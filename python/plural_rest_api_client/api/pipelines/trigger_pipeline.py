@@ -1,39 +1,31 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.pipeline_context import PipelineContext
 from ...models.pipeline_context_input import PipelineContextInput
-from typing import cast
-
+from ...types import Response
 
 
 def _get_kwargs(
     id: str,
     *,
     body: PipelineContextInput,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
-
-    
-
-    
-
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v1/api/cd/pipelines/{id}/trigger".format(id=quote(str(id), safe=""),),
+        "url": "/v1/api/cd/pipelines/{id}/trigger".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
-
 
     headers["Content-Type"] = "application/json"
 
@@ -41,12 +33,11 @@ def _get_kwargs(
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PipelineContext | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> PipelineContext | None:
     if response.status_code == 200:
         response_200 = PipelineContext.from_dict(response.json())
-
-
 
         return response_200
 
@@ -56,7 +47,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PipelineContext]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[PipelineContext]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -70,9 +63,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: PipelineContextInput,
-
 ) -> Response[PipelineContext]:
-    """ Trigger a pipeline run
+    """Trigger a pipeline run
 
      Creates a new pipeline context to trigger a pipeline run. The context data flows through stages and
     can be used for PR automations.
@@ -88,13 +80,11 @@ def sync_detailed(
 
     Returns:
         Response[PipelineContext]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -103,14 +93,14 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     id: str,
     *,
     client: AuthenticatedClient | Client,
     body: PipelineContextInput,
-
 ) -> PipelineContext | None:
-    """ Trigger a pipeline run
+    """Trigger a pipeline run
 
      Creates a new pipeline context to trigger a pipeline run. The context data flows through stages and
     can be used for PR automations.
@@ -126,24 +116,22 @@ def sync(
 
     Returns:
         PipelineContext
-     """
-
+    """
 
     return sync_detailed(
         id=id,
-client=client,
-body=body,
-
+        client=client,
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient | Client,
     body: PipelineContextInput,
-
 ) -> Response[PipelineContext]:
-    """ Trigger a pipeline run
+    """Trigger a pipeline run
 
      Creates a new pipeline context to trigger a pipeline run. The context data flows through stages and
     can be used for PR automations.
@@ -159,29 +147,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[PipelineContext]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-
+        body=body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient | Client,
     body: PipelineContextInput,
-
 ) -> PipelineContext | None:
-    """ Trigger a pipeline run
+    """Trigger a pipeline run
 
      Creates a new pipeline context to trigger a pipeline run. The context data flows through stages and
     can be used for PR automations.
@@ -197,12 +181,12 @@ async def asyncio(
 
     Returns:
         PipelineContext
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        id=id,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            id=id,
+            client=client,
+            body=body,
+        )
+    ).parsed

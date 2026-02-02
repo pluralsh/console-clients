@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ScmConnectionType(str, Enum):
     AZURE_DEVOPS = "azure_devops"
     BITBUCKET = "bitbucket"

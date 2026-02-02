@@ -1,53 +1,42 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.cluster import Cluster
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     id: str,
     *,
     detach: bool | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
-
     params: dict[str, Any] = {}
 
     params["detach"] = detach
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "delete",
-        "url": "/v1/api/cd/clusters/{id}".format(id=quote(str(id), safe=""),),
+        "url": "/v1/api/cd/clusters/{id}".format(
+            id=quote(str(id), safe=""),
+        ),
         "params": params,
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Cluster | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Cluster | None:
     if response.status_code == 200:
         response_200 = Cluster.from_dict(response.json())
-
-
 
         return response_200
 
@@ -57,7 +46,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Cluster]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Cluster]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -71,9 +62,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     detach: bool | Unset = UNSET,
-
 ) -> Response[Cluster]:
-    """ 
+    """
     Args:
         id (str):
         detach (bool | Unset):
@@ -84,13 +74,11 @@ def sync_detailed(
 
     Returns:
         Response[Cluster]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-detach=detach,
-
+        detach=detach,
     )
 
     response = client.get_httpx_client().request(
@@ -99,14 +87,14 @@ detach=detach,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     id: str,
     *,
     client: AuthenticatedClient | Client,
     detach: bool | Unset = UNSET,
-
 ) -> Cluster | None:
-    """ 
+    """
     Args:
         id (str):
         detach (bool | Unset):
@@ -117,24 +105,22 @@ def sync(
 
     Returns:
         Cluster
-     """
-
+    """
 
     return sync_detailed(
         id=id,
-client=client,
-detach=detach,
-
+        client=client,
+        detach=detach,
     ).parsed
+
 
 async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient | Client,
     detach: bool | Unset = UNSET,
-
 ) -> Response[Cluster]:
-    """ 
+    """
     Args:
         id (str):
         detach (bool | Unset):
@@ -145,29 +131,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[Cluster]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-detach=detach,
-
+        detach=detach,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient | Client,
     detach: bool | Unset = UNSET,
-
 ) -> Cluster | None:
-    """ 
+    """
     Args:
         id (str):
         detach (bool | Unset):
@@ -178,12 +160,12 @@ async def asyncio(
 
     Returns:
         Cluster
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        id=id,
-client=client,
-detach=detach,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            id=id,
+            client=client,
+            detach=detach,
+        )
+    ).parsed

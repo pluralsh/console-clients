@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class PrConfigurationType(str, Enum):
     BOOL = "bool"
     BUCKET = "bucket"

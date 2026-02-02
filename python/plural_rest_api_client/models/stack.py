@@ -1,55 +1,48 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.stack_status import StackStatus
 from ..models.stack_type import StackType
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.git import Git
-  from ..models.tag import Tag
-
-
-
+    from ..models.git import Git
+    from ..models.tag import Tag
 
 
 T = TypeVar("T", bound="Stack")
 
 
-
 @_attrs_define
 class Stack:
-    """ An infrastructure stack
+    """An infrastructure stack
 
-        Attributes:
-            tags (list[Tag] | Unset):
-            approval (bool | Unset):
-            cluster_id (str | Unset):
-            deleted_at (datetime.datetime | Unset):
-            git (Git | Unset): Git reference configuration
-            id (str | Unset):
-            inserted_at (datetime.datetime | Unset):
-            interval (str | Unset):
-            manage_state (bool | Unset):
-            name (str | Unset):
-            paused (bool | Unset):
-            project_id (str | Unset):
-            repository_id (str | Unset):
-            status (StackStatus | Unset):
-            type_ (StackType | Unset):
-            updated_at (datetime.datetime | Unset):
-            workdir (str | Unset):
-     """
+    Attributes:
+        tags (list[Tag] | Unset):
+        approval (bool | Unset):
+        cluster_id (str | Unset):
+        deleted_at (datetime.datetime | Unset):
+        git (Git | Unset): Git reference configuration
+        id (str | Unset):
+        inserted_at (datetime.datetime | Unset):
+        interval (str | Unset):
+        manage_state (bool | Unset):
+        name (str | Unset):
+        paused (bool | Unset):
+        project_id (str | Unset):
+        repository_id (str | Unset):
+        status (StackStatus | Unset):
+        type_ (StackType | Unset):
+        updated_at (datetime.datetime | Unset):
+        workdir (str | Unset):
+    """
 
     tags: list[Tag] | Unset = UNSET
     approval: bool | Unset = UNSET
@@ -70,21 +63,13 @@ class Stack:
     workdir: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.git import Git
-        from ..models.tag import Tag
         tags: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.tags, Unset):
             tags = []
             for tags_item_data in self.tags:
                 tags_item = tags_item_data.to_dict()
                 tags.append(tags_item)
-
-
 
         approval = self.approval
 
@@ -120,11 +105,9 @@ class Stack:
         if not isinstance(self.status, Unset):
             status = self.status.value
 
-
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
-
 
         updated_at: str | Unset = UNSET
         if not isinstance(self.updated_at, Unset):
@@ -132,11 +115,9 @@ class Stack:
 
         workdir = self.workdir
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if tags is not UNSET:
             field_dict["tags"] = tags
         if approval is not UNSET:
@@ -174,12 +155,11 @@ class Stack:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.git import Git
         from ..models.tag import Tag
+
         d = dict(src_dict)
         _tags = d.pop("tags", UNSET)
         tags: list[Tag] | Unset = UNSET
@@ -188,10 +168,7 @@ class Stack:
             for tags_item_data in _tags:
                 tags_item = Tag.from_dict(tags_item_data)
 
-
-
                 tags.append(tags_item)
-
 
         approval = d.pop("approval", UNSET)
 
@@ -199,35 +176,26 @@ class Stack:
 
         _deleted_at = d.pop("deleted_at", UNSET)
         deleted_at: datetime.datetime | Unset
-        if isinstance(_deleted_at,  Unset):
+        if isinstance(_deleted_at, Unset):
             deleted_at = UNSET
         else:
             deleted_at = isoparse(_deleted_at)
 
-
-
-
         _git = d.pop("git", UNSET)
         git: Git | Unset
-        if isinstance(_git,  Unset):
+        if isinstance(_git, Unset):
             git = UNSET
         else:
             git = Git.from_dict(_git)
-
-
-
 
         id = d.pop("id", UNSET)
 
         _inserted_at = d.pop("inserted_at", UNSET)
         inserted_at: datetime.datetime | Unset
-        if isinstance(_inserted_at,  Unset):
+        if isinstance(_inserted_at, Unset):
             inserted_at = UNSET
         else:
             inserted_at = isoparse(_inserted_at)
-
-
-
 
         interval = d.pop("interval", UNSET)
 
@@ -243,33 +211,24 @@ class Stack:
 
         _status = d.pop("status", UNSET)
         status: StackStatus | Unset
-        if isinstance(_status,  Unset):
+        if isinstance(_status, Unset):
             status = UNSET
         else:
             status = StackStatus(_status)
 
-
-
-
         _type_ = d.pop("type", UNSET)
         type_: StackType | Unset
-        if isinstance(_type_,  Unset):
+        if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = StackType(_type_)
 
-
-
-
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
-
-
-
 
         workdir = d.pop("workdir", UNSET)
 
@@ -292,7 +251,6 @@ class Stack:
             updated_at=updated_at,
             workdir=workdir,
         )
-
 
         stack.additional_properties = d
         return stack

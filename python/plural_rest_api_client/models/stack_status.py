@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class StackStatus(str, Enum):
     CANCELLED = "cancelled"
     FAILED = "failed"

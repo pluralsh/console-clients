@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ClusterUpgradeStepType(str, Enum):
     ADDON = "addon"
     CLOUD_ADDON = "cloud_addon"

@@ -1,37 +1,29 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.agent_session_input_type import AgentSessionInputType
 from ..types import UNSET, Unset
-
-
-
-
-
 
 T = TypeVar("T", bound="AgentSessionInput")
 
 
-
 @_attrs_define
 class AgentSessionInput:
-    """ Input for creating a new agent session to execute autonomous infrastructure tasks
+    """Input for creating a new agent session to execute autonomous infrastructure tasks
 
-        Attributes:
-            prompt (str): The prompt describing the task for the agent to perform
-            cluster_id (str | Unset): ID of the cluster to use for this session
-            connection_id (str | Unset): ID of the cloud connection to use for this session
-            done (bool | Unset): Whether to immediately mark this session as done
-            plan_confirmed (bool | Unset): Whether the provisioning plan is pre-confirmed
-            type_ (AgentSessionInputType | Unset): Type of agent session (terraform, kubernetes)
-     """
+    Attributes:
+        prompt (str): The prompt describing the task for the agent to perform
+        cluster_id (str | Unset): ID of the cluster to use for this session
+        connection_id (str | Unset): ID of the cloud connection to use for this session
+        done (bool | Unset): Whether to immediately mark this session as done
+        plan_confirmed (bool | Unset): Whether the provisioning plan is pre-confirmed
+        type_ (AgentSessionInputType | Unset): Type of agent session (terraform, kubernetes)
+    """
 
     prompt: str
     cluster_id: str | Unset = UNSET
@@ -40,10 +32,6 @@ class AgentSessionInput:
     plan_confirmed: bool | Unset = UNSET
     type_: AgentSessionInputType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         prompt = self.prompt
@@ -60,13 +48,13 @@ class AgentSessionInput:
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "prompt": prompt,
-        })
+        field_dict.update(
+            {
+                "prompt": prompt,
+            }
+        )
         if cluster_id is not UNSET:
             field_dict["cluster_id"] = cluster_id
         if connection_id is not UNSET:
@@ -79,8 +67,6 @@ class AgentSessionInput:
             field_dict["type"] = type_
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -97,13 +83,10 @@ class AgentSessionInput:
 
         _type_ = d.pop("type", UNSET)
         type_: AgentSessionInputType | Unset
-        if isinstance(_type_,  Unset):
+        if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = AgentSessionInputType(_type_)
-
-
-
 
         agent_session_input = cls(
             prompt=prompt,
@@ -113,7 +96,6 @@ class AgentSessionInput:
             plan_confirmed=plan_confirmed,
             type_=type_,
         )
-
 
         agent_session_input.additional_properties = d
         return agent_session_input

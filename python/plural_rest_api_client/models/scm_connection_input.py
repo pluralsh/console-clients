@@ -1,43 +1,36 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.scm_connection_input_type import ScmConnectionInputType
 from ..types import UNSET, Unset
-from typing import cast
 
 if TYPE_CHECKING:
-  from ..models.github_app_input import GithubAppInput
-
-
-
+    from ..models.github_app_input import GithubAppInput
 
 
 T = TypeVar("T", bound="ScmConnectionInput")
 
 
-
 @_attrs_define
 class ScmConnectionInput:
-    """ Input for creating or updating an SCM connection
+    """Input for creating or updating an SCM connection
 
-        Attributes:
-            name (str): The name of the SCM connection
-            type_ (ScmConnectionInputType):
-            api_url (str | Unset): Base URL for HTTP APIs for self-hosted versions if different from base URL
-            base_url (str | Unset): Base URL for Git clones for self-hosted versions
-            default (bool | Unset): Whether this is the default SCM connection
-            github (GithubAppInput | Unset): Github App authentication configuration
-            signing_private_key (str | Unset): A private key used for signing commits
-            token (str | Unset): The access token for authentication
-            username (str | Unset): The username for authentication
-     """
+    Attributes:
+        name (str): The name of the SCM connection
+        type_ (ScmConnectionInputType):
+        api_url (str | Unset): Base URL for HTTP APIs for self-hosted versions if different from base URL
+        base_url (str | Unset): Base URL for Git clones for self-hosted versions
+        default (bool | Unset): Whether this is the default SCM connection
+        github (GithubAppInput | Unset): Github App authentication configuration
+        signing_private_key (str | Unset): A private key used for signing commits
+        token (str | Unset): The access token for authentication
+        username (str | Unset): The username for authentication
+    """
 
     name: str
     type_: ScmConnectionInputType
@@ -50,12 +43,7 @@ class ScmConnectionInput:
     username: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.github_app_input import GithubAppInput
         name = self.name
 
         type_ = self.type_.value
@@ -76,13 +64,14 @@ class ScmConnectionInput:
 
         username = self.username
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "name": name,
-            "type": type_,
-        })
+        field_dict.update(
+            {
+                "name": name,
+                "type": type_,
+            }
+        )
         if api_url is not UNSET:
             field_dict["api_url"] = api_url
         if base_url is not UNSET:
@@ -100,18 +89,14 @@ class ScmConnectionInput:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.github_app_input import GithubAppInput
+
         d = dict(src_dict)
         name = d.pop("name")
 
         type_ = ScmConnectionInputType(d.pop("type"))
-
-
-
 
         api_url = d.pop("api_url", UNSET)
 
@@ -121,13 +106,10 @@ class ScmConnectionInput:
 
         _github = d.pop("github", UNSET)
         github: GithubAppInput | Unset
-        if isinstance(_github,  Unset):
+        if isinstance(_github, Unset):
             github = UNSET
         else:
             github = GithubAppInput.from_dict(_github)
-
-
-
 
         signing_private_key = d.pop("signing_private_key", UNSET)
 
@@ -146,7 +128,6 @@ class ScmConnectionInput:
             token=token,
             username=username,
         )
-
 
         scm_connection_input.additional_properties = d
         return scm_connection_input

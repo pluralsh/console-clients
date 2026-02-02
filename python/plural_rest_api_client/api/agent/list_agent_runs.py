@@ -1,17 +1,12 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.console_open_apiai_agent_run_list import ConsoleOpenAPIAIAgentRunList
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -19,12 +14,7 @@ def _get_kwargs(
     runtime_id: str | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
-
     params: dict[str, Any] = {}
 
     params["runtime_id"] = runtime_id
@@ -33,9 +23,7 @@ def _get_kwargs(
 
     params["per_page"] = per_page
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -43,16 +31,14 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> ConsoleOpenAPIAIAgentRunList | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> ConsoleOpenAPIAIAgentRunList | None:
     if response.status_code == 200:
         response_200 = ConsoleOpenAPIAIAgentRunList.from_dict(response.json())
-
-
 
         return response_200
 
@@ -62,7 +48,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[ConsoleOpenAPIAIAgentRunList]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[ConsoleOpenAPIAIAgentRunList]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -77,9 +65,8 @@ def sync_detailed(
     runtime_id: str | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> Response[ConsoleOpenAPIAIAgentRunList]:
-    """ 
+    """
     Args:
         runtime_id (str | Unset):
         page (int | Unset):
@@ -91,14 +78,12 @@ def sync_detailed(
 
     Returns:
         Response[ConsoleOpenAPIAIAgentRunList]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         runtime_id=runtime_id,
-page=page,
-per_page=per_page,
-
+        page=page,
+        per_page=per_page,
     )
 
     response = client.get_httpx_client().request(
@@ -107,15 +92,15 @@ per_page=per_page,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     runtime_id: str | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> ConsoleOpenAPIAIAgentRunList | None:
-    """ 
+    """
     Args:
         runtime_id (str | Unset):
         page (int | Unset):
@@ -127,16 +112,15 @@ def sync(
 
     Returns:
         ConsoleOpenAPIAIAgentRunList
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-runtime_id=runtime_id,
-page=page,
-per_page=per_page,
-
+        runtime_id=runtime_id,
+        page=page,
+        per_page=per_page,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
@@ -144,9 +128,8 @@ async def asyncio_detailed(
     runtime_id: str | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> Response[ConsoleOpenAPIAIAgentRunList]:
-    """ 
+    """
     Args:
         runtime_id (str | Unset):
         page (int | Unset):
@@ -158,21 +141,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[ConsoleOpenAPIAIAgentRunList]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         runtime_id=runtime_id,
-page=page,
-per_page=per_page,
-
+        page=page,
+        per_page=per_page,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
@@ -180,9 +160,8 @@ async def asyncio(
     runtime_id: str | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> ConsoleOpenAPIAIAgentRunList | None:
-    """ 
+    """
     Args:
         runtime_id (str | Unset):
         page (int | Unset):
@@ -194,13 +173,13 @@ async def asyncio(
 
     Returns:
         ConsoleOpenAPIAIAgentRunList
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-runtime_id=runtime_id,
-page=page,
-per_page=per_page,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            runtime_id=runtime_id,
+            page=page,
+            per_page=per_page,
+        )
+    ).parsed

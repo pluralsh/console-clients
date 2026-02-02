@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class HelmRepositoryProvider(str, Enum):
     AWS = "aws"
     AZURE = "azure"

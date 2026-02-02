@@ -1,39 +1,31 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.create_pull_request_input import CreatePullRequestInput
 from ...models.pull_request import PullRequest
-from typing import cast
-
+from ...types import Response
 
 
 def _get_kwargs(
     id: str,
     *,
     body: CreatePullRequestInput,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
-
-    
-
-    
-
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v1/api/scm/prautomations/{id}/invoke".format(id=quote(str(id), safe=""),),
+        "url": "/v1/api/scm/prautomations/{id}/invoke".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
-
 
     headers["Content-Type"] = "application/json"
 
@@ -41,12 +33,11 @@ def _get_kwargs(
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PullRequest | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> PullRequest | None:
     if response.status_code == 200:
         response_200 = PullRequest.from_dict(response.json())
-
-
 
         return response_200
 
@@ -56,7 +47,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PullRequest]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[PullRequest]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -70,9 +63,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: CreatePullRequestInput,
-
 ) -> Response[PullRequest]:
-    """ 
+    """
     Args:
         id (str):
         body (CreatePullRequestInput): Input for creating a pull request using a PR automation
@@ -83,13 +75,11 @@ def sync_detailed(
 
     Returns:
         Response[PullRequest]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -98,14 +88,14 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     id: str,
     *,
     client: AuthenticatedClient | Client,
     body: CreatePullRequestInput,
-
 ) -> PullRequest | None:
-    """ 
+    """
     Args:
         id (str):
         body (CreatePullRequestInput): Input for creating a pull request using a PR automation
@@ -116,24 +106,22 @@ def sync(
 
     Returns:
         PullRequest
-     """
-
+    """
 
     return sync_detailed(
         id=id,
-client=client,
-body=body,
-
+        client=client,
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient | Client,
     body: CreatePullRequestInput,
-
 ) -> Response[PullRequest]:
-    """ 
+    """
     Args:
         id (str):
         body (CreatePullRequestInput): Input for creating a pull request using a PR automation
@@ -144,29 +132,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[PullRequest]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-
+        body=body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient | Client,
     body: CreatePullRequestInput,
-
 ) -> PullRequest | None:
-    """ 
+    """
     Args:
         id (str):
         body (CreatePullRequestInput): Input for creating a pull request using a PR automation
@@ -177,12 +161,12 @@ async def asyncio(
 
     Returns:
         PullRequest
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        id=id,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            id=id,
+            client=client,
+            body=body,
+        )
+    ).parsed

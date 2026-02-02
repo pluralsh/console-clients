@@ -1,44 +1,32 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.pipeline import Pipeline
-
-
-
+    from ..models.pipeline import Pipeline
 
 
 T = TypeVar("T", bound="ConsoleOpenAPICDPipelineList")
 
 
-
 @_attrs_define
 class ConsoleOpenAPICDPipelineList:
-    """ A paginated list of pipelines
+    """A paginated list of pipelines
 
-        Attributes:
-            data (list[Pipeline] | Unset):
-     """
+    Attributes:
+        data (list[Pipeline] | Unset):
+    """
 
     data: list[Pipeline] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.pipeline import Pipeline
         data: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = []
@@ -46,23 +34,18 @@ class ConsoleOpenAPICDPipelineList:
                 data_item = data_item_data.to_dict()
                 data.append(data_item)
 
-
-
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if data is not UNSET:
             field_dict["data"] = data
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.pipeline import Pipeline
+
         d = dict(src_dict)
         _data = d.pop("data", UNSET)
         data: list[Pipeline] | Unset = UNSET
@@ -71,15 +54,11 @@ class ConsoleOpenAPICDPipelineList:
             for data_item_data in _data:
                 data_item = Pipeline.from_dict(data_item_data)
 
-
-
                 data.append(data_item)
-
 
         console_open_apicd_pipeline_list = cls(
             data=data,
         )
-
 
         console_open_apicd_pipeline_list.additional_properties = d
         return console_open_apicd_pipeline_list

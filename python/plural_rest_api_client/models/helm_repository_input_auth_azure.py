@@ -1,44 +1,32 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="HelmRepositoryInputAuthAzure")
-
 
 
 @_attrs_define
 class HelmRepositoryInputAuthAzure:
-    """ Azure credentials for ACR
+    """Azure credentials for ACR
 
-        Attributes:
-            client_id (str | Unset): Azure client ID
-            client_secret (str | Unset): Azure client secret
-            subscription_id (str | Unset): Azure subscription ID
-            tenant_id (str | Unset): Azure tenant ID
-     """
+    Attributes:
+        client_id (str | Unset): Azure client ID
+        client_secret (str | Unset): Azure client secret
+        subscription_id (str | Unset): Azure subscription ID
+        tenant_id (str | Unset): Azure tenant ID
+    """
 
     client_id: str | Unset = UNSET
     client_secret: str | Unset = UNSET
     subscription_id: str | Unset = UNSET
     tenant_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         client_id = self.client_id
@@ -49,11 +37,9 @@ class HelmRepositoryInputAuthAzure:
 
         tenant_id = self.tenant_id
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if client_id is not UNSET:
             field_dict["client_id"] = client_id
         if client_secret is not UNSET:
@@ -64,8 +50,6 @@ class HelmRepositoryInputAuthAzure:
             field_dict["tenant_id"] = tenant_id
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -84,7 +68,6 @@ class HelmRepositoryInputAuthAzure:
             subscription_id=subscription_id,
             tenant_id=tenant_id,
         )
-
 
         helm_repository_input_auth_azure.additional_properties = d
         return helm_repository_input_auth_azure

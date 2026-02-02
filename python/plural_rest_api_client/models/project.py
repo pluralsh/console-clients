@@ -1,31 +1,22 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-from ..types import UNSET, Unset
 from dateutil.parser import isoparse
-from typing import cast
-from uuid import UUID
-import datetime
 
-
-
-
-
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="Project")
 
 
-
 @_attrs_define
 class Project:
-    """ A project is a top-level organizational unit that groups related resources such as clusters, stacks, pipelines, and
+    """A project is a top-level organizational unit that groups related resources such as clusters, stacks, pipelines, and
     services
 
         Attributes:
@@ -35,7 +26,7 @@ class Project:
             inserted_at (datetime.datetime | Unset):
             name (str | Unset): The name of the project
             updated_at (datetime.datetime | Unset):
-     """
+    """
 
     default: bool | Unset = UNSET
     description: str | Unset = UNSET
@@ -44,10 +35,6 @@ class Project:
     name: str | Unset = UNSET
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         default = self.default
@@ -68,11 +55,9 @@ class Project:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if default is not UNSET:
             field_dict["default"] = default
         if description is not UNSET:
@@ -88,8 +73,6 @@ class Project:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -99,35 +82,26 @@ class Project:
 
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id,  Unset):
+        if isinstance(_id, Unset):
             id = UNSET
         else:
             id = UUID(_id)
 
-
-
-
         _inserted_at = d.pop("inserted_at", UNSET)
         inserted_at: datetime.datetime | Unset
-        if isinstance(_inserted_at,  Unset):
+        if isinstance(_inserted_at, Unset):
             inserted_at = UNSET
         else:
             inserted_at = isoparse(_inserted_at)
-
-
-
 
         name = d.pop("name", UNSET)
 
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
-
-
-
 
         project = cls(
             default=default,
@@ -137,7 +111,6 @@ class Project:
             name=name,
             updated_at=updated_at,
         )
-
 
         project.additional_properties = d
         return project

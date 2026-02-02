@@ -1,37 +1,29 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.sentinel_check_result_status import SentinelCheckResultStatus
 from ..types import UNSET, Unset
-
-
-
-
-
 
 T = TypeVar("T", bound="SentinelCheckResult")
 
 
-
 @_attrs_define
 class SentinelCheckResult:
-    """ The result of a single check within a sentinel run
+    """The result of a single check within a sentinel run
 
-        Attributes:
-            failed_count (int | Unset): Number of failed jobs
-            job_count (int | Unset): Total number of jobs spawned for this check
-            name (str | Unset): Name of the check that was executed
-            reason (str | Unset): Reason for failure if the check failed
-            status (SentinelCheckResultStatus | Unset): Status of this check (pending, success, failed)
-            successful_count (int | Unset): Number of successful jobs
-     """
+    Attributes:
+        failed_count (int | Unset): Number of failed jobs
+        job_count (int | Unset): Total number of jobs spawned for this check
+        name (str | Unset): Name of the check that was executed
+        reason (str | Unset): Reason for failure if the check failed
+        status (SentinelCheckResultStatus | Unset): Status of this check (pending, success, failed)
+        successful_count (int | Unset): Number of successful jobs
+    """
 
     failed_count: int | Unset = UNSET
     job_count: int | Unset = UNSET
@@ -40,10 +32,6 @@ class SentinelCheckResult:
     status: SentinelCheckResultStatus | Unset = UNSET
     successful_count: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         failed_count = self.failed_count
@@ -58,14 +46,11 @@ class SentinelCheckResult:
         if not isinstance(self.status, Unset):
             status = self.status.value
 
-
         successful_count = self.successful_count
-
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if failed_count is not UNSET:
             field_dict["failed_count"] = failed_count
         if job_count is not UNSET:
@@ -81,8 +66,6 @@ class SentinelCheckResult:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -96,13 +79,10 @@ class SentinelCheckResult:
 
         _status = d.pop("status", UNSET)
         status: SentinelCheckResultStatus | Unset
-        if isinstance(_status,  Unset):
+        if isinstance(_status, Unset):
             status = UNSET
         else:
             status = SentinelCheckResultStatus(_status)
-
-
-
 
         successful_count = d.pop("successful_count", UNSET)
 
@@ -114,7 +94,6 @@ class SentinelCheckResult:
             status=status,
             successful_count=successful_count,
         )
-
 
         sentinel_check_result.additional_properties = d
         return sentinel_check_result
