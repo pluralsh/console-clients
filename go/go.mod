@@ -1,4 +1,4 @@
-module github.com/pluralsh/rest-client
+module github.com/pluralsh/rest-clients/go
 
 go 1.21.13
 

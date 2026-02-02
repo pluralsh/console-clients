@@ -7,7 +7,7 @@ REST API clients for the Plural Console, generated from the [OpenAPI specificati
 ### Go
 
 - **Requirements:** Go 1.21+
-- **Package:** `github.com/pluralsh/rest-client`
+- **Package:** `github.com/pluralsh/rest-clients/go`
 - **Directory:** [go/](go/)
 - **Example:** [examples/go/](examples/go/)
 

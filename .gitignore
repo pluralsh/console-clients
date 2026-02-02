@@ -19,6 +19,7 @@ __pycache__/
 build/
 dist/
 env/
+examples/go/example
 node_modules/
 pip-wheel-metadata/
 venv/

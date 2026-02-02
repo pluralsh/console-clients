@@ -5,7 +5,7 @@ Go REST client for the [Plural Console](https://plural.sh) API. Generated from t
 ## Installation
 
 ```bash
-go get github.com/pluralsh/rest-client
+go get github.com/pluralsh/rest-clients/go
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/pluralsh/rest-client/client"
+	"github.com/pluralsh/rest-clients/go/client"
 )
 
 func main() {
