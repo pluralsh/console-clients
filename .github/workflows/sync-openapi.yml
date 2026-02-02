@@ -38,15 +38,50 @@ jobs:
         run: |
           mv openapi.new.json openapi.json
 
+      - name: Set up Go
+        if: steps.diff.outputs.changed == 'true'
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go/go.mod
+          cache-dependency-path: go/go.sum
+
+      - name: Set up Python
+        if: steps.diff.outputs.changed == 'true'
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install Python generator
+        if: steps.diff.outputs.changed == 'true'
+        run: pip install "openapi-python-client>=0.21.0"
+
+      - name: Set up Node
+        if: steps.diff.outputs.changed == 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+          cache: "yarn"
+          cache-dependency-path: typescript/yarn.lock
+
+      - name: Install TypeScript dependencies
+        if: steps.diff.outputs.changed == 'true'
+        run: yarn install --frozen-lockfile
+        working-directory: typescript
+
+      - name: Generate all clients
+        if: steps.diff.outputs.changed == 'true'
+        run: make generate
+
       - name: Create pull request
         id: pr
         if: steps.diff.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
-          title: "chore: OpenAPI spec sync"
+          title: "chore: OpenAPI spec sync and client regeneration"
           body: |
-            Automated pull request to sync OpenAPI spec from Plural Console repository.
-          commit-message: sync openapi.json from pluralsh/console
+            Automated pull request to sync OpenAPI spec from Plural Console repository
+            and regenerate all available clients.
+          commit-message: sync openapi.json and regenerate clients
           branch: sync-openapi
           base: main
 

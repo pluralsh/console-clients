@@ -25,7 +25,7 @@ REST API clients for the Plural Console, generated from the [OpenAPI specificati
 - **Directory:** [typescript/](typescript/)
 - **Example:** [examples/typescript/](examples/typescript/)
 
-### Generate Clients
+## Generate Clients
 
 Run from the repository root:
 
