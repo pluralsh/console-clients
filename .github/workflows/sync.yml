@@ -1,6 +1,6 @@
-# Sync OpenAPI spec from Plural Console repository.
+# Sync OpenAPI spec from Plural Console repository and regenerate all available clients.
 # Runs nightly and can be triggered manually.
-name: Sync OpenAPI spec
+name: Sync and regenerate clients
 
 on:
   schedule:
@@ -82,13 +82,11 @@ jobs:
             Automated pull request to sync OpenAPI spec from Plural Console repository
             and regenerate all available clients.
           commit-message: sync openapi.json and regenerate clients
-          branch: sync-openapi
+          branch: sync
           base: main
 
       - name: Enable pull request auto-merge
         if: steps.pr.outputs.pull-request-operation == 'created'
-        uses: peter-evans/enable-pull-request-automerge@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          pull-request-number: ${{ steps.pr.outputs.pull-request-number }}
-          merge-method: squash
+        run: gh pr merge --merge --auto "${{ steps.pr.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
