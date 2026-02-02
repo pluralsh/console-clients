@@ -1,47 +1,40 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.stack_input_type import StackInputType
 from ..types import UNSET, Unset
-from typing import cast
 
 if TYPE_CHECKING:
-  from ..models.git import Git
-  from ..models.tag import Tag
-
-
-
+    from ..models.git import Git
+    from ..models.tag import Tag
 
 
 T = TypeVar("T", bound="StackInput")
 
 
-
 @_attrs_define
 class StackInput:
-    """ An infrastructure stack input
+    """An infrastructure stack input
 
-        Attributes:
-            tags (list[Tag] | Unset):
-            approval (bool | Unset):
-            cluster_id (str | Unset):
-            git (Git | Unset): Git reference configuration
-            interval (str | Unset):
-            manage_state (bool | Unset):
-            name (str | Unset):
-            paused (bool | Unset):
-            project_id (str | Unset):
-            repository_id (str | Unset):
-            type_ (StackInputType | Unset):
-            workdir (str | Unset):
-     """
+    Attributes:
+        tags (list[Tag] | Unset):
+        approval (bool | Unset):
+        cluster_id (str | Unset):
+        git (Git | Unset): Git reference configuration
+        interval (str | Unset):
+        manage_state (bool | Unset):
+        name (str | Unset):
+        paused (bool | Unset):
+        project_id (str | Unset):
+        repository_id (str | Unset):
+        type_ (StackInputType | Unset):
+        workdir (str | Unset):
+    """
 
     tags: list[Tag] | Unset = UNSET
     approval: bool | Unset = UNSET
@@ -57,21 +50,13 @@ class StackInput:
     workdir: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.git import Git
-        from ..models.tag import Tag
         tags: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.tags, Unset):
             tags = []
             for tags_item_data in self.tags:
                 tags_item = tags_item_data.to_dict()
                 tags.append(tags_item)
-
-
 
         approval = self.approval
 
@@ -97,14 +82,11 @@ class StackInput:
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-
         workdir = self.workdir
-
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if tags is not UNSET:
             field_dict["tags"] = tags
         if approval is not UNSET:
@@ -132,12 +114,11 @@ class StackInput:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.git import Git
         from ..models.tag import Tag
+
         d = dict(src_dict)
         _tags = d.pop("tags", UNSET)
         tags: list[Tag] | Unset = UNSET
@@ -146,10 +127,7 @@ class StackInput:
             for tags_item_data in _tags:
                 tags_item = Tag.from_dict(tags_item_data)
 
-
-
                 tags.append(tags_item)
-
 
         approval = d.pop("approval", UNSET)
 
@@ -157,13 +135,10 @@ class StackInput:
 
         _git = d.pop("git", UNSET)
         git: Git | Unset
-        if isinstance(_git,  Unset):
+        if isinstance(_git, Unset):
             git = UNSET
         else:
             git = Git.from_dict(_git)
-
-
-
 
         interval = d.pop("interval", UNSET)
 
@@ -179,13 +154,10 @@ class StackInput:
 
         _type_ = d.pop("type", UNSET)
         type_: StackInputType | Unset
-        if isinstance(_type_,  Unset):
+        if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = StackInputType(_type_)
-
-
-
 
         workdir = d.pop("workdir", UNSET)
 
@@ -203,7 +175,6 @@ class StackInput:
             type_=type_,
             workdir=workdir,
         )
-
 
         stack_input.additional_properties = d
         return stack_input

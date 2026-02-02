@@ -1,4 +1,4 @@
-""" Contains all the data models used in inputs/outputs """
+"""Contains all the data models used in inputs/outputs"""
 
 from .access_token import AccessToken
 from .access_token_input import AccessTokenInput
@@ -46,7 +46,9 @@ from .console_open_apicd_helm_repository_list import ConsoleOpenAPICDHelmReposit
 from .console_open_apicd_pipeline_list import ConsoleOpenAPICDPipelineList
 from .console_open_apicd_service_list import ConsoleOpenAPICDServiceList
 from .console_open_apiscm_catalog_list import ConsoleOpenAPISCMCatalogList
-from .console_open_apiscm_connection_github_app import ConsoleOpenAPISCMConnectionGithubApp
+from .console_open_apiscm_connection_github_app import (
+    ConsoleOpenAPISCMConnectionGithubApp,
+)
 from .console_open_apiscm_connection_list import ConsoleOpenAPISCMConnectionList
 from .console_open_apiscm_pr_automation_list import ConsoleOpenAPISCMPrAutomationList
 from .console_open_apiscm_pull_request_list import ConsoleOpenAPISCMPullRequestList

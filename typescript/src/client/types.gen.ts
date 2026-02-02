@@ -3173,6 +3173,24 @@ export type ListProjectsResponses = {
 
 export type ListProjectsResponse = ListProjectsResponses[keyof ListProjectsResponses];
 
+export type GetProjectData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/v1/api/projects/{id}';
+};
+
+export type GetProjectResponses = {
+    /**
+     * no description
+     */
+    200: Project;
+};
+
+export type GetProjectResponse = GetProjectResponses[keyof GetProjectResponses];
+
 export type ListCatalogsData = {
     body?: never;
     path?: never;

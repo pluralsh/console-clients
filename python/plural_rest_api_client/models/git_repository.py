@@ -1,45 +1,36 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.git_repository_auth_method import GitRepositoryAuthMethod
 from ..models.git_repository_health import GitRepositoryHealth
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="GitRepository")
 
 
-
 @_attrs_define
 class GitRepository:
-    """ A git repository
+    """A git repository
 
-        Attributes:
-            auth_method (GitRepositoryAuthMethod | Unset):
-            error (str | Unset): The error message for the git repository's last pull attempt
-            health (GitRepositoryHealth | Unset):
-            https_path (str | Unset): The https url for this git repo if you need to customize it
-            id (str | Unset):
-            inserted_at (datetime.datetime | Unset):
-            pulled_at (datetime.datetime | Unset): The last successful git pull timestamp
-            updated_at (datetime.datetime | Unset):
-            url (str | Unset): The url of the git repository, can be either an https or ssh url
-            url_format (str | Unset): A format string to get the http url for a subfolder in a git repo
-     """
+    Attributes:
+        auth_method (GitRepositoryAuthMethod | Unset):
+        error (str | Unset): The error message for the git repository's last pull attempt
+        health (GitRepositoryHealth | Unset):
+        https_path (str | Unset): The https url for this git repo if you need to customize it
+        id (str | Unset):
+        inserted_at (datetime.datetime | Unset):
+        pulled_at (datetime.datetime | Unset): The last successful git pull timestamp
+        updated_at (datetime.datetime | Unset):
+        url (str | Unset): The url of the git repository, can be either an https or ssh url
+        url_format (str | Unset): A format string to get the http url for a subfolder in a git repo
+    """
 
     auth_method: GitRepositoryAuthMethod | Unset = UNSET
     error: str | Unset = UNSET
@@ -53,22 +44,16 @@ class GitRepository:
     url_format: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
         auth_method: str | Unset = UNSET
         if not isinstance(self.auth_method, Unset):
             auth_method = self.auth_method.value
-
 
         error = self.error
 
         health: str | Unset = UNSET
         if not isinstance(self.health, Unset):
             health = self.health.value
-
 
         https_path = self.https_path
 
@@ -90,11 +75,9 @@ class GitRepository:
 
         url_format = self.url_format
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if auth_method is not UNSET:
             field_dict["auth_method"] = auth_method
         if error is not UNSET:
@@ -118,32 +101,24 @@ class GitRepository:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _auth_method = d.pop("auth_method", UNSET)
         auth_method: GitRepositoryAuthMethod | Unset
-        if isinstance(_auth_method,  Unset):
+        if isinstance(_auth_method, Unset):
             auth_method = UNSET
         else:
             auth_method = GitRepositoryAuthMethod(_auth_method)
-
-
-
 
         error = d.pop("error", UNSET)
 
         _health = d.pop("health", UNSET)
         health: GitRepositoryHealth | Unset
-        if isinstance(_health,  Unset):
+        if isinstance(_health, Unset):
             health = UNSET
         else:
             health = GitRepositoryHealth(_health)
-
-
-
 
         https_path = d.pop("https_path", UNSET)
 
@@ -151,33 +126,24 @@ class GitRepository:
 
         _inserted_at = d.pop("inserted_at", UNSET)
         inserted_at: datetime.datetime | Unset
-        if isinstance(_inserted_at,  Unset):
+        if isinstance(_inserted_at, Unset):
             inserted_at = UNSET
         else:
             inserted_at = isoparse(_inserted_at)
 
-
-
-
         _pulled_at = d.pop("pulled_at", UNSET)
         pulled_at: datetime.datetime | Unset
-        if isinstance(_pulled_at,  Unset):
+        if isinstance(_pulled_at, Unset):
             pulled_at = UNSET
         else:
             pulled_at = isoparse(_pulled_at)
 
-
-
-
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
-
-
-
 
         url = d.pop("url", UNSET)
 
@@ -195,7 +161,6 @@ class GitRepository:
             url=url,
             url_format=url_format,
         )
-
 
         git_repository.additional_properties = d
         return git_repository

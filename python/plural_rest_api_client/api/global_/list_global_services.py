@@ -1,17 +1,14 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...models.console_open_apicd_global_service_list import ConsoleOpenAPICDGlobalServiceList
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...client import AuthenticatedClient, Client
+from ...models.console_open_apicd_global_service_list import (
+    ConsoleOpenAPICDGlobalServiceList,
+)
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -20,12 +17,7 @@ def _get_kwargs(
     q: str | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
-
     params: dict[str, Any] = {}
 
     params["project_id"] = project_id
@@ -36,9 +28,7 @@ def _get_kwargs(
 
     params["per_page"] = per_page
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -46,16 +36,14 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> ConsoleOpenAPICDGlobalServiceList | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> ConsoleOpenAPICDGlobalServiceList | None:
     if response.status_code == 200:
         response_200 = ConsoleOpenAPICDGlobalServiceList.from_dict(response.json())
-
-
 
         return response_200
 
@@ -65,7 +53,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[ConsoleOpenAPICDGlobalServiceList]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[ConsoleOpenAPICDGlobalServiceList]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -81,9 +71,8 @@ def sync_detailed(
     q: str | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> Response[ConsoleOpenAPICDGlobalServiceList]:
-    """ 
+    """
     Args:
         project_id (str | Unset):
         q (str | Unset):
@@ -96,15 +85,13 @@ def sync_detailed(
 
     Returns:
         Response[ConsoleOpenAPICDGlobalServiceList]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-q=q,
-page=page,
-per_page=per_page,
-
+        q=q,
+        page=page,
+        per_page=per_page,
     )
 
     response = client.get_httpx_client().request(
@@ -113,6 +100,7 @@ per_page=per_page,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
@@ -120,9 +108,8 @@ def sync(
     q: str | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> ConsoleOpenAPICDGlobalServiceList | None:
-    """ 
+    """
     Args:
         project_id (str | Unset):
         q (str | Unset):
@@ -135,17 +122,16 @@ def sync(
 
     Returns:
         ConsoleOpenAPICDGlobalServiceList
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-project_id=project_id,
-q=q,
-page=page,
-per_page=per_page,
-
+        project_id=project_id,
+        q=q,
+        page=page,
+        per_page=per_page,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
@@ -154,9 +140,8 @@ async def asyncio_detailed(
     q: str | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> Response[ConsoleOpenAPICDGlobalServiceList]:
-    """ 
+    """
     Args:
         project_id (str | Unset):
         q (str | Unset):
@@ -169,22 +154,19 @@ async def asyncio_detailed(
 
     Returns:
         Response[ConsoleOpenAPICDGlobalServiceList]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-q=q,
-page=page,
-per_page=per_page,
-
+        q=q,
+        page=page,
+        per_page=per_page,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
@@ -193,9 +175,8 @@ async def asyncio(
     q: str | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> ConsoleOpenAPICDGlobalServiceList | None:
-    """ 
+    """
     Args:
         project_id (str | Unset):
         q (str | Unset):
@@ -208,14 +189,14 @@ async def asyncio(
 
     Returns:
         ConsoleOpenAPICDGlobalServiceList
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-project_id=project_id,
-q=q,
-page=page,
-per_page=per_page,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            project_id=project_id,
+            q=q,
+            page=page,
+            per_page=per_page,
+        )
+    ).parsed

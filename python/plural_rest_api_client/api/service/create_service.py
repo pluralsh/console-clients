@@ -1,37 +1,27 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.service import Service
 from ...models.service_input import ServiceInput
-from typing import cast
-
+from ...types import UNSET, Response
 
 
 def _get_kwargs(
     *,
     body: ServiceInput,
     cluster_id: str,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
-
-
-    
 
     params: dict[str, Any] = {}
 
     params["cluster_id"] = cluster_id
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -41,19 +31,17 @@ def _get_kwargs(
 
     _kwargs["json"] = body.to_dict()
 
-
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Service | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Service | None:
     if response.status_code == 200:
         response_200 = Service.from_dict(response.json())
-
-
 
         return response_200
 
@@ -63,7 +51,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Service]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Service]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -77,9 +67,8 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     body: ServiceInput,
     cluster_id: str,
-
 ) -> Response[Service]:
-    """ 
+    """
     Args:
         cluster_id (str):
         body (ServiceInput): Input for creating or updating a service deployment
@@ -90,13 +79,11 @@ def sync_detailed(
 
     Returns:
         Response[Service]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-cluster_id=cluster_id,
-
+        cluster_id=cluster_id,
     )
 
     response = client.get_httpx_client().request(
@@ -105,14 +92,14 @@ cluster_id=cluster_id,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     body: ServiceInput,
     cluster_id: str,
-
 ) -> Service | None:
-    """ 
+    """
     Args:
         cluster_id (str):
         body (ServiceInput): Input for creating or updating a service deployment
@@ -123,24 +110,22 @@ def sync(
 
     Returns:
         Service
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-cluster_id=cluster_id,
-
+        body=body,
+        cluster_id=cluster_id,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: ServiceInput,
     cluster_id: str,
-
 ) -> Response[Service]:
-    """ 
+    """
     Args:
         cluster_id (str):
         body (ServiceInput): Input for creating or updating a service deployment
@@ -151,29 +136,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[Service]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-cluster_id=cluster_id,
-
+        cluster_id=cluster_id,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: ServiceInput,
     cluster_id: str,
-
 ) -> Service | None:
-    """ 
+    """
     Args:
         cluster_id (str):
         body (ServiceInput): Input for creating or updating a service deployment
@@ -184,12 +165,12 @@ async def asyncio(
 
     Returns:
         Service
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-cluster_id=cluster_id,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+            cluster_id=cluster_id,
+        )
+    ).parsed

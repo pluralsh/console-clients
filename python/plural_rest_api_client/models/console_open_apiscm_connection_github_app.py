@@ -1,59 +1,43 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="ConsoleOpenAPISCMConnectionGithubApp")
-
 
 
 @_attrs_define
 class ConsoleOpenAPISCMConnectionGithubApp:
-    """ A Github App connection
+    """A Github App connection
 
-        Attributes:
-            app_id (str | Unset): The Github App ID
-            installation_id (str | Unset): The Github App installation ID
-     """
+    Attributes:
+        app_id (str | Unset): The Github App ID
+        installation_id (str | Unset): The Github App installation ID
+    """
 
     app_id: str | Unset = UNSET
     installation_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         app_id = self.app_id
 
         installation_id = self.installation_id
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if app_id is not UNSET:
             field_dict["app_id"] = app_id
         if installation_id is not UNSET:
             field_dict["installation_id"] = installation_id
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -66,7 +50,6 @@ class ConsoleOpenAPISCMConnectionGithubApp:
             app_id=app_id,
             installation_id=installation_id,
         )
-
 
         console_open_apiscm_connection_github_app.additional_properties = d
         return console_open_apiscm_connection_github_app

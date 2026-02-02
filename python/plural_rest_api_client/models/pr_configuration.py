@@ -1,43 +1,36 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.pr_configuration_type import PrConfigurationType
 from ..types import UNSET, Unset
-from typing import cast
 
 if TYPE_CHECKING:
-  from ..models.pr_configuration_validation import PrConfigurationValidation
-
-
-
+    from ..models.pr_configuration_validation import PrConfigurationValidation
 
 
 T = TypeVar("T", bound="PrConfiguration")
 
 
-
 @_attrs_define
 class PrConfiguration:
-    """ A configuration field for a PR automation
+    """A configuration field for a PR automation
 
-        Attributes:
-            default (str | Unset): Default value for the configuration field
-            documentation (str | Unset): Documentation describing the configuration field
-            longform (str | Unset): Extended documentation for the configuration field
-            name (str | Unset): Name of the configuration field
-            optional (bool | Unset): Whether the configuration field is optional
-            placeholder (str | Unset): Placeholder text for the configuration field input
-            type_ (PrConfigurationType | Unset): Type of the configuration field (string, int, bool, domain, file, function,
-                enum, password)
-            validation (PrConfigurationValidation | Unset): Validation rules for a configuration field
-     """
+    Attributes:
+        default (str | Unset): Default value for the configuration field
+        documentation (str | Unset): Documentation describing the configuration field
+        longform (str | Unset): Extended documentation for the configuration field
+        name (str | Unset): Name of the configuration field
+        optional (bool | Unset): Whether the configuration field is optional
+        placeholder (str | Unset): Placeholder text for the configuration field input
+        type_ (PrConfigurationType | Unset): Type of the configuration field (string, int, bool, domain, file, function,
+            enum, password)
+        validation (PrConfigurationValidation | Unset): Validation rules for a configuration field
+    """
 
     default: str | Unset = UNSET
     documentation: str | Unset = UNSET
@@ -49,12 +42,7 @@ class PrConfiguration:
     validation: PrConfigurationValidation | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.pr_configuration_validation import PrConfigurationValidation
         default = self.default
 
         documentation = self.documentation
@@ -71,16 +59,13 @@ class PrConfiguration:
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-
         validation: dict[str, Any] | Unset = UNSET
         if not isinstance(self.validation, Unset):
             validation = self.validation.to_dict()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if default is not UNSET:
             field_dict["default"] = default
         if documentation is not UNSET:
@@ -100,11 +85,10 @@ class PrConfiguration:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.pr_configuration_validation import PrConfigurationValidation
+
         d = dict(src_dict)
         default = d.pop("default", UNSET)
 
@@ -120,23 +104,17 @@ class PrConfiguration:
 
         _type_ = d.pop("type", UNSET)
         type_: PrConfigurationType | Unset
-        if isinstance(_type_,  Unset):
+        if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = PrConfigurationType(_type_)
 
-
-
-
         _validation = d.pop("validation", UNSET)
         validation: PrConfigurationValidation | Unset
-        if isinstance(_validation,  Unset):
+        if isinstance(_validation, Unset):
             validation = UNSET
         else:
             validation = PrConfigurationValidation.from_dict(_validation)
-
-
-
 
         pr_configuration = cls(
             default=default,
@@ -148,7 +126,6 @@ class PrConfiguration:
             type_=type_,
             validation=validation,
         )
-
 
         pr_configuration.additional_properties = d
         return pr_configuration

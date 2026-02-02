@@ -1,46 +1,41 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.scm_connection_type import ScmConnectionType
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.console_open_apiscm_connection_github_app import ConsoleOpenAPISCMConnectionGithubApp
-
-
-
+    from ..models.console_open_apiscm_connection_github_app import (
+        ConsoleOpenAPISCMConnectionGithubApp,
+    )
 
 
 T = TypeVar("T", bound="ScmConnection")
 
 
-
 @_attrs_define
 class ScmConnection:
-    """ An SCM connection for integrating with source control providers
+    """An SCM connection for integrating with source control providers
 
-        Attributes:
-            name (str): The name of the SCM connection
-            type_ (ScmConnectionType):
-            api_url (str | Unset): Base URL for HTTP APIs for self-hosted versions if different from base URL
-            base_url (str | Unset): Base URL for self-hosted versions of this provider
-            default (bool | Unset): Whether this is the default SCM connection
-            github (ConsoleOpenAPISCMConnectionGithubApp | Unset): A Github App connection
-            id (str | Unset):
-            inserted_at (datetime.datetime | Unset):
-            updated_at (datetime.datetime | Unset):
-            username (str | Unset): The username for authentication
-     """
+    Attributes:
+        name (str): The name of the SCM connection
+        type_ (ScmConnectionType):
+        api_url (str | Unset): Base URL for HTTP APIs for self-hosted versions if different from base URL
+        base_url (str | Unset): Base URL for self-hosted versions of this provider
+        default (bool | Unset): Whether this is the default SCM connection
+        github (ConsoleOpenAPISCMConnectionGithubApp | Unset): A Github App connection
+        id (str | Unset):
+        inserted_at (datetime.datetime | Unset):
+        updated_at (datetime.datetime | Unset):
+        username (str | Unset): The username for authentication
+    """
 
     name: str
     type_: ScmConnectionType
@@ -54,12 +49,7 @@ class ScmConnection:
     username: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.console_open_apiscm_connection_github_app import ConsoleOpenAPISCMConnectionGithubApp
         name = self.name
 
         type_ = self.type_.value
@@ -86,13 +76,14 @@ class ScmConnection:
 
         username = self.username
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "name": name,
-            "type": type_,
-        })
+        field_dict.update(
+            {
+                "name": name,
+                "type": type_,
+            }
+        )
         if api_url is not UNSET:
             field_dict["api_url"] = api_url
         if base_url is not UNSET:
@@ -112,18 +103,16 @@ class ScmConnection:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.console_open_apiscm_connection_github_app import ConsoleOpenAPISCMConnectionGithubApp
+        from ..models.console_open_apiscm_connection_github_app import (
+            ConsoleOpenAPISCMConnectionGithubApp,
+        )
+
         d = dict(src_dict)
         name = d.pop("name")
 
         type_ = ScmConnectionType(d.pop("type"))
-
-
-
 
         api_url = d.pop("api_url", UNSET)
 
@@ -133,35 +122,26 @@ class ScmConnection:
 
         _github = d.pop("github", UNSET)
         github: ConsoleOpenAPISCMConnectionGithubApp | Unset
-        if isinstance(_github,  Unset):
+        if isinstance(_github, Unset):
             github = UNSET
         else:
             github = ConsoleOpenAPISCMConnectionGithubApp.from_dict(_github)
-
-
-
 
         id = d.pop("id", UNSET)
 
         _inserted_at = d.pop("inserted_at", UNSET)
         inserted_at: datetime.datetime | Unset
-        if isinstance(_inserted_at,  Unset):
+        if isinstance(_inserted_at, Unset):
             inserted_at = UNSET
         else:
             inserted_at = isoparse(_inserted_at)
 
-
-
-
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
-
-
-
 
         username = d.pop("username", UNSET)
 
@@ -177,7 +157,6 @@ class ScmConnection:
             updated_at=updated_at,
             username=username,
         )
-
 
         scm_connection.additional_properties = d
         return scm_connection

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class PipelineGateState(str, Enum):
     CLOSED = "closed"
     OPEN = "open"

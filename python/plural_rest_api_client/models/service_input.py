@@ -1,50 +1,43 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.git import Git
-  from ..models.helm_spec_input import HelmSpecInput
-  from ..models.kustomize_input import KustomizeInput
-  from ..models.service_configuration_input import ServiceConfigurationInput
-  from ..models.service_renderer_input import ServiceRendererInput
-  from ..models.service_source_input import ServiceSourceInput
-
-
-
+    from ..models.git import Git
+    from ..models.helm_spec_input import HelmSpecInput
+    from ..models.kustomize_input import KustomizeInput
+    from ..models.service_configuration_input import ServiceConfigurationInput
+    from ..models.service_renderer_input import ServiceRendererInput
+    from ..models.service_source_input import ServiceSourceInput
 
 
 T = TypeVar("T", bound="ServiceInput")
 
 
-
 @_attrs_define
 class ServiceInput:
-    """ Input for creating or updating a service deployment
+    """Input for creating or updating a service deployment
 
-        Attributes:
-            name (str): Desired name for the service
-            namespace (str): Target deployment namespace
-            configuration (list[ServiceConfigurationInput] | Unset): Configuration values to template into the service
-                manifests. You must pass the full list of configuration inputs
-            dry_run (bool | Unset): If true, does not actually apply any changes to the cluster
-            git (Git | Unset): Git reference configuration
-            helm (HelmSpecInput | Unset): Helm chart configuration input
-            kustomize (KustomizeInput | Unset): Kustomize configuration input
-            protect (bool | Unset): If true, marks the service as protected from accidental changes
-            renderers (list[ServiceRendererInput] | Unset): Custom renderers for processing service manifests
-            repository_id (str | Unset): ID of the backing repository for this service
-            sources (list[ServiceSourceInput] | Unset): Additional source repositories for this service
-     """
+    Attributes:
+        name (str): Desired name for the service
+        namespace (str): Target deployment namespace
+        configuration (list[ServiceConfigurationInput] | Unset): Configuration values to template into the service
+            manifests. You must pass the full list of configuration inputs
+        dry_run (bool | Unset): If true, does not actually apply any changes to the cluster
+        git (Git | Unset): Git reference configuration
+        helm (HelmSpecInput | Unset): Helm chart configuration input
+        kustomize (KustomizeInput | Unset): Kustomize configuration input
+        protect (bool | Unset): If true, marks the service as protected from accidental changes
+        renderers (list[ServiceRendererInput] | Unset): Custom renderers for processing service manifests
+        repository_id (str | Unset): ID of the backing repository for this service
+        sources (list[ServiceSourceInput] | Unset): Additional source repositories for this service
+    """
 
     name: str
     namespace: str
@@ -59,17 +52,7 @@ class ServiceInput:
     sources: list[ServiceSourceInput] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.helm_spec_input import HelmSpecInput
-        from ..models.kustomize_input import KustomizeInput
-        from ..models.service_renderer_input import ServiceRendererInput
-        from ..models.git import Git
-        from ..models.service_configuration_input import ServiceConfigurationInput
-        from ..models.service_source_input import ServiceSourceInput
         name = self.name
 
         namespace = self.namespace
@@ -80,8 +63,6 @@ class ServiceInput:
             for configuration_item_data in self.configuration:
                 configuration_item = configuration_item_data.to_dict()
                 configuration.append(configuration_item)
-
-
 
         dry_run = self.dry_run
 
@@ -106,8 +87,6 @@ class ServiceInput:
                 renderers_item = renderers_item_data.to_dict()
                 renderers.append(renderers_item)
 
-
-
         repository_id = self.repository_id
 
         sources: list[dict[str, Any]] | Unset = UNSET
@@ -117,15 +96,14 @@ class ServiceInput:
                 sources_item = sources_item_data.to_dict()
                 sources.append(sources_item)
 
-
-
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "name": name,
-            "namespace": namespace,
-        })
+        field_dict.update(
+            {
+                "name": name,
+                "namespace": namespace,
+            }
+        )
         if configuration is not UNSET:
             field_dict["configuration"] = configuration
         if dry_run is not UNSET:
@@ -147,8 +125,6 @@ class ServiceInput:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.git import Git
@@ -157,6 +133,7 @@ class ServiceInput:
         from ..models.service_configuration_input import ServiceConfigurationInput
         from ..models.service_renderer_input import ServiceRendererInput
         from ..models.service_source_input import ServiceSourceInput
+
         d = dict(src_dict)
         name = d.pop("name")
 
@@ -167,44 +144,34 @@ class ServiceInput:
         if _configuration is not UNSET:
             configuration = []
             for configuration_item_data in _configuration:
-                configuration_item = ServiceConfigurationInput.from_dict(configuration_item_data)
-
-
+                configuration_item = ServiceConfigurationInput.from_dict(
+                    configuration_item_data
+                )
 
                 configuration.append(configuration_item)
-
 
         dry_run = d.pop("dry_run", UNSET)
 
         _git = d.pop("git", UNSET)
         git: Git | Unset
-        if isinstance(_git,  Unset):
+        if isinstance(_git, Unset):
             git = UNSET
         else:
             git = Git.from_dict(_git)
 
-
-
-
         _helm = d.pop("helm", UNSET)
         helm: HelmSpecInput | Unset
-        if isinstance(_helm,  Unset):
+        if isinstance(_helm, Unset):
             helm = UNSET
         else:
             helm = HelmSpecInput.from_dict(_helm)
 
-
-
-
         _kustomize = d.pop("kustomize", UNSET)
         kustomize: KustomizeInput | Unset
-        if isinstance(_kustomize,  Unset):
+        if isinstance(_kustomize, Unset):
             kustomize = UNSET
         else:
             kustomize = KustomizeInput.from_dict(_kustomize)
-
-
-
 
         protect = d.pop("protect", UNSET)
 
@@ -215,10 +182,7 @@ class ServiceInput:
             for renderers_item_data in _renderers:
                 renderers_item = ServiceRendererInput.from_dict(renderers_item_data)
 
-
-
                 renderers.append(renderers_item)
-
 
         repository_id = d.pop("repository_id", UNSET)
 
@@ -229,10 +193,7 @@ class ServiceInput:
             for sources_item_data in _sources:
                 sources_item = ServiceSourceInput.from_dict(sources_item_data)
 
-
-
                 sources.append(sources_item)
-
 
         service_input = cls(
             name=name,
@@ -247,7 +208,6 @@ class ServiceInput:
             repository_id=repository_id,
             sources=sources,
         )
-
 
         service_input.additional_properties = d
         return service_input

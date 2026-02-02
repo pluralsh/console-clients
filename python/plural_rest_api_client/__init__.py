@@ -1,5 +1,5 @@
+"""A client library for accessing Plural REST API"""
 
-""" A client library for accessing Plural REST API """
 from .client import AuthenticatedClient, Client
 
 __all__ = (

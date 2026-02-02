@@ -1,38 +1,26 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.console_open_api_stack_list import ConsoleOpenAPIStackList
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
-
     params: dict[str, Any] = {}
 
     params["page"] = page
 
     params["per_page"] = per_page
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -40,16 +28,14 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> ConsoleOpenAPIStackList | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> ConsoleOpenAPIStackList | None:
     if response.status_code == 200:
         response_200 = ConsoleOpenAPIStackList.from_dict(response.json())
-
-
 
         return response_200
 
@@ -59,7 +45,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[ConsoleOpenAPIStackList]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[ConsoleOpenAPIStackList]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -73,9 +61,8 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> Response[ConsoleOpenAPIStackList]:
-    """ 
+    """
     Args:
         page (int | Unset):
         per_page (int | Unset):
@@ -86,13 +73,11 @@ def sync_detailed(
 
     Returns:
         Response[ConsoleOpenAPIStackList]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         page=page,
-per_page=per_page,
-
+        per_page=per_page,
     )
 
     response = client.get_httpx_client().request(
@@ -101,14 +86,14 @@ per_page=per_page,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> ConsoleOpenAPIStackList | None:
-    """ 
+    """
     Args:
         page (int | Unset):
         per_page (int | Unset):
@@ -119,24 +104,22 @@ def sync(
 
     Returns:
         ConsoleOpenAPIStackList
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-page=page,
-per_page=per_page,
-
+        page=page,
+        per_page=per_page,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> Response[ConsoleOpenAPIStackList]:
-    """ 
+    """
     Args:
         page (int | Unset):
         per_page (int | Unset):
@@ -147,29 +130,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[ConsoleOpenAPIStackList]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         page=page,
-per_page=per_page,
-
+        per_page=per_page,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
-
 ) -> ConsoleOpenAPIStackList | None:
-    """ 
+    """
     Args:
         page (int | Unset):
         per_page (int | Unset):
@@ -180,12 +159,12 @@ async def asyncio(
 
     Returns:
         ConsoleOpenAPIStackList
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-page=page,
-per_page=per_page,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            page=page,
+            per_page=per_page,
+        )
+    ).parsed

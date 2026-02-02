@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class GlobalServiceInputDistro(str, Enum):
     AKS = "aks"
     EKS = "eks"

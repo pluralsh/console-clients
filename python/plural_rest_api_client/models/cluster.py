@@ -1,65 +1,58 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.cluster_distro import ClusterDistro
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.cluster_metadata import ClusterMetadata
-  from ..models.tag import Tag
-
-
-
+    from ..models.cluster_metadata import ClusterMetadata
+    from ..models.tag import Tag
 
 
 T = TypeVar("T", bound="Cluster")
 
 
-
 @_attrs_define
 class Cluster:
-    """ A Kubernetes cluster that can be deployed to and managed through the platform
+    """A Kubernetes cluster that can be deployed to and managed through the platform
 
-        Attributes:
-            tags (list[Tag] | Unset): Key/value tags to filter and organize clusters
-            availability_zones (list[str] | Unset): The availability zones this cluster is running in
-            cpu_total (float | Unset): The total CPU capacity of the cluster in cores
-            cpu_util (float | Unset): The current CPU utilization of the cluster as a percentage
-            current_version (str | Unset): Current Kubernetes version as reported by the deployment operator
-            deleted_at (datetime.datetime | Unset): Timestamp when this cluster was scheduled for deletion
-            distro (ClusterDistro | Unset): The distribution of kubernetes this cluster is running (generic, eks, aks, gke,
-                rke, k3s, openshift)
-            handle (str | Unset): A short, unique human readable name used to identify this cluster
-            id (str | Unset): Unique identifier for the cluster
-            inserted_at (datetime.datetime | Unset):
-            installed (bool | Unset): Whether the deploy operator has been registered for this cluster
-            kubelet_version (str | Unset): The lowest discovered kubelet version for all nodes in the cluster
-            memory_total (float | Unset): The total memory capacity of the cluster in bytes
-            memory_util (float | Unset): The current memory utilization of the cluster as a percentage
-            metadata (ClusterMetadata | Unset): Arbitrary JSON metadata to store user-specific state of this cluster
-            name (str | Unset): Human readable name of this cluster, will also translate to cloud k8s name
-            namespace_count (int | Unset): The number of namespaces in this cluster
-            node_count (int | Unset): The number of nodes in this cluster
-            openshift_version (str | Unset): The version of OpenShift this cluster is running, if applicable
-            pinged_at (datetime.datetime | Unset): Timestamp of the last ping from the deploy operator
-            pod_count (int | Unset): The number of pods in this cluster
-            project_id (str | Unset): ID of the project this cluster belongs to
-            protect (bool | Unset): If true, this cluster cannot be deleted
-            self_ (bool | Unset): Whether this is the management cluster itself
-            updated_at (datetime.datetime | Unset):
-            version (str | Unset): Desired Kubernetes version for the cluster
-            virtual (bool | Unset): Whether this is a virtual cluster
-     """
+    Attributes:
+        tags (list[Tag] | Unset): Key/value tags to filter and organize clusters
+        availability_zones (list[str] | Unset): The availability zones this cluster is running in
+        cpu_total (float | Unset): The total CPU capacity of the cluster in cores
+        cpu_util (float | Unset): The current CPU utilization of the cluster as a percentage
+        current_version (str | Unset): Current Kubernetes version as reported by the deployment operator
+        deleted_at (datetime.datetime | Unset): Timestamp when this cluster was scheduled for deletion
+        distro (ClusterDistro | Unset): The distribution of kubernetes this cluster is running (generic, eks, aks, gke,
+            rke, k3s, openshift)
+        handle (str | Unset): A short, unique human readable name used to identify this cluster
+        id (str | Unset): Unique identifier for the cluster
+        inserted_at (datetime.datetime | Unset):
+        installed (bool | Unset): Whether the deploy operator has been registered for this cluster
+        kubelet_version (str | Unset): The lowest discovered kubelet version for all nodes in the cluster
+        memory_total (float | Unset): The total memory capacity of the cluster in bytes
+        memory_util (float | Unset): The current memory utilization of the cluster as a percentage
+        metadata (ClusterMetadata | Unset): Arbitrary JSON metadata to store user-specific state of this cluster
+        name (str | Unset): Human readable name of this cluster, will also translate to cloud k8s name
+        namespace_count (int | Unset): The number of namespaces in this cluster
+        node_count (int | Unset): The number of nodes in this cluster
+        openshift_version (str | Unset): The version of OpenShift this cluster is running, if applicable
+        pinged_at (datetime.datetime | Unset): Timestamp of the last ping from the deploy operator
+        pod_count (int | Unset): The number of pods in this cluster
+        project_id (str | Unset): ID of the project this cluster belongs to
+        protect (bool | Unset): If true, this cluster cannot be deleted
+        self_ (bool | Unset): Whether this is the management cluster itself
+        updated_at (datetime.datetime | Unset):
+        version (str | Unset): Desired Kubernetes version for the cluster
+        virtual (bool | Unset): Whether this is a virtual cluster
+    """
 
     tags: list[Tag] | Unset = UNSET
     availability_zones: list[str] | Unset = UNSET
@@ -90,13 +83,7 @@ class Cluster:
     virtual: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cluster_metadata import ClusterMetadata
-        from ..models.tag import Tag
         tags: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.tags, Unset):
             tags = []
@@ -104,13 +91,9 @@ class Cluster:
                 tags_item = tags_item_data.to_dict()
                 tags.append(tags_item)
 
-
-
         availability_zones: list[str] | Unset = UNSET
         if not isinstance(self.availability_zones, Unset):
             availability_zones = self.availability_zones
-
-
 
         cpu_total = self.cpu_total
 
@@ -125,7 +108,6 @@ class Cluster:
         distro: str | Unset = UNSET
         if not isinstance(self.distro, Unset):
             distro = self.distro.value
-
 
         handle = self.handle
 
@@ -175,11 +157,9 @@ class Cluster:
 
         virtual = self.virtual
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if tags is not UNSET:
             field_dict["tags"] = tags
         if availability_zones is not UNSET:
@@ -237,12 +217,11 @@ class Cluster:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.cluster_metadata import ClusterMetadata
         from ..models.tag import Tag
+
         d = dict(src_dict)
         _tags = d.pop("tags", UNSET)
         tags: list[Tag] | Unset = UNSET
@@ -251,13 +230,9 @@ class Cluster:
             for tags_item_data in _tags:
                 tags_item = Tag.from_dict(tags_item_data)
 
-
-
                 tags.append(tags_item)
 
-
         availability_zones = cast(list[str], d.pop("availability_zones", UNSET))
-
 
         cpu_total = d.pop("cpu_total", UNSET)
 
@@ -267,23 +242,17 @@ class Cluster:
 
         _deleted_at = d.pop("deleted_at", UNSET)
         deleted_at: datetime.datetime | Unset
-        if isinstance(_deleted_at,  Unset):
+        if isinstance(_deleted_at, Unset):
             deleted_at = UNSET
         else:
             deleted_at = isoparse(_deleted_at)
 
-
-
-
         _distro = d.pop("distro", UNSET)
         distro: ClusterDistro | Unset
-        if isinstance(_distro,  Unset):
+        if isinstance(_distro, Unset):
             distro = UNSET
         else:
             distro = ClusterDistro(_distro)
-
-
-
 
         handle = d.pop("handle", UNSET)
 
@@ -291,13 +260,10 @@ class Cluster:
 
         _inserted_at = d.pop("inserted_at", UNSET)
         inserted_at: datetime.datetime | Unset
-        if isinstance(_inserted_at,  Unset):
+        if isinstance(_inserted_at, Unset):
             inserted_at = UNSET
         else:
             inserted_at = isoparse(_inserted_at)
-
-
-
 
         installed = d.pop("installed", UNSET)
 
@@ -309,13 +275,10 @@ class Cluster:
 
         _metadata = d.pop("metadata", UNSET)
         metadata: ClusterMetadata | Unset
-        if isinstance(_metadata,  Unset):
+        if isinstance(_metadata, Unset):
             metadata = UNSET
         else:
             metadata = ClusterMetadata.from_dict(_metadata)
-
-
-
 
         name = d.pop("name", UNSET)
 
@@ -327,13 +290,10 @@ class Cluster:
 
         _pinged_at = d.pop("pinged_at", UNSET)
         pinged_at: datetime.datetime | Unset
-        if isinstance(_pinged_at,  Unset):
+        if isinstance(_pinged_at, Unset):
             pinged_at = UNSET
         else:
             pinged_at = isoparse(_pinged_at)
-
-
-
 
         pod_count = d.pop("pod_count", UNSET)
 
@@ -345,13 +305,10 @@ class Cluster:
 
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
-
-
-
 
         version = d.pop("version", UNSET)
 
@@ -386,7 +343,6 @@ class Cluster:
             version=version,
             virtual=virtual,
         )
-
 
         cluster.additional_properties = d
         return cluster

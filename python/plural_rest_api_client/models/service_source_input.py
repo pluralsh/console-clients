@@ -1,48 +1,36 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.git import Git
-
-
-
+    from ..models.git import Git
 
 
 T = TypeVar("T", bound="ServiceSourceInput")
 
 
-
 @_attrs_define
 class ServiceSourceInput:
-    """ Input for an additional source repository
+    """Input for an additional source repository
 
-        Attributes:
-            git (Git | Unset): Git reference configuration
-            path (str | Unset): Subdirectory path where this source will live in the final tarball
-            repository_id (str | Unset): ID of the git repository to source from
-     """
+    Attributes:
+        git (Git | Unset): Git reference configuration
+        path (str | Unset): Subdirectory path where this source will live in the final tarball
+        repository_id (str | Unset): ID of the git repository to source from
+    """
 
     git: Git | Unset = UNSET
     path: str | Unset = UNSET
     repository_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.git import Git
         git: dict[str, Any] | Unset = UNSET
         if not isinstance(self.git, Unset):
             git = self.git.to_dict()
@@ -51,11 +39,9 @@ class ServiceSourceInput:
 
         repository_id = self.repository_id
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if git is not UNSET:
             field_dict["git"] = git
         if path is not UNSET:
@@ -65,21 +51,17 @@ class ServiceSourceInput:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.git import Git
+
         d = dict(src_dict)
         _git = d.pop("git", UNSET)
         git: Git | Unset
-        if isinstance(_git,  Unset):
+        if isinstance(_git, Unset):
             git = UNSET
         else:
             git = Git.from_dict(_git)
-
-
-
 
         path = d.pop("path", UNSET)
 
@@ -90,7 +72,6 @@ class ServiceSourceInput:
             path=path,
             repository_id=repository_id,
         )
-
 
         service_source_input.additional_properties = d
         return service_source_input

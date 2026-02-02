@@ -1,49 +1,42 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-from ..types import UNSET, Unset
 from dateutil.parser import isoparse
-from typing import cast
-import datetime
+
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-  from ..models.git import Git
-  from ..models.helm_spec import HelmSpec
-  from ..models.kustomize import Kustomize
-
-
-
+    from ..models.git import Git
+    from ..models.helm_spec import HelmSpec
+    from ..models.kustomize import Kustomize
 
 
 T = TypeVar("T", bound="ServiceTemplate")
 
 
-
 @_attrs_define
 class ServiceTemplate:
-    """ A service template that defines how services are created from a global service
+    """A service template that defines how services are created from a global service
 
-        Attributes:
-            contexts (list[str] | Unset): List of service context names to include
-            git (Git | Unset): Git reference configuration
-            helm (HelmSpec | Unset): Helm chart configuration for a service
-            id (str | Unset): Unique identifier for the service template
-            inserted_at (datetime.datetime | Unset):
-            kustomize (Kustomize | Unset): Kustomize configuration for a service
-            name (str | Unset): Name of the service to be created from this template
-            namespace (str | Unset): Kubernetes namespace for the service
-            protect (bool | Unset): If true, prevents accidental deletion or modification of created services
-            repository_id (str | Unset): ID of the git repository backing this template
-            templated (bool | Unset): If true, the service configuration supports variable interpolation
-            updated_at (datetime.datetime | Unset):
-     """
+    Attributes:
+        contexts (list[str] | Unset): List of service context names to include
+        git (Git | Unset): Git reference configuration
+        helm (HelmSpec | Unset): Helm chart configuration for a service
+        id (str | Unset): Unique identifier for the service template
+        inserted_at (datetime.datetime | Unset):
+        kustomize (Kustomize | Unset): Kustomize configuration for a service
+        name (str | Unset): Name of the service to be created from this template
+        namespace (str | Unset): Kubernetes namespace for the service
+        protect (bool | Unset): If true, prevents accidental deletion or modification of created services
+        repository_id (str | Unset): ID of the git repository backing this template
+        templated (bool | Unset): If true, the service configuration supports variable interpolation
+        updated_at (datetime.datetime | Unset):
+    """
 
     contexts: list[str] | Unset = UNSET
     git: Git | Unset = UNSET
@@ -59,19 +52,10 @@ class ServiceTemplate:
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.git import Git
-        from ..models.kustomize import Kustomize
-        from ..models.helm_spec import HelmSpec
         contexts: list[str] | Unset = UNSET
         if not isinstance(self.contexts, Unset):
             contexts = self.contexts
-
-
 
         git: dict[str, Any] | Unset = UNSET
         if not isinstance(self.git, Unset):
@@ -105,11 +89,9 @@ class ServiceTemplate:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if contexts is not UNSET:
             field_dict["contexts"] = contexts
         if git is not UNSET:
@@ -137,58 +119,44 @@ class ServiceTemplate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.git import Git
         from ..models.helm_spec import HelmSpec
         from ..models.kustomize import Kustomize
+
         d = dict(src_dict)
         contexts = cast(list[str], d.pop("contexts", UNSET))
 
-
         _git = d.pop("git", UNSET)
         git: Git | Unset
-        if isinstance(_git,  Unset):
+        if isinstance(_git, Unset):
             git = UNSET
         else:
             git = Git.from_dict(_git)
 
-
-
-
         _helm = d.pop("helm", UNSET)
         helm: HelmSpec | Unset
-        if isinstance(_helm,  Unset):
+        if isinstance(_helm, Unset):
             helm = UNSET
         else:
             helm = HelmSpec.from_dict(_helm)
-
-
-
 
         id = d.pop("id", UNSET)
 
         _inserted_at = d.pop("inserted_at", UNSET)
         inserted_at: datetime.datetime | Unset
-        if isinstance(_inserted_at,  Unset):
+        if isinstance(_inserted_at, Unset):
             inserted_at = UNSET
         else:
             inserted_at = isoparse(_inserted_at)
 
-
-
-
         _kustomize = d.pop("kustomize", UNSET)
         kustomize: Kustomize | Unset
-        if isinstance(_kustomize,  Unset):
+        if isinstance(_kustomize, Unset):
             kustomize = UNSET
         else:
             kustomize = Kustomize.from_dict(_kustomize)
-
-
-
 
         name = d.pop("name", UNSET)
 
@@ -202,13 +170,10 @@ class ServiceTemplate:
 
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
-
-
-
 
         service_template = cls(
             contexts=contexts,
@@ -224,7 +189,6 @@ class ServiceTemplate:
             templated=templated,
             updated_at=updated_at,
         )
-
 
         service_template.additional_properties = d
         return service_template

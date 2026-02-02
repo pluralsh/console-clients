@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ServiceRendererInputType(str, Enum):
     AUTO = "auto"
     HELM = "helm"

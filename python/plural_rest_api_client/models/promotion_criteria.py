@@ -1,38 +1,29 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-from ..types import UNSET, Unset
 from dateutil.parser import isoparse
-from typing import cast
-import datetime
 
-
-
-
-
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="PromotionCriteria")
 
 
-
 @_attrs_define
 class PromotionCriteria:
-    """ Criteria for promoting a service to the next stage
+    """Criteria for promoting a service to the next stage
 
-        Attributes:
-            id (str | Unset): Unique identifier for the promotion criteria
-            inserted_at (datetime.datetime | Unset):
-            pr_automation_id (str | Unset): ID of the PR automation to trigger on promotion
-            repository (str | Unset): Repository to create PRs against for promotion
-            updated_at (datetime.datetime | Unset):
-     """
+    Attributes:
+        id (str | Unset): Unique identifier for the promotion criteria
+        inserted_at (datetime.datetime | Unset):
+        pr_automation_id (str | Unset): ID of the PR automation to trigger on promotion
+        repository (str | Unset): Repository to create PRs against for promotion
+        updated_at (datetime.datetime | Unset):
+    """
 
     id: str | Unset = UNSET
     inserted_at: datetime.datetime | Unset = UNSET
@@ -40,10 +31,6 @@ class PromotionCriteria:
     repository: str | Unset = UNSET
     updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
@@ -60,11 +47,9 @@ class PromotionCriteria:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
         if inserted_at is not UNSET:
@@ -78,8 +63,6 @@ class PromotionCriteria:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -87,13 +70,10 @@ class PromotionCriteria:
 
         _inserted_at = d.pop("inserted_at", UNSET)
         inserted_at: datetime.datetime | Unset
-        if isinstance(_inserted_at,  Unset):
+        if isinstance(_inserted_at, Unset):
             inserted_at = UNSET
         else:
             inserted_at = isoparse(_inserted_at)
-
-
-
 
         pr_automation_id = d.pop("pr_automation_id", UNSET)
 
@@ -101,13 +81,10 @@ class PromotionCriteria:
 
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: datetime.datetime | Unset
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
-
-
-
 
         promotion_criteria = cls(
             id=id,
@@ -116,7 +93,6 @@ class PromotionCriteria:
             repository=repository,
             updated_at=updated_at,
         )
-
 
         promotion_criteria.additional_properties = d
         return promotion_criteria
