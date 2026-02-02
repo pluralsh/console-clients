@@ -20,6 +20,8 @@ func main() {
 	opts := []client.ClientOption{}
 	if token != "" {
 		opts = append(opts, client.WithRequestEditorFn(func(_ context.Context, req *http.Request) error {
+			// Add the token to the request header.
+			// "Token {token}" is accepted when using access tokens.
 			req.Header.Set("Authorization", "Bearer "+token)
 			return nil
 		}))
