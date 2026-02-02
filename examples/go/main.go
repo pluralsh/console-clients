@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	client "github.com/pluralsh/console-client-go"
+	client "github.com/pluralsh/rest-client"
 )
 
 func main() {

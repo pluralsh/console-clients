@@ -1,11 +1,11 @@
-# console-client-go
+# rest-client
 
 Go REST client for the [Plural Console](https://plural.sh) API. Generated from the OpenAPI spec using [oapi-codegen](https://github.com/oapi-codegen/oapi-codegen).
 
 ## Installation
 
 ```bash
-go get github.com/pluralsh/console-client-go
+go get github.com/pluralsh/rest-client
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/pluralsh/console-client-go/client"
+	"github.com/pluralsh/rest-client/client"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module github.com/pluralsh/console-client-go
+module github.com/pluralsh/rest-client
 
 go 1.21.13
 
