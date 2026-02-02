@@ -53,8 +53,8 @@ class Pipeline:
 
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.pipeline_stage import PipelineStage
         from ..models.pipeline_edge import PipelineEdge
+        from ..models.pipeline_stage import PipelineStage
         edges: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.edges, Unset):
             edges = []

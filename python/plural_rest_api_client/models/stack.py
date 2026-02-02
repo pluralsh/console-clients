@@ -75,8 +75,8 @@ class Stack:
 
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.tag import Tag
         from ..models.git import Git
+        from ..models.tag import Tag
         tags: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.tags, Unset):
             tags = []

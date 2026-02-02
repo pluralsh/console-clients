@@ -5,6 +5,34 @@ export type ClientOptions = {
 };
 
 /**
+ * AccessToken
+ *
+ * An access token
+ */
+export type AccessToken = {
+    expires_at?: string;
+    id: string;
+    inserted_at: string;
+    last_used_at?: string;
+    scopes?: Array<ConsoleOpenApiAccessTokenScope>;
+    token: string;
+    updated_at?: string;
+};
+
+/**
+ * AccessTokenInput
+ *
+ * Input for creating a service account access token
+ */
+export type AccessTokenInput = {
+    /**
+     * Token TTL, e.g. 1h, 1d, 1w
+     */
+    expiry?: string;
+    scopes?: Array<ConsoleOpenApiAccessTokenScope>;
+};
+
+/**
  * AgentRun
  *
  * An execution of an AI coding agent processing a prompt against a repository
@@ -593,91 +621,113 @@ export type ClusterUpgradeStep = {
  * A paginated list of agent runs
  */
 export type ConsoleOpenApiAiAgentRunList = {
-    data?: Array<unknown>;
+    data?: Array<AgentRun>;
 };
 
 /**
  * A paginated list of agent runtimes
  */
 export type ConsoleOpenApiAiAgentRuntimeList = {
-    data?: Array<unknown>;
+    data?: Array<AgentRuntime>;
 };
 
 /**
  * A paginated list of agent sessions
  */
 export type ConsoleOpenApiAiAgentSessionList = {
-    data?: Array<unknown>;
+    data?: Array<AgentSession>;
 };
 
 /**
  * A paginated list of sentinels
  */
 export type ConsoleOpenApiAiSentinelList = {
-    data?: Array<unknown>;
+    data?: Array<Sentinel>;
 };
 
 /**
  * A paginated list of sentinel runs
  */
 export type ConsoleOpenApiAiSentinelRunList = {
-    data?: Array<unknown>;
+    data?: Array<SentinelRun>;
+};
+
+/**
+ * A scope entry for an access token
+ */
+export type ConsoleOpenApiAccessTokenScope = {
+    /**
+     * A single API name
+     */
+    api?: string;
+    /**
+     * API name
+     */
+    apis?: Array<string>;
+    /**
+     * Identifier for scoped access
+     */
+    identifier?: string;
+    /**
+     * Scoped resource ids
+     */
+    ids?: Array<string>;
 };
 
 /**
  * A paginated list of clusters
  */
 export type ConsoleOpenApiCdClusterList = {
-    data?: Array<unknown>;
+    data?: Array<Cluster>;
 };
 
 /**
  * A list of git repositories
  */
 export type ConsoleOpenApiCdGitRepositoryList = {
-    data?: Array<unknown>;
+    data?: Array<GitRepository>;
 };
 
 /**
  * A paginated list of global services
  */
 export type ConsoleOpenApiCdGlobalServiceList = {
-    data?: Array<unknown>;
+    data?: Array<GlobalService>;
 };
 
 /**
  * A list of helm repositories
  */
 export type ConsoleOpenApiCdHelmRepositoryList = {
-    data?: Array<unknown>;
+    data?: Array<HelmRepository>;
 };
 
 /**
  * A paginated list of pipelines
  */
 export type ConsoleOpenApiCdPipelineList = {
-    data?: Array<unknown>;
+    data?: Array<Pipeline>;
 };
 
 /**
  * A paginated list of service deployments
  */
 export type ConsoleOpenApiCdServiceList = {
-    data?: Array<unknown>;
+    data?: Array<Service>;
 };
 
 /**
  * A paginated list of projects
  */
 export type ConsoleOpenApiProjectList = {
-    data?: Array<unknown>;
+    data?: Array<Project>;
 };
 
 /**
  * A paginated list of catalogs
  */
 export type ConsoleOpenApiScmCatalogList = {
-    data?: Array<unknown>;
+    data?: Array<Catalog>;
 };
 
 /**
@@ -698,28 +748,35 @@ export type ConsoleOpenApiScmConnectionGithubApp = {
  * A list of SCM connections
  */
 export type ConsoleOpenApiScmConnectionList = {
-    data?: Array<unknown>;
+    data?: Array<ScmConnection>;
 };
 
 /**
  * A paginated list of PR automations
  */
 export type ConsoleOpenApiScmPrAutomationList = {
-    data?: Array<unknown>;
+    data?: Array<PrAutomation>;
 };
 
 /**
  * A paginated list of pull requests
  */
 export type ConsoleOpenApiScmPullRequestList = {
-    data?: Array<unknown>;
+    data?: Array<PullRequest>;
 };
 
 /**
  * A list of stacks
  */
 export type ConsoleOpenApiStackList = {
-    data?: Array<unknown>;
+    data?: Array<Stack>;
+};
+
+/**
+ * A list of users
+ */
+export type ConsoleOpenApiUserList = {
+    data?: Array<User>;
 };
 
 /**
@@ -3116,24 +3173,6 @@ export type ListProjectsResponses = {
 
 export type ListProjectsResponse = ListProjectsResponses[keyof ListProjectsResponses];
 
-export type GetProjectData = {
-    body?: never;
-    path: {
-        id: string;
-    };
-    query?: never;
-    url: '/v1/api/projects/{id}';
-};
-
-export type GetProjectResponses = {
-    /**
-     * no description
-     */
-    200: Project;
-};
-
-export type GetProjectResponse = GetProjectResponses[keyof GetProjectResponses];
-
 export type ListCatalogsData = {
     body?: never;
     path?: never;
@@ -3435,6 +3474,82 @@ export type GetPullRequestResponses = {
 };
 
 export type GetPullRequestResponse = GetPullRequestResponses[keyof GetPullRequestResponses];
+
+export type ListServiceAccountsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        q?: string;
+        page?: number;
+        per_page?: number;
+    };
+    url: '/v1/api/serviceaccounts';
+};
+
+export type ListServiceAccountsResponses = {
+    /**
+     * no description
+     */
+    200: ConsoleOpenApiUserList;
+};
+
+export type ListServiceAccountsResponse = ListServiceAccountsResponses[keyof ListServiceAccountsResponses];
+
+export type GetServiceAccountByEmailData = {
+    body?: never;
+    path: {
+        email: string;
+    };
+    query?: never;
+    url: '/v1/api/serviceaccounts/email/{email}';
+};
+
+export type GetServiceAccountByEmailResponses = {
+    /**
+     * no description
+     */
+    200: User;
+};
+
+export type GetServiceAccountByEmailResponse = GetServiceAccountByEmailResponses[keyof GetServiceAccountByEmailResponses];
+
+export type GetServiceAccountData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/v1/api/serviceaccounts/{id}';
+};
+
+export type GetServiceAccountResponses = {
+    /**
+     * no description
+     */
+    200: User;
+};
+
+export type GetServiceAccountResponse = GetServiceAccountResponses[keyof GetServiceAccountResponses];
+
+export type CreateServiceAccountAccessTokenData = {
+    body: AccessTokenInput;
+    path: {
+        id: string;
+    };
+    query?: {
+        refresh?: boolean;
+    };
+    url: '/v1/api/serviceaccounts/{id}/token';
+};
+
+export type CreateServiceAccountAccessTokenResponses = {
+    /**
+     * no description
+     */
+    200: AccessToken;
+};
+
+export type CreateServiceAccountAccessTokenResponse = CreateServiceAccountAccessTokenResponses[keyof CreateServiceAccountAccessTokenResponses];
 
 export type ListStacksData = {
     body?: never;

@@ -70,9 +70,9 @@ class GlobalService:
 
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.tag import Tag
         from ..models.cascade import Cascade
         from ..models.service_template import ServiceTemplate
+        from ..models.tag import Tag
         tags: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.tags, Unset):
             tags = []

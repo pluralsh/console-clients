@@ -8,35 +8,52 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
-from ...models.project import Project
+from ...models.access_token import AccessToken
+from ...models.access_token_input import AccessTokenInput
+from ...types import UNSET, Unset
 from typing import cast
-from uuid import UUID
 
 
 
 def _get_kwargs(
-    id: UUID,
+    id: str,
+    *,
+    body: AccessTokenInput,
+    refresh: bool | Unset = UNSET,
 
 ) -> dict[str, Any]:
-    
+    headers: dict[str, Any] = {}
+
 
     
 
-    
+    params: dict[str, Any] = {}
+
+    params["refresh"] = refresh
+
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
-        "method": "get",
-        "url": "/v1/api/projects/{id}".format(id=quote(str(id), safe=""),),
+        "method": "post",
+        "url": "/v1/api/serviceaccounts/{id}/token".format(id=quote(str(id), safe=""),),
+        "params": params,
     }
 
+    _kwargs["json"] = body.to_dict()
 
+
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
     return _kwargs
 
 
 
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Project | None:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> AccessToken | None:
     if response.status_code == 200:
-        response_200 = Project.from_dict(response.json())
+        response_200 = AccessToken.from_dict(response.json())
 
 
 
@@ -48,7 +65,7 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Project]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[AccessToken]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -58,29 +75,32 @@ def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 
 
 def sync_detailed(
-    id: UUID,
+    id: str,
     *,
     client: AuthenticatedClient | Client,
+    body: AccessTokenInput,
+    refresh: bool | Unset = UNSET,
 
-) -> Response[Project]:
-    """ Get a project by ID
-
-     Retrieves a single project by its unique identifier
-
+) -> Response[AccessToken]:
+    """ 
     Args:
-        id (UUID):
+        id (str):
+        refresh (bool | Unset):
+        body (AccessTokenInput): Input for creating a service account access token
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Project]
+        Response[AccessToken]
      """
 
 
     kwargs = _get_kwargs(
         id=id,
+body=body,
+refresh=refresh,
 
     )
 
@@ -91,57 +111,63 @@ def sync_detailed(
     return _build_response(client=client, response=response)
 
 def sync(
-    id: UUID,
+    id: str,
     *,
     client: AuthenticatedClient | Client,
+    body: AccessTokenInput,
+    refresh: bool | Unset = UNSET,
 
-) -> Project | None:
-    """ Get a project by ID
-
-     Retrieves a single project by its unique identifier
-
+) -> AccessToken | None:
+    """ 
     Args:
-        id (UUID):
+        id (str):
+        refresh (bool | Unset):
+        body (AccessTokenInput): Input for creating a service account access token
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Project
+        AccessToken
      """
 
 
     return sync_detailed(
         id=id,
 client=client,
+body=body,
+refresh=refresh,
 
     ).parsed
 
 async def asyncio_detailed(
-    id: UUID,
+    id: str,
     *,
     client: AuthenticatedClient | Client,
+    body: AccessTokenInput,
+    refresh: bool | Unset = UNSET,
 
-) -> Response[Project]:
-    """ Get a project by ID
-
-     Retrieves a single project by its unique identifier
-
+) -> Response[AccessToken]:
+    """ 
     Args:
-        id (UUID):
+        id (str):
+        refresh (bool | Unset):
+        body (AccessTokenInput): Input for creating a service account access token
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Project]
+        Response[AccessToken]
      """
 
 
     kwargs = _get_kwargs(
         id=id,
+body=body,
+refresh=refresh,
 
     )
 
@@ -152,29 +178,32 @@ async def asyncio_detailed(
     return _build_response(client=client, response=response)
 
 async def asyncio(
-    id: UUID,
+    id: str,
     *,
     client: AuthenticatedClient | Client,
+    body: AccessTokenInput,
+    refresh: bool | Unset = UNSET,
 
-) -> Project | None:
-    """ Get a project by ID
-
-     Retrieves a single project by its unique identifier
-
+) -> AccessToken | None:
+    """ 
     Args:
-        id (UUID):
+        id (str):
+        refresh (bool | Unset):
+        body (AccessTokenInput): Input for creating a service account access token
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Project
+        AccessToken
      """
 
 
     return (await asyncio_detailed(
         id=id,
 client=client,
+body=body,
+refresh=refresh,
 
     )).parsed

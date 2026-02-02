@@ -4,8 +4,8 @@ import { type DefaultError, type InfiniteData, infiniteQueryOptions, queryOption
 import type { AxiosError } from 'axios';
 
 import { client } from '../client.gen.js';
-import { createAgentRun, createAgentSession, createCluster, createClusterUpgrade, createGitRepository, createGlobalService, createScmConnection, createService, createStack, deleteCatalog, deleteCluster, deleteGitRepository, deleteGlobalService, deleteScmConnection, deleteService, deleteStack, getAgentRun, getAgentRuntime, getAgentSession, getCatalog, getCluster, getClusterUpgrade, getGitRepository, getGitRepositoryByUrl, getGlobalService, getHelmRepository, getHelmRepositoryByUrl, getPipeline, getPrAutomation, getProject, getPullRequest, getScmConnection, getSentinel, getSentinelRun, getService, getStack, invokePrAutomation, listAgentRuns, listAgentRuntimes, listAgentSessions, listCatalogs, listClusters, listGitRepositories, listGlobalServices, listHelmRepositories, listPipelines, listPrAutomations, listPrAutomationsForCatalog, listProjects, listPullRequests, listScmConnections, listSentinelRuns, listSentinels, listServices, listStacks, me, type Options, restoreStack, resyncStack, syncGlobalService, triggerPipeline, triggerSentinel, triggerStackRun, updateCatalog, updateCluster, updateGitRepository, updateGlobalService, updateScmConnection, updateService, updateStack, upsertCatalog, upsertHelmRepository } from '../sdk.gen.js';
-import type { CreateAgentRunData, CreateAgentRunResponse, CreateAgentSessionData, CreateAgentSessionResponse, CreateClusterData, CreateClusterResponse, CreateClusterUpgradeData, CreateClusterUpgradeResponse, CreateGitRepositoryData, CreateGitRepositoryResponse, CreateGlobalServiceData, CreateGlobalServiceResponse, CreateScmConnectionData, CreateScmConnectionResponse, CreateServiceData, CreateServiceResponse, CreateStackData, CreateStackResponse, DeleteCatalogData, DeleteCatalogResponse, DeleteClusterData, DeleteClusterResponse, DeleteGitRepositoryData, DeleteGitRepositoryResponse, DeleteGlobalServiceData, DeleteGlobalServiceResponse, DeleteScmConnectionData, DeleteScmConnectionResponse, DeleteServiceData, DeleteServiceResponse, DeleteStackData, DeleteStackResponse, GetAgentRunData, GetAgentRunResponse, GetAgentRuntimeData, GetAgentRuntimeResponse, GetAgentSessionData, GetAgentSessionResponse, GetCatalogData, GetCatalogResponse, GetClusterData, GetClusterResponse, GetClusterUpgradeData, GetClusterUpgradeResponse, GetGitRepositoryByUrlData, GetGitRepositoryByUrlResponse, GetGitRepositoryData, GetGitRepositoryResponse, GetGlobalServiceData, GetGlobalServiceResponse, GetHelmRepositoryByUrlData, GetHelmRepositoryByUrlResponse, GetHelmRepositoryData, GetHelmRepositoryResponse, GetPipelineData, GetPipelineResponse, GetPrAutomationData, GetPrAutomationResponse, GetProjectData, GetProjectResponse, GetPullRequestData, GetPullRequestResponse, GetScmConnectionData, GetScmConnectionResponse, GetSentinelData, GetSentinelResponse, GetSentinelRunData, GetSentinelRunResponse, GetServiceData, GetServiceResponse, GetStackData, GetStackResponse, InvokePrAutomationData, InvokePrAutomationResponse, ListAgentRunsData, ListAgentRunsResponse, ListAgentRuntimesData, ListAgentRuntimesResponse, ListAgentSessionsData, ListAgentSessionsResponse, ListCatalogsData, ListCatalogsResponse, ListClustersData, ListClustersResponse, ListGitRepositoriesData, ListGitRepositoriesResponse, ListGlobalServicesData, ListGlobalServicesResponse, ListHelmRepositoriesData, ListHelmRepositoriesResponse, ListPipelinesData, ListPipelinesResponse, ListPrAutomationsData, ListPrAutomationsForCatalogData, ListPrAutomationsForCatalogResponse, ListPrAutomationsResponse, ListProjectsData, ListProjectsResponse, ListPullRequestsData, ListPullRequestsResponse, ListScmConnectionsData, ListScmConnectionsResponse, ListSentinelRunsData, ListSentinelRunsResponse, ListSentinelsData, ListSentinelsResponse, ListServicesData, ListServicesResponse, ListStacksData, ListStacksResponse, MeData, MeResponse, RestoreStackData, RestoreStackResponse, ResyncStackData, ResyncStackResponse, SyncGlobalServiceData, SyncGlobalServiceResponse, TriggerPipelineData, TriggerPipelineResponse, TriggerSentinelData, TriggerSentinelResponse, TriggerStackRunData, TriggerStackRunResponse, UpdateCatalogData, UpdateCatalogResponse, UpdateClusterData, UpdateClusterResponse, UpdateGitRepositoryData, UpdateGitRepositoryResponse, UpdateGlobalServiceData, UpdateGlobalServiceResponse, UpdateScmConnectionData, UpdateScmConnectionResponse, UpdateServiceData, UpdateServiceResponse, UpdateStackData, UpdateStackResponse, UpsertCatalogData, UpsertCatalogResponse, UpsertHelmRepositoryData, UpsertHelmRepositoryResponse } from '../types.gen.js';
+import { createAgentRun, createAgentSession, createCluster, createClusterUpgrade, createGitRepository, createGlobalService, createScmConnection, createService, createServiceAccountAccessToken, createStack, deleteCatalog, deleteCluster, deleteGitRepository, deleteGlobalService, deleteScmConnection, deleteService, deleteStack, getAgentRun, getAgentRuntime, getAgentSession, getCatalog, getCluster, getClusterUpgrade, getGitRepository, getGitRepositoryByUrl, getGlobalService, getHelmRepository, getHelmRepositoryByUrl, getPipeline, getPrAutomation, getPullRequest, getScmConnection, getSentinel, getSentinelRun, getService, getServiceAccount, getServiceAccountByEmail, getStack, invokePrAutomation, listAgentRuns, listAgentRuntimes, listAgentSessions, listCatalogs, listClusters, listGitRepositories, listGlobalServices, listHelmRepositories, listPipelines, listPrAutomations, listPrAutomationsForCatalog, listProjects, listPullRequests, listScmConnections, listSentinelRuns, listSentinels, listServiceAccounts, listServices, listStacks, me, type Options, restoreStack, resyncStack, syncGlobalService, triggerPipeline, triggerSentinel, triggerStackRun, updateCatalog, updateCluster, updateGitRepository, updateGlobalService, updateScmConnection, updateService, updateStack, upsertCatalog, upsertHelmRepository } from '../sdk.gen.js';
+import type { CreateAgentRunData, CreateAgentRunResponse, CreateAgentSessionData, CreateAgentSessionResponse, CreateClusterData, CreateClusterResponse, CreateClusterUpgradeData, CreateClusterUpgradeResponse, CreateGitRepositoryData, CreateGitRepositoryResponse, CreateGlobalServiceData, CreateGlobalServiceResponse, CreateScmConnectionData, CreateScmConnectionResponse, CreateServiceAccountAccessTokenData, CreateServiceAccountAccessTokenResponse, CreateServiceData, CreateServiceResponse, CreateStackData, CreateStackResponse, DeleteCatalogData, DeleteCatalogResponse, DeleteClusterData, DeleteClusterResponse, DeleteGitRepositoryData, DeleteGitRepositoryResponse, DeleteGlobalServiceData, DeleteGlobalServiceResponse, DeleteScmConnectionData, DeleteScmConnectionResponse, DeleteServiceData, DeleteServiceResponse, DeleteStackData, DeleteStackResponse, GetAgentRunData, GetAgentRunResponse, GetAgentRuntimeData, GetAgentRuntimeResponse, GetAgentSessionData, GetAgentSessionResponse, GetCatalogData, GetCatalogResponse, GetClusterData, GetClusterResponse, GetClusterUpgradeData, GetClusterUpgradeResponse, GetGitRepositoryByUrlData, GetGitRepositoryByUrlResponse, GetGitRepositoryData, GetGitRepositoryResponse, GetGlobalServiceData, GetGlobalServiceResponse, GetHelmRepositoryByUrlData, GetHelmRepositoryByUrlResponse, GetHelmRepositoryData, GetHelmRepositoryResponse, GetPipelineData, GetPipelineResponse, GetPrAutomationData, GetPrAutomationResponse, GetPullRequestData, GetPullRequestResponse, GetScmConnectionData, GetScmConnectionResponse, GetSentinelData, GetSentinelResponse, GetSentinelRunData, GetSentinelRunResponse, GetServiceAccountByEmailData, GetServiceAccountByEmailResponse, GetServiceAccountData, GetServiceAccountResponse, GetServiceData, GetServiceResponse, GetStackData, GetStackResponse, InvokePrAutomationData, InvokePrAutomationResponse, ListAgentRunsData, ListAgentRunsResponse, ListAgentRuntimesData, ListAgentRuntimesResponse, ListAgentSessionsData, ListAgentSessionsResponse, ListCatalogsData, ListCatalogsResponse, ListClustersData, ListClustersResponse, ListGitRepositoriesData, ListGitRepositoriesResponse, ListGlobalServicesData, ListGlobalServicesResponse, ListHelmRepositoriesData, ListHelmRepositoriesResponse, ListPipelinesData, ListPipelinesResponse, ListPrAutomationsData, ListPrAutomationsForCatalogData, ListPrAutomationsForCatalogResponse, ListPrAutomationsResponse, ListProjectsData, ListProjectsResponse, ListPullRequestsData, ListPullRequestsResponse, ListScmConnectionsData, ListScmConnectionsResponse, ListSentinelRunsData, ListSentinelRunsResponse, ListSentinelsData, ListSentinelsResponse, ListServiceAccountsData, ListServiceAccountsResponse, ListServicesData, ListServicesResponse, ListStacksData, ListStacksResponse, MeData, MeResponse, RestoreStackData, RestoreStackResponse, ResyncStackData, ResyncStackResponse, SyncGlobalServiceData, SyncGlobalServiceResponse, TriggerPipelineData, TriggerPipelineResponse, TriggerSentinelData, TriggerSentinelResponse, TriggerStackRunData, TriggerStackRunResponse, UpdateCatalogData, UpdateCatalogResponse, UpdateClusterData, UpdateClusterResponse, UpdateGitRepositoryData, UpdateGitRepositoryResponse, UpdateGlobalServiceData, UpdateGlobalServiceResponse, UpdateScmConnectionData, UpdateScmConnectionResponse, UpdateServiceData, UpdateServiceResponse, UpdateStackData, UpdateStackResponse, UpsertCatalogData, UpsertCatalogResponse, UpsertHelmRepositoryData, UpsertHelmRepositoryResponse } from '../types.gen.js';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseURL' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -1058,26 +1058,6 @@ export const listProjectsInfiniteOptions = (options?: Options<ListProjectsData>)
     queryKey: listProjectsInfiniteQueryKey(options)
 });
 
-export const getProjectQueryKey = (options: Options<GetProjectData>) => createQueryKey('getProject', options);
-
-/**
- * Get a project by ID
- *
- * Retrieves a single project by its unique identifier
- */
-export const getProjectOptions = (options: Options<GetProjectData>) => queryOptions<GetProjectResponse, AxiosError<DefaultError>, GetProjectResponse, ReturnType<typeof getProjectQueryKey>>({
-    queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getProject({
-            ...options,
-            ...queryKey[0],
-            signal,
-            throwOnError: true
-        });
-        return data;
-    },
-    queryKey: getProjectQueryKey(options)
-});
-
 export const listCatalogsQueryKey = (options?: Options<ListCatalogsData>) => createQueryKey('listCatalogs', options);
 
 export const listCatalogsOptions = (options?: Options<ListCatalogsData>) => queryOptions<ListCatalogsResponse, AxiosError<DefaultError>, ListCatalogsResponse, ReturnType<typeof listCatalogsQueryKey>>({
@@ -1430,6 +1410,89 @@ export const getPullRequestOptions = (options: Options<GetPullRequestData>) => q
     },
     queryKey: getPullRequestQueryKey(options)
 });
+
+export const listServiceAccountsQueryKey = (options?: Options<ListServiceAccountsData>) => createQueryKey('listServiceAccounts', options);
+
+export const listServiceAccountsOptions = (options?: Options<ListServiceAccountsData>) => queryOptions<ListServiceAccountsResponse, AxiosError<DefaultError>, ListServiceAccountsResponse, ReturnType<typeof listServiceAccountsQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await listServiceAccounts({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: listServiceAccountsQueryKey(options)
+});
+
+export const listServiceAccountsInfiniteQueryKey = (options?: Options<ListServiceAccountsData>): QueryKey<Options<ListServiceAccountsData>> => createQueryKey('listServiceAccounts', options, true);
+
+export const listServiceAccountsInfiniteOptions = (options?: Options<ListServiceAccountsData>) => infiniteQueryOptions<ListServiceAccountsResponse, AxiosError<DefaultError>, InfiniteData<ListServiceAccountsResponse>, QueryKey<Options<ListServiceAccountsData>>, number | Pick<QueryKey<Options<ListServiceAccountsData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+// @ts-ignore
+{
+    queryFn: async ({ pageParam, queryKey, signal }) => {
+        // @ts-ignore
+        const page: Pick<QueryKey<Options<ListServiceAccountsData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+            query: {
+                page: pageParam
+            }
+        };
+        const params = createInfiniteParams(queryKey, page);
+        const { data } = await listServiceAccounts({
+            ...options,
+            ...params,
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: listServiceAccountsInfiniteQueryKey(options)
+});
+
+export const getServiceAccountByEmailQueryKey = (options: Options<GetServiceAccountByEmailData>) => createQueryKey('getServiceAccountByEmail', options);
+
+export const getServiceAccountByEmailOptions = (options: Options<GetServiceAccountByEmailData>) => queryOptions<GetServiceAccountByEmailResponse, AxiosError<DefaultError>, GetServiceAccountByEmailResponse, ReturnType<typeof getServiceAccountByEmailQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getServiceAccountByEmail({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getServiceAccountByEmailQueryKey(options)
+});
+
+export const getServiceAccountQueryKey = (options: Options<GetServiceAccountData>) => createQueryKey('getServiceAccount', options);
+
+export const getServiceAccountOptions = (options: Options<GetServiceAccountData>) => queryOptions<GetServiceAccountResponse, AxiosError<DefaultError>, GetServiceAccountResponse, ReturnType<typeof getServiceAccountQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getServiceAccount({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getServiceAccountQueryKey(options)
+});
+
+export const createServiceAccountAccessTokenMutation = (options?: Partial<Options<CreateServiceAccountAccessTokenData>>): UseMutationOptions<CreateServiceAccountAccessTokenResponse, AxiosError<DefaultError>, Options<CreateServiceAccountAccessTokenData>> => {
+    const mutationOptions: UseMutationOptions<CreateServiceAccountAccessTokenResponse, AxiosError<DefaultError>, Options<CreateServiceAccountAccessTokenData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await createServiceAccountAccessToken({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
 
 export const listStacksQueryKey = (options?: Options<ListStacksData>) => createQueryKey('listStacks', options);
 

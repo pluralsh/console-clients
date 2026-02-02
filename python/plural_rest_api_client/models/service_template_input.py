@@ -56,9 +56,9 @@ class ServiceTemplateInput:
 
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.helm_spec_input import HelmSpecInput
         from ..models.git import Git
         from ..models.kustomize_input import KustomizeInput
-        from ..models.helm_spec_input import HelmSpecInput
         name = self.name
 
         namespace = self.namespace

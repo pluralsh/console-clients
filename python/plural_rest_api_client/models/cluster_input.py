@@ -47,8 +47,8 @@ class ClusterInput:
 
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cluster_input_metadata import ClusterInputMetadata
         from ..models.tag_input import TagInput
+        from ..models.cluster_input_metadata import ClusterInputMetadata
         tags: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.tags, Unset):
             tags = []

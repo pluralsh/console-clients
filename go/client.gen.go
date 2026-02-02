@@ -355,6 +355,24 @@ const (
 	Outdated  ListClustersParamsCompliance = "outdated"
 )
 
+// AccessToken An access token
+type AccessToken struct {
+	ExpiresAt  *time.Time                        `json:"expires_at,omitempty"`
+	Id         string                            `json:"id"`
+	InsertedAt time.Time                         `json:"inserted_at"`
+	LastUsedAt *time.Time                        `json:"last_used_at,omitempty"`
+	Scopes     *[]ConsoleOpenAPIAccessTokenScope `json:"scopes,omitempty"`
+	Token      string                            `json:"token"`
+	UpdatedAt  *time.Time                        `json:"updated_at,omitempty"`
+}
+
+// AccessTokenInput Input for creating a service account access token
+type AccessTokenInput struct {
+	// Expiry Token TTL, e.g. 1h, 1d, 1w
+	Expiry *string                           `json:"expiry,omitempty"`
+	Scopes *[]ConsoleOpenAPIAccessTokenScope `json:"scopes,omitempty"`
+}
+
 // AgentRun An execution of an AI coding agent processing a prompt against a repository
 type AgentRun struct {
 	// Branch The git branch the agent is operating on (uses default branch if not set)
@@ -814,6 +832,21 @@ type ConsoleOpenAPIAISentinelRunList struct {
 	Data *[]SentinelRun `json:"data,omitempty"`
 }
 
+// ConsoleOpenAPIAccessTokenScope A scope entry for an access token
+type ConsoleOpenAPIAccessTokenScope struct {
+	// Api A single API name
+	Api *string `json:"api,omitempty"`
+
+	// Apis API name
+	Apis *[]string `json:"apis,omitempty"`
+
+	// Identifier Identifier for scoped access
+	Identifier *string `json:"identifier,omitempty"`
+
+	// Ids Scoped resource ids
+	Ids *[]string `json:"ids,omitempty"`
+}
+
 // ConsoleOpenAPICDClusterList A paginated list of clusters
 type ConsoleOpenAPICDClusterList struct {
 	Data *[]Cluster `json:"data,omitempty"`
@@ -881,6 +914,11 @@ type ConsoleOpenAPISCMPullRequestList struct {
 // ConsoleOpenAPIStackList A list of stacks
 type ConsoleOpenAPIStackList struct {
 	Data *[]Stack `json:"data,omitempty"`
+}
+
+// ConsoleOpenAPIUserList A list of users
+type ConsoleOpenAPIUserList struct {
+	Data *[]User `json:"data,omitempty"`
 }
 
 // ConsoleOpenAPIUserRoles The roles of the user
@@ -2223,6 +2261,18 @@ type ListPullRequestsParams struct {
 	PerPage   *int    `form:"per_page,omitempty" json:"per_page,omitempty"`
 }
 
+// ListServiceAccountsParams defines parameters for ListServiceAccounts.
+type ListServiceAccountsParams struct {
+	Q       *string `form:"q,omitempty" json:"q,omitempty"`
+	Page    *int    `form:"page,omitempty" json:"page,omitempty"`
+	PerPage *int    `form:"per_page,omitempty" json:"per_page,omitempty"`
+}
+
+// CreateServiceAccountAccessTokenParams defines parameters for CreateServiceAccountAccessToken.
+type CreateServiceAccountAccessTokenParams struct {
+	Refresh *bool `form:"refresh,omitempty" json:"refresh,omitempty"`
+}
+
 // ListStacksParams defines parameters for ListStacks.
 type ListStacksParams struct {
 	Page    *int `form:"page,omitempty" json:"page,omitempty"`
@@ -2287,6 +2337,9 @@ type UpdateScmConnectionJSONRequestBody = ScmConnectionInput
 
 // InvokePrAutomationJSONRequestBody defines body for InvokePrAutomation for application/json ContentType.
 type InvokePrAutomationJSONRequestBody = CreatePullRequestInput
+
+// CreateServiceAccountAccessTokenJSONRequestBody defines body for CreateServiceAccountAccessToken for application/json ContentType.
+type CreateServiceAccountAccessTokenJSONRequestBody = AccessTokenInput
 
 // CreateStackJSONRequestBody defines body for CreateStack for application/json ContentType.
 type CreateStackJSONRequestBody = StackInput
@@ -2531,9 +2584,6 @@ type ClientInterface interface {
 	// ListProjects request
 	ListProjects(ctx context.Context, params *ListProjectsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// GetProject request
-	GetProject(ctx context.Context, id openapi_types.UUID, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// ListCatalogs request
 	ListCatalogs(ctx context.Context, params *ListCatalogsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -2591,6 +2641,20 @@ type ClientInterface interface {
 
 	// GetPullRequest request
 	GetPullRequest(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListServiceAccounts request
+	ListServiceAccounts(ctx context.Context, params *ListServiceAccountsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetServiceAccountByEmail request
+	GetServiceAccountByEmail(ctx context.Context, email openapi_types.Email, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetServiceAccount request
+	GetServiceAccount(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateServiceAccountAccessTokenWithBody request with any body
+	CreateServiceAccountAccessTokenWithBody(ctx context.Context, id string, params *CreateServiceAccountAccessTokenParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateServiceAccountAccessToken(ctx context.Context, id string, params *CreateServiceAccountAccessTokenParams, body CreateServiceAccountAccessTokenJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListStacks request
 	ListStacks(ctx context.Context, params *ListStacksParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -3329,18 +3393,6 @@ func (c *Client) ListProjects(ctx context.Context, params *ListProjectsParams, r
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetProject(ctx context.Context, id openapi_types.UUID, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetProjectRequest(c.Server, id)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
 func (c *Client) ListCatalogs(ctx context.Context, params *ListCatalogsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListCatalogsRequest(c.Server, params)
 	if err != nil {
@@ -3583,6 +3635,66 @@ func (c *Client) ListPullRequests(ctx context.Context, params *ListPullRequestsP
 
 func (c *Client) GetPullRequest(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetPullRequestRequest(c.Server, id)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListServiceAccounts(ctx context.Context, params *ListServiceAccountsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListServiceAccountsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetServiceAccountByEmail(ctx context.Context, email openapi_types.Email, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetServiceAccountByEmailRequest(c.Server, email)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetServiceAccount(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetServiceAccountRequest(c.Server, id)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateServiceAccountAccessTokenWithBody(ctx context.Context, id string, params *CreateServiceAccountAccessTokenParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateServiceAccountAccessTokenRequestWithBody(c.Server, id, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateServiceAccountAccessToken(ctx context.Context, id string, params *CreateServiceAccountAccessTokenParams, body CreateServiceAccountAccessTokenJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateServiceAccountAccessTokenRequest(c.Server, id, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -6147,40 +6259,6 @@ func NewListProjectsRequest(server string, params *ListProjectsParams) (*http.Re
 	return req, nil
 }
 
-// NewGetProjectRequest generates requests for GetProject
-func NewGetProjectRequest(server string, id openapi_types.UUID) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "id", runtime.ParamLocationPath, id)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/api/projects/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
 // NewListCatalogsRequest generates requests for ListCatalogs
 func NewListCatalogsRequest(server string, params *ListCatalogsParams) (*http.Request, error) {
 	var err error
@@ -7114,6 +7192,224 @@ func NewGetPullRequestRequest(server string, id string) (*http.Request, error) {
 	return req, nil
 }
 
+// NewListServiceAccountsRequest generates requests for ListServiceAccounts
+func NewListServiceAccountsRequest(server string, params *ListServiceAccountsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/api/serviceaccounts")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.Q != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "q", runtime.ParamLocationQuery, *params.Q); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "page", runtime.ParamLocationQuery, *params.Page); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "per_page", runtime.ParamLocationQuery, *params.PerPage); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetServiceAccountByEmailRequest generates requests for GetServiceAccountByEmail
+func NewGetServiceAccountByEmailRequest(server string, email openapi_types.Email) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "email", runtime.ParamLocationPath, email)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/api/serviceaccounts/email/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetServiceAccountRequest generates requests for GetServiceAccount
+func NewGetServiceAccountRequest(server string, id string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "id", runtime.ParamLocationPath, id)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/api/serviceaccounts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateServiceAccountAccessTokenRequest calls the generic CreateServiceAccountAccessToken builder with application/json body
+func NewCreateServiceAccountAccessTokenRequest(server string, id string, params *CreateServiceAccountAccessTokenParams, body CreateServiceAccountAccessTokenJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateServiceAccountAccessTokenRequestWithBody(server, id, params, "application/json", bodyReader)
+}
+
+// NewCreateServiceAccountAccessTokenRequestWithBody generates requests for CreateServiceAccountAccessToken with any type of body
+func NewCreateServiceAccountAccessTokenRequestWithBody(server string, id string, params *CreateServiceAccountAccessTokenParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "id", runtime.ParamLocationPath, id)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/api/serviceaccounts/%s/token", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.Refresh != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "refresh", runtime.ParamLocationQuery, *params.Refresh); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
 // NewListStacksRequest generates requests for ListStacks
 func NewListStacksRequest(server string, params *ListStacksParams) (*http.Request, error) {
 	var err error
@@ -7665,9 +7961,6 @@ type ClientWithResponsesInterface interface {
 	// ListProjectsWithResponse request
 	ListProjectsWithResponse(ctx context.Context, params *ListProjectsParams, reqEditors ...RequestEditorFn) (*ListProjectsResponse, error)
 
-	// GetProjectWithResponse request
-	GetProjectWithResponse(ctx context.Context, id openapi_types.UUID, reqEditors ...RequestEditorFn) (*GetProjectResponse, error)
-
 	// ListCatalogsWithResponse request
 	ListCatalogsWithResponse(ctx context.Context, params *ListCatalogsParams, reqEditors ...RequestEditorFn) (*ListCatalogsResponse, error)
 
@@ -7725,6 +8018,20 @@ type ClientWithResponsesInterface interface {
 
 	// GetPullRequestWithResponse request
 	GetPullRequestWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetPullRequestResponse, error)
+
+	// ListServiceAccountsWithResponse request
+	ListServiceAccountsWithResponse(ctx context.Context, params *ListServiceAccountsParams, reqEditors ...RequestEditorFn) (*ListServiceAccountsResponse, error)
+
+	// GetServiceAccountByEmailWithResponse request
+	GetServiceAccountByEmailWithResponse(ctx context.Context, email openapi_types.Email, reqEditors ...RequestEditorFn) (*GetServiceAccountByEmailResponse, error)
+
+	// GetServiceAccountWithResponse request
+	GetServiceAccountWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetServiceAccountResponse, error)
+
+	// CreateServiceAccountAccessTokenWithBodyWithResponse request with any body
+	CreateServiceAccountAccessTokenWithBodyWithResponse(ctx context.Context, id string, params *CreateServiceAccountAccessTokenParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateServiceAccountAccessTokenResponse, error)
+
+	CreateServiceAccountAccessTokenWithResponse(ctx context.Context, id string, params *CreateServiceAccountAccessTokenParams, body CreateServiceAccountAccessTokenJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateServiceAccountAccessTokenResponse, error)
 
 	// ListStacksWithResponse request
 	ListStacksWithResponse(ctx context.Context, params *ListStacksParams, reqEditors ...RequestEditorFn) (*ListStacksResponse, error)
@@ -8767,28 +9074,6 @@ func (r ListProjectsResponse) StatusCode() int {
 	return 0
 }
 
-type GetProjectResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *Project
-}
-
-// Status returns HTTPResponse.Status
-func (r GetProjectResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r GetProjectResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
 type ListCatalogsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -9135,6 +9420,94 @@ func (r GetPullRequestResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r GetPullRequestResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ListServiceAccountsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ConsoleOpenAPIUserList
+}
+
+// Status returns HTTPResponse.Status
+func (r ListServiceAccountsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListServiceAccountsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetServiceAccountByEmailResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *User
+}
+
+// Status returns HTTPResponse.Status
+func (r GetServiceAccountByEmailResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetServiceAccountByEmailResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetServiceAccountResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *User
+}
+
+// Status returns HTTPResponse.Status
+func (r GetServiceAccountResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetServiceAccountResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type CreateServiceAccountAccessTokenResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AccessToken
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateServiceAccountAccessTokenResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateServiceAccountAccessTokenResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -9835,15 +10208,6 @@ func (c *ClientWithResponses) ListProjectsWithResponse(ctx context.Context, para
 	return ParseListProjectsResponse(rsp)
 }
 
-// GetProjectWithResponse request returning *GetProjectResponse
-func (c *ClientWithResponses) GetProjectWithResponse(ctx context.Context, id openapi_types.UUID, reqEditors ...RequestEditorFn) (*GetProjectResponse, error) {
-	rsp, err := c.GetProject(ctx, id, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetProjectResponse(rsp)
-}
-
 // ListCatalogsWithResponse request returning *ListCatalogsResponse
 func (c *ClientWithResponses) ListCatalogsWithResponse(ctx context.Context, params *ListCatalogsParams, reqEditors ...RequestEditorFn) (*ListCatalogsResponse, error) {
 	rsp, err := c.ListCatalogs(ctx, params, reqEditors...)
@@ -10026,6 +10390,50 @@ func (c *ClientWithResponses) GetPullRequestWithResponse(ctx context.Context, id
 		return nil, err
 	}
 	return ParseGetPullRequestResponse(rsp)
+}
+
+// ListServiceAccountsWithResponse request returning *ListServiceAccountsResponse
+func (c *ClientWithResponses) ListServiceAccountsWithResponse(ctx context.Context, params *ListServiceAccountsParams, reqEditors ...RequestEditorFn) (*ListServiceAccountsResponse, error) {
+	rsp, err := c.ListServiceAccounts(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListServiceAccountsResponse(rsp)
+}
+
+// GetServiceAccountByEmailWithResponse request returning *GetServiceAccountByEmailResponse
+func (c *ClientWithResponses) GetServiceAccountByEmailWithResponse(ctx context.Context, email openapi_types.Email, reqEditors ...RequestEditorFn) (*GetServiceAccountByEmailResponse, error) {
+	rsp, err := c.GetServiceAccountByEmail(ctx, email, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetServiceAccountByEmailResponse(rsp)
+}
+
+// GetServiceAccountWithResponse request returning *GetServiceAccountResponse
+func (c *ClientWithResponses) GetServiceAccountWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetServiceAccountResponse, error) {
+	rsp, err := c.GetServiceAccount(ctx, id, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetServiceAccountResponse(rsp)
+}
+
+// CreateServiceAccountAccessTokenWithBodyWithResponse request with arbitrary body returning *CreateServiceAccountAccessTokenResponse
+func (c *ClientWithResponses) CreateServiceAccountAccessTokenWithBodyWithResponse(ctx context.Context, id string, params *CreateServiceAccountAccessTokenParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateServiceAccountAccessTokenResponse, error) {
+	rsp, err := c.CreateServiceAccountAccessTokenWithBody(ctx, id, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateServiceAccountAccessTokenResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateServiceAccountAccessTokenWithResponse(ctx context.Context, id string, params *CreateServiceAccountAccessTokenParams, body CreateServiceAccountAccessTokenJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateServiceAccountAccessTokenResponse, error) {
+	rsp, err := c.CreateServiceAccountAccessToken(ctx, id, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateServiceAccountAccessTokenResponse(rsp)
 }
 
 // ListStacksWithResponse request returning *ListStacksResponse
@@ -11312,32 +11720,6 @@ func ParseListProjectsResponse(rsp *http.Response) (*ListProjectsResponse, error
 	return response, nil
 }
 
-// ParseGetProjectResponse parses an HTTP response from a GetProjectWithResponse call
-func ParseGetProjectResponse(rsp *http.Response) (*GetProjectResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &GetProjectResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest Project
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
 // ParseListCatalogsResponse parses an HTTP response from a ListCatalogsWithResponse call
 func ParseListCatalogsResponse(rsp *http.Response) (*ListCatalogsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -11744,6 +12126,110 @@ func ParseGetPullRequestResponse(rsp *http.Response) (*GetPullRequestResponse, e
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest PullRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListServiceAccountsResponse parses an HTTP response from a ListServiceAccountsWithResponse call
+func ParseListServiceAccountsResponse(rsp *http.Response) (*ListServiceAccountsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListServiceAccountsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ConsoleOpenAPIUserList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetServiceAccountByEmailResponse parses an HTTP response from a GetServiceAccountByEmailWithResponse call
+func ParseGetServiceAccountByEmailResponse(rsp *http.Response) (*GetServiceAccountByEmailResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetServiceAccountByEmailResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest User
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetServiceAccountResponse parses an HTTP response from a GetServiceAccountWithResponse call
+func ParseGetServiceAccountResponse(rsp *http.Response) (*GetServiceAccountResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetServiceAccountResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest User
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateServiceAccountAccessTokenResponse parses an HTTP response from a CreateServiceAccountAccessTokenWithResponse call
+func ParseCreateServiceAccountAccessTokenResponse(rsp *http.Response) (*CreateServiceAccountAccessTokenResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateServiceAccountAccessTokenResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AccessToken
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

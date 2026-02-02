@@ -90,12 +90,12 @@ class Service:
 
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.service_error import ServiceError
         from ..models.service_renderer import ServiceRenderer
-        from ..models.kustomize import Kustomize
         from ..models.git import Git
-        from ..models.helm_spec import HelmSpec
         from ..models.service_source import ServiceSource
+        from ..models.kustomize import Kustomize
+        from ..models.helm_spec import HelmSpec
+        from ..models.service_error import ServiceError
         cluster_id = self.cluster_id
 
         component_status = self.component_status

@@ -6,7 +6,7 @@ REPO_ROOT ?= ..
 OPENAPI_JSON ?= $(REPO_ROOT)/openapi.json
 
 generate: clean
-	openapi-python-client generate --path $(OPENAPI_JSON) --meta none --overwrite
+	python3 -m openapi_python_client generate --path $(OPENAPI_JSON) --meta none --overwrite
 
 clean:
 	rm -rf plural_rest_api_client

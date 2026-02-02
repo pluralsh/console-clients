@@ -50,10 +50,10 @@ class HelmRepositoryInputAuth:
 
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.helm_repository_input_auth_gcp import HelmRepositoryInputAuthGcp
-        from ..models.helm_repository_input_auth_aws import HelmRepositoryInputAuthAws
-        from ..models.helm_repository_input_auth_azure import HelmRepositoryInputAuthAzure
         from ..models.helm_repository_input_auth_basic import HelmRepositoryInputAuthBasic
+        from ..models.helm_repository_input_auth_gcp import HelmRepositoryInputAuthGcp
+        from ..models.helm_repository_input_auth_azure import HelmRepositoryInputAuthAzure
+        from ..models.helm_repository_input_auth_aws import HelmRepositoryInputAuthAws
         from ..models.helm_repository_input_auth_bearer import HelmRepositoryInputAuthBearer
         aws: dict[str, Any] | Unset = UNSET
         if not isinstance(self.aws, Unset):

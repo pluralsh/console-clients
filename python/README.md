@@ -31,12 +31,25 @@ All API operations and types are available through the `plural_rest_api_client` 
 
 ## Regenerating the client
 
-When `openapi.json` in the repo root changes, regenerate the client:
+When `openapi.json` in the repo root changes, regenerate the client.
 
-```bash
-cd python
-make generate
-```
+1. Install the generator (once):
+
+   ```bash
+   pip3 install openapi-python-client
+   ```
+
+2. From the repo root:
+
+   ```bash
+   make -C python generate
+   ```
+
+   Or from the `python/` directory:
+
+   ```bash
+   make generate
+   ```
 
 ## Requirements
 

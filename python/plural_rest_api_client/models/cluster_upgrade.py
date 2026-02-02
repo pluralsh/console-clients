@@ -65,9 +65,9 @@ class ClusterUpgrade:
 
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cluster_upgrade_step import ClusterUpgradeStep
         from ..models.user import User
         from ..models.agent_runtime import AgentRuntime
+        from ..models.cluster_upgrade_step import ClusterUpgradeStep
         cluster_id = self.cluster_id
 
         id = self.id

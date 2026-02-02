@@ -59,9 +59,9 @@ class GlobalServiceInput:
 
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cascade_input import CascadeInput
-        from ..models.service_template_input import ServiceTemplateInput
         from ..models.tag_input import TagInput
+        from ..models.service_template_input import ServiceTemplateInput
+        from ..models.cascade_input import CascadeInput
         name = self.name
 
         tags: list[dict[str, Any]] | Unset = UNSET

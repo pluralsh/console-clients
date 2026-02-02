@@ -95,8 +95,8 @@ class Cluster:
 
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.tag import Tag
         from ..models.cluster_metadata import ClusterMetadata
+        from ..models.tag import Tag
         tags: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.tags, Unset):
             tags = []

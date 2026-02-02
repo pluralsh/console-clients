@@ -65,8 +65,8 @@ class ServiceTemplate:
 
     def to_dict(self) -> dict[str, Any]:
         from ..models.git import Git
-        from ..models.helm_spec import HelmSpec
         from ..models.kustomize import Kustomize
+        from ..models.helm_spec import HelmSpec
         contexts: list[str] | Unset = UNSET
         if not isinstance(self.contexts, Unset):
             contexts = self.contexts
