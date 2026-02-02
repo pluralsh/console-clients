@@ -4,11 +4,26 @@ REST API clients for the Plural Console, generated from the [OpenAPI specificati
 
 ## Available Clients
 
-| Language                     | Package                                 | Directory                  | Example                                      |
-| ---------------------------- | --------------------------------------- | -------------------------- | -------------------------------------------- |
-| **Go** (1.21+)               | `github.com/pluralsh/console-client-go` | [go/](go/)                 | [examples/go/](examples/go/)                 |
-| **TypeScript** (Node.js 20+) | `@pluralsh/console-client`              | [typescript/](typescript/) | [examples/typescript/](examples/typescript/) |
-| **Python** (3.8+)            | `pluralsh-console-client`               | [python/](python/)         | [examples/python/](examples/python/)         |
+### Go
+
+- **Requirements:** Go 1.21+
+- **Package:** `github.com/pluralsh/console-client-go`
+- **Directory:** [go/](go/)
+- **Example:** [examples/go/](examples/go/)
+
+### Python
+
+- **Requirements:** Python 3.8+
+- **Package:** `pluralsh-console-client`
+- **Directory:** [python/](python/)
+- **Example:** [examples/python/](examples/python/)
+
+### TypeScript
+
+- **Requirements:** Node.js 20+
+- **Package:** `@pluralsh/console-client`
+- **Directory:** [typescript/](typescript/)
+- **Example:** [examples/typescript/](examples/typescript/)
 
 ### Generate Clients
 
@@ -27,12 +42,6 @@ make -C python generate
 # TypeScript
 make -C typescript generate
 ```
-
-## Requirements
-
-- **Go**: Go 1.21+
-- **TypeScript**: Node.js 20+
-- **Python**: Python 3.8+
 
 ## Repository Structure
 
