@@ -4,8 +4,18 @@ Go REST client for the [Plural Console](https://plural.sh) API. Generated from t
 
 ## Installation
 
+The module lives in a subdirectory, so add it with the tag that includes the prefix:
+
 ```bash
-go get github.com/pluralsh/rest-clients/go
+go get github.com/pluralsh/rest-clients/go@go/v0.0.0
+go mod tidy
+```
+
+If you get 404 from the Go proxy (tag just pushed or private repo), fetch directly:
+
+```bash
+GOPRIVATE=github.com/pluralsh/* go get github.com/pluralsh/rest-clients/go@go/v0.0.0
+go mod tidy
 ```
 
 ## Usage
