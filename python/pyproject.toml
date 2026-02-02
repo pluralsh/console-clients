@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pluralsh-console-client"
+version = "0.1.0"
+description = "Python REST client for Plural Console API, generated from OpenAPI"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "httpx>=0.23.0",
+    "attrs>=21.3.0",
+    "python-dateutil>=2.8.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "openapi-python-client>=0.21.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["plural_rest_api_client*"]
+
+[tool.setuptools.package-data]
+plural_rest_api_client = ["py.typed"]
