@@ -455,6 +455,9 @@ type AgentRuntime struct {
 	// AiProxy Whether this runtime uses the built-in Plural AI proxy for LLM requests
 	AiProxy *bool `json:"ai_proxy,omitempty"`
 
+	// AllowedRepositories The git repositories allowed to be used with this runtime
+	AllowedRepositories *[]string `json:"allowed_repositories,omitempty"`
+
 	// ClusterId ID of the cluster this runtime is deployed on
 	ClusterId *string `json:"cluster_id,omitempty"`
 
