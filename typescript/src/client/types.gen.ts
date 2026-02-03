@@ -137,6 +137,10 @@ export type AgentRuntime = {
      */
     ai_proxy?: boolean;
     /**
+     * The git repositories allowed to be used with this runtime
+     */
+    allowed_repositories?: Array<string>;
+    /**
      * ID of the cluster this runtime is deployed on
      */
     cluster_id?: string;
