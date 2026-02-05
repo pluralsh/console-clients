@@ -15,6 +15,7 @@ def _get_kwargs(
     *,
     detach: bool | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["detach"] = detach

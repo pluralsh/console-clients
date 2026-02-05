@@ -55,6 +55,7 @@ const (
 // Defines values for AgentRuntimeType.
 const (
 	AgentRuntimeTypeClaude   AgentRuntimeType = "claude"
+	AgentRuntimeTypeCodex    AgentRuntimeType = "codex"
 	AgentRuntimeTypeCustom   AgentRuntimeType = "custom"
 	AgentRuntimeTypeGemini   AgentRuntimeType = "gemini"
 	AgentRuntimeTypeOpencode AgentRuntimeType = "opencode"
@@ -343,9 +344,9 @@ const (
 
 // Defines values for ListSentinelsParamsStatus.
 const (
-	Failed  ListSentinelsParamsStatus = "failed"
-	Pending ListSentinelsParamsStatus = "pending"
-	Success ListSentinelsParamsStatus = "success"
+	ListSentinelsParamsStatusFailed  ListSentinelsParamsStatus = "failed"
+	ListSentinelsParamsStatusPending ListSentinelsParamsStatus = "pending"
+	ListSentinelsParamsStatusSuccess ListSentinelsParamsStatus = "success"
 )
 
 // Defines values for ListClustersParamsCompliance.
@@ -353,6 +354,18 @@ const (
 	Compliant ListClustersParamsCompliance = "compliant"
 	Latest    ListClustersParamsCompliance = "latest"
 	Outdated  ListClustersParamsCompliance = "outdated"
+)
+
+// Defines values for ListGitRepositoriesParamsHealth.
+const (
+	ListGitRepositoriesParamsHealthFailed   ListGitRepositoriesParamsHealth = "failed"
+	ListGitRepositoriesParamsHealthPullable ListGitRepositoriesParamsHealth = "pullable"
+)
+
+// Defines values for ListHelmRepositoriesParamsHealth.
+const (
+	Failed   ListHelmRepositoriesParamsHealth = "failed"
+	Pullable ListHelmRepositoriesParamsHealth = "pullable"
 )
 
 // AccessToken An access token
@@ -2157,9 +2170,14 @@ type DeleteClusterParams struct {
 
 // ListGitRepositoriesParams defines parameters for ListGitRepositories.
 type ListGitRepositoriesParams struct {
-	Page    *int `form:"page,omitempty" json:"page,omitempty"`
-	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
+	Q       *string                          `form:"q,omitempty" json:"q,omitempty"`
+	Health  *ListGitRepositoriesParamsHealth `form:"health,omitempty" json:"health,omitempty"`
+	Page    *int                             `form:"page,omitempty" json:"page,omitempty"`
+	PerPage *int                             `form:"per_page,omitempty" json:"per_page,omitempty"`
 }
+
+// ListGitRepositoriesParamsHealth defines parameters for ListGitRepositories.
+type ListGitRepositoriesParamsHealth string
 
 // GetGitRepositoryByUrlParams defines parameters for GetGitRepositoryByUrl.
 type GetGitRepositoryByUrlParams struct {
@@ -2181,9 +2199,14 @@ type CreateGlobalServiceParams struct {
 
 // ListHelmRepositoriesParams defines parameters for ListHelmRepositories.
 type ListHelmRepositoriesParams struct {
-	Page    *int `form:"page,omitempty" json:"page,omitempty"`
-	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
+	Q       *string                           `form:"q,omitempty" json:"q,omitempty"`
+	Health  *ListHelmRepositoriesParamsHealth `form:"health,omitempty" json:"health,omitempty"`
+	Page    *int                              `form:"page,omitempty" json:"page,omitempty"`
+	PerPage *int                              `form:"per_page,omitempty" json:"per_page,omitempty"`
 }
+
+// ListHelmRepositoriesParamsHealth defines parameters for ListHelmRepositories.
+type ListHelmRepositoriesParamsHealth string
 
 // GetHelmRepositoryByUrlParams defines parameters for GetHelmRepositoryByUrl.
 type GetHelmRepositoryByUrlParams struct {
@@ -4964,6 +4987,38 @@ func NewListGitRepositoriesRequest(server string, params *ListGitRepositoriesPar
 	if params != nil {
 		queryValues := queryURL.Query()
 
+		if params.Q != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "q", runtime.ParamLocationQuery, *params.Q); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Health != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "health", runtime.ParamLocationQuery, *params.Health); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
 		if params.Page != nil {
 
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "page", runtime.ParamLocationQuery, *params.Page); err != nil {
@@ -5536,6 +5591,38 @@ func NewListHelmRepositoriesRequest(server string, params *ListHelmRepositoriesP
 
 	if params != nil {
 		queryValues := queryURL.Query()
+
+		if params.Q != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "q", runtime.ParamLocationQuery, *params.Q); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Health != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "health", runtime.ParamLocationQuery, *params.Health); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
 
 		if params.Page != nil {
 
