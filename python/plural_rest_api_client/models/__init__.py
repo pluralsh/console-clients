@@ -81,6 +81,8 @@ from .kustomize import Kustomize
 from .kustomize_input import KustomizeInput
 from .list_agent_runtimes_type import ListAgentRuntimesType
 from .list_clusters_compliance import ListClustersCompliance
+from .list_git_repositories_health import ListGitRepositoriesHealth
+from .list_helm_repositories_health import ListHelmRepositoriesHealth
 from .list_sentinels_status import ListSentinelsStatus
 from .pipeline import Pipeline
 from .pipeline_context import PipelineContext
@@ -223,6 +225,8 @@ __all__ = (
     "KustomizeInput",
     "ListAgentRuntimesType",
     "ListClustersCompliance",
+    "ListGitRepositoriesHealth",
+    "ListHelmRepositoriesHealth",
     "ListSentinelsStatus",
     "Pipeline",
     "PipelineContext",

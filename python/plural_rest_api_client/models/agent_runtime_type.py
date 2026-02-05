@@ -3,6 +3,7 @@ from enum import Enum
 
 class AgentRuntimeType(str, Enum):
     CLAUDE = "claude"
+    CODEX = "codex"
     CUSTOM = "custom"
     GEMINI = "gemini"
     OPENCODE = "opencode"

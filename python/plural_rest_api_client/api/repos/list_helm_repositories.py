@@ -8,15 +8,27 @@ from ...client import AuthenticatedClient, Client
 from ...models.console_open_apicd_helm_repository_list import (
     ConsoleOpenAPICDHelmRepositoryList,
 )
+from ...models.list_helm_repositories_health import ListHelmRepositoriesHealth
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
+    q: str | Unset = UNSET,
+    health: ListHelmRepositoriesHealth | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
+
+    params["q"] = q
+
+    json_health: str | Unset = UNSET
+    if not isinstance(health, Unset):
+        json_health = health.value
+
+    params["health"] = json_health
 
     params["page"] = page
 
@@ -61,11 +73,15 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
+    q: str | Unset = UNSET,
+    health: ListHelmRepositoriesHealth | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
 ) -> Response[ConsoleOpenAPICDHelmRepositoryList]:
     """
     Args:
+        q (str | Unset):
+        health (ListHelmRepositoriesHealth | Unset):
         page (int | Unset):
         per_page (int | Unset):
 
@@ -78,6 +94,8 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
+        q=q,
+        health=health,
         page=page,
         per_page=per_page,
     )
@@ -92,11 +110,15 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
+    q: str | Unset = UNSET,
+    health: ListHelmRepositoriesHealth | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
 ) -> ConsoleOpenAPICDHelmRepositoryList | None:
     """
     Args:
+        q (str | Unset):
+        health (ListHelmRepositoriesHealth | Unset):
         page (int | Unset):
         per_page (int | Unset):
 
@@ -110,6 +132,8 @@ def sync(
 
     return sync_detailed(
         client=client,
+        q=q,
+        health=health,
         page=page,
         per_page=per_page,
     ).parsed
@@ -118,11 +142,15 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
+    q: str | Unset = UNSET,
+    health: ListHelmRepositoriesHealth | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
 ) -> Response[ConsoleOpenAPICDHelmRepositoryList]:
     """
     Args:
+        q (str | Unset):
+        health (ListHelmRepositoriesHealth | Unset):
         page (int | Unset):
         per_page (int | Unset):
 
@@ -135,6 +163,8 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
+        q=q,
+        health=health,
         page=page,
         per_page=per_page,
     )
@@ -147,11 +177,15 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
+    q: str | Unset = UNSET,
+    health: ListHelmRepositoriesHealth | Unset = UNSET,
     page: int | Unset = UNSET,
     per_page: int | Unset = UNSET,
 ) -> ConsoleOpenAPICDHelmRepositoryList | None:
     """
     Args:
+        q (str | Unset):
+        health (ListHelmRepositoriesHealth | Unset):
         page (int | Unset):
         per_page (int | Unset):
 
@@ -166,6 +200,8 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
+            q=q,
+            health=health,
             page=page,
             per_page=per_page,
         )
