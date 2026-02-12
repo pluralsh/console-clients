@@ -160,7 +160,7 @@ export type AgentRuntime = {
     /**
      * Type of agent runtime (claude, opencode, gemini, custom)
      */
-    type?: 'claude' | 'opencode' | 'gemini' | 'custom';
+    type?: 'claude' | 'opencode' | 'gemini' | 'custom' | 'codex';
     updated_at?: string;
 };
 
@@ -2704,6 +2704,8 @@ export type ListGitRepositoriesData = {
     body?: never;
     path?: never;
     query?: {
+        q?: string;
+        health?: 'pullable' | 'failed';
         page?: number;
         per_page?: number;
     };
@@ -2922,6 +2924,8 @@ export type ListHelmRepositoriesData = {
     body?: never;
     path?: never;
     query?: {
+        q?: string;
+        health?: 'pullable' | 'failed';
         page?: number;
         per_page?: number;
     };
