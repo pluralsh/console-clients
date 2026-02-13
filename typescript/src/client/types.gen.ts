@@ -657,6 +657,20 @@ export type ConsoleOpenApiAiSentinelRunList = {
 };
 
 /**
+ * A paginated list of workbenches
+ */
+export type ConsoleOpenApiAiWorkbenchList = {
+    data?: Array<Workbench>;
+};
+
+/**
+ * A paginated list of workbench jobs
+ */
+export type ConsoleOpenApiAiWorkbenchJobList = {
+    data?: Array<WorkbenchJob>;
+};
+
+/**
  * A scope entry for an access token
  */
 export type ConsoleOpenApiAccessTokenScope = {
@@ -2326,6 +2340,149 @@ export type User = {
     updated_at?: string;
 };
 
+/**
+ * Workbench
+ *
+ * A workbench for running AI jobs with configurable tools and prompts
+ */
+export type Workbench = {
+    /**
+     * ID of the agent runtime for this workbench
+     */
+    agent_runtime_id?: string;
+    /**
+     * Description of the workbench
+     */
+    description?: string;
+    /**
+     * Unique identifier for the workbench
+     */
+    id?: string;
+    inserted_at?: string;
+    /**
+     * Human-readable name of the workbench
+     */
+    name?: string;
+    /**
+     * ID of the project this workbench belongs to
+     */
+    project_id?: string;
+    /**
+     * ID of the git repository for this workbench
+     */
+    repository_id?: string;
+    /**
+     * The system prompt for the workbench
+     */
+    system_prompt?: string;
+    updated_at?: string;
+};
+
+/**
+ * WorkbenchJob
+ *
+ * A single run of a workbench
+ */
+export type WorkbenchJob = {
+    /**
+     * When the run completed
+     */
+    completed_at?: string;
+    /**
+     * Error message when the job failed
+     */
+    error?: string;
+    /**
+     * Unique identifier for the job
+     */
+    id?: string;
+    inserted_at?: string;
+    /**
+     * The prompt for this run
+     */
+    prompt?: string;
+    result?: WorkbenchJobResult;
+    /**
+     * When the run started
+     */
+    started_at?: string;
+    /**
+     * Current status (pending, running, successful, failed, cancelled)
+     */
+    status?: 'pending' | 'running' | 'successful' | 'failed' | 'cancelled';
+    updated_at?: string;
+    /**
+     * ID of the user who created this run
+     */
+    user_id?: string;
+    /**
+     * ID of the workbench this job belongs to
+     */
+    workbench_id?: string;
+};
+
+/**
+ * WorkbenchJobInput
+ *
+ * Input for creating a new workbench job
+ */
+export type WorkbenchJobInput = {
+    /**
+     * The prompt for this job
+     */
+    prompt: string;
+};
+
+/**
+ * WorkbenchJobResult
+ *
+ * The result of a workbench job run (working theory, conclusion, todos)
+ */
+export type WorkbenchJobResult = {
+    /**
+     * The conclusion for this result
+     */
+    conclusion?: string;
+    /**
+     * Unique identifier for the result
+     */
+    id?: string;
+    inserted_at?: string;
+    /**
+     * Todos for this result
+     */
+    todos?: Array<WorkbenchJobResultTodo>;
+    updated_at?: string;
+    /**
+     * ID of the job this result belongs to
+     */
+    workbench_job_id?: string;
+    /**
+     * The working theory for this result
+     */
+    working_theory?: string;
+};
+
+/**
+ * WorkbenchJobResultTodo
+ *
+ * A todo item on the job result
+ */
+export type WorkbenchJobResultTodo = {
+    /**
+     * Title of the todo
+     */
+    title?: string;
+    /**
+     * Description of the todo
+     */
+    description?: string;
+    /**
+     * Whether the todo is completed
+     */
+    done?: boolean;
+};
+
 export type ListAgentRunsData = {
     body?: never;
     path?: never;
@@ -2566,6 +2723,120 @@ export type GetAgentSessionResponses = {
 };
 
 export type GetAgentSessionResponse = GetAgentSessionResponses[keyof GetAgentSessionResponses];
+
+export type ListWorkbenchesData = {
+    body?: never;
+    path?: never;
+    query?: {
+        q?: string;
+        project_id?: string;
+        page?: number;
+        per_page?: number;
+    };
+    url: '/v1/api/ai/workbenches';
+};
+
+export type ListWorkbenchesResponses = {
+    /**
+     * no description
+     */
+    200: ConsoleOpenApiAiWorkbenchList;
+};
+
+export type ListWorkbenchesResponse = ListWorkbenchesResponses[keyof ListWorkbenchesResponses];
+
+export type GetWorkbenchJobData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/v1/api/ai/workbenches/jobs/{id}';
+};
+
+export type GetWorkbenchJobResponses = {
+    /**
+     * no description
+     */
+    200: WorkbenchJob;
+};
+
+export type GetWorkbenchJobResponse = GetWorkbenchJobResponses[keyof GetWorkbenchJobResponses];
+
+export type GetWorkbenchByNameData = {
+    body?: never;
+    path?: never;
+    query: {
+        name: string;
+    };
+    url: '/v1/api/ai/workbenches/name';
+};
+
+export type GetWorkbenchByNameResponses = {
+    /**
+     * no description
+     */
+    200: Workbench;
+};
+
+export type GetWorkbenchByNameResponse = GetWorkbenchByNameResponses[keyof GetWorkbenchByNameResponses];
+
+export type GetWorkbenchData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/v1/api/ai/workbenches/{id}';
+};
+
+export type GetWorkbenchResponses = {
+    /**
+     * no description
+     */
+    200: Workbench;
+};
+
+export type GetWorkbenchResponse = GetWorkbenchResponses[keyof GetWorkbenchResponses];
+
+export type ListWorkbenchJobsData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: {
+        page?: number;
+        per_page?: number;
+    };
+    url: '/v1/api/ai/workbenches/{id}/jobs';
+};
+
+export type ListWorkbenchJobsResponses = {
+    /**
+     * no description
+     */
+    200: ConsoleOpenApiAiWorkbenchJobList;
+};
+
+export type ListWorkbenchJobsResponse = ListWorkbenchJobsResponses[keyof ListWorkbenchJobsResponses];
+
+export type CreateWorkbenchJobData = {
+    body: WorkbenchJobInput;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/v1/api/ai/workbenches/{id}/jobs';
+};
+
+export type CreateWorkbenchJobResponses = {
+    /**
+     * no description
+     */
+    200: WorkbenchJob;
+};
+
+export type CreateWorkbenchJobResponse = CreateWorkbenchJobResponses[keyof CreateWorkbenchJobResponses];
 
 export type ListClustersData = {
     body?: never;

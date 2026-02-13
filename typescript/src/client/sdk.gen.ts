@@ -2,7 +2,7 @@
 
 import { client } from './client.gen.js';
 import type { Client, Options as Options2, TDataShape } from './client/index.js';
-import type { CreateAgentRunData, CreateAgentRunResponses, CreateAgentSessionData, CreateAgentSessionResponses, CreateClusterData, CreateClusterResponses, CreateClusterUpgradeData, CreateClusterUpgradeResponses, CreateGitRepositoryData, CreateGitRepositoryResponses, CreateGlobalServiceData, CreateGlobalServiceResponses, CreateScmConnectionData, CreateScmConnectionResponses, CreateServiceAccountAccessTokenData, CreateServiceAccountAccessTokenResponses, CreateServiceData, CreateServiceResponses, CreateStackData, CreateStackResponses, DeleteCatalogData, DeleteCatalogResponses, DeleteClusterData, DeleteClusterResponses, DeleteGitRepositoryData, DeleteGitRepositoryResponses, DeleteGlobalServiceData, DeleteGlobalServiceResponses, DeleteScmConnectionData, DeleteScmConnectionResponses, DeleteServiceData, DeleteServiceResponses, DeleteStackData, DeleteStackResponses, GetAgentRunData, GetAgentRunResponses, GetAgentRuntimeData, GetAgentRuntimeResponses, GetAgentSessionData, GetAgentSessionResponses, GetCatalogData, GetCatalogResponses, GetClusterData, GetClusterResponses, GetClusterUpgradeData, GetClusterUpgradeResponses, GetGitRepositoryByUrlData, GetGitRepositoryByUrlResponses, GetGitRepositoryData, GetGitRepositoryResponses, GetGlobalServiceData, GetGlobalServiceResponses, GetHelmRepositoryByUrlData, GetHelmRepositoryByUrlResponses, GetHelmRepositoryData, GetHelmRepositoryResponses, GetPipelineData, GetPipelineResponses, GetPrAutomationData, GetPrAutomationResponses, GetProjectData, GetProjectResponses, GetPullRequestData, GetPullRequestResponses, GetScmConnectionData, GetScmConnectionResponses, GetSentinelData, GetSentinelResponses, GetSentinelRunData, GetSentinelRunResponses, GetServiceAccountByEmailData, GetServiceAccountByEmailResponses, GetServiceAccountData, GetServiceAccountResponses, GetServiceData, GetServiceResponses, GetStackData, GetStackResponses, InvokePrAutomationData, InvokePrAutomationResponses, ListAgentRunsData, ListAgentRunsResponses, ListAgentRuntimesData, ListAgentRuntimesResponses, ListAgentSessionsData, ListAgentSessionsResponses, ListCatalogsData, ListCatalogsResponses, ListClustersData, ListClustersResponses, ListGitRepositoriesData, ListGitRepositoriesResponses, ListGlobalServicesData, ListGlobalServicesResponses, ListHelmRepositoriesData, ListHelmRepositoriesResponses, ListPipelinesData, ListPipelinesResponses, ListPrAutomationsData, ListPrAutomationsForCatalogData, ListPrAutomationsForCatalogResponses, ListPrAutomationsResponses, ListProjectsData, ListProjectsResponses, ListPullRequestsData, ListPullRequestsResponses, ListScmConnectionsData, ListScmConnectionsResponses, ListSentinelRunsData, ListSentinelRunsResponses, ListSentinelsData, ListSentinelsResponses, ListServiceAccountsData, ListServiceAccountsResponses, ListServicesData, ListServicesResponses, ListStacksData, ListStacksResponses, MeData, MeResponses, RestoreStackData, RestoreStackResponses, ResyncStackData, ResyncStackResponses, SyncGlobalServiceData, SyncGlobalServiceResponses, TriggerPipelineData, TriggerPipelineResponses, TriggerSentinelData, TriggerSentinelResponses, TriggerStackRunData, TriggerStackRunResponses, UpdateCatalogData, UpdateCatalogResponses, UpdateClusterData, UpdateClusterResponses, UpdateGitRepositoryData, UpdateGitRepositoryResponses, UpdateGlobalServiceData, UpdateGlobalServiceResponses, UpdateScmConnectionData, UpdateScmConnectionResponses, UpdateServiceData, UpdateServiceResponses, UpdateStackData, UpdateStackResponses, UpsertCatalogData, UpsertCatalogResponses, UpsertHelmRepositoryData, UpsertHelmRepositoryResponses } from './types.gen.js';
+import type { CreateAgentRunData, CreateAgentRunResponses, CreateAgentSessionData, CreateAgentSessionResponses, CreateClusterData, CreateClusterResponses, CreateClusterUpgradeData, CreateClusterUpgradeResponses, CreateGitRepositoryData, CreateGitRepositoryResponses, CreateGlobalServiceData, CreateGlobalServiceResponses, CreateScmConnectionData, CreateScmConnectionResponses, CreateServiceAccountAccessTokenData, CreateServiceAccountAccessTokenResponses, CreateServiceData, CreateServiceResponses, CreateStackData, CreateStackResponses, CreateWorkbenchJobData, CreateWorkbenchJobResponses, DeleteCatalogData, DeleteCatalogResponses, DeleteClusterData, DeleteClusterResponses, DeleteGitRepositoryData, DeleteGitRepositoryResponses, DeleteGlobalServiceData, DeleteGlobalServiceResponses, DeleteScmConnectionData, DeleteScmConnectionResponses, DeleteServiceData, DeleteServiceResponses, DeleteStackData, DeleteStackResponses, GetAgentRunData, GetAgentRunResponses, GetAgentRuntimeData, GetAgentRuntimeResponses, GetAgentSessionData, GetAgentSessionResponses, GetCatalogData, GetCatalogResponses, GetClusterData, GetClusterResponses, GetClusterUpgradeData, GetClusterUpgradeResponses, GetGitRepositoryByUrlData, GetGitRepositoryByUrlResponses, GetGitRepositoryData, GetGitRepositoryResponses, GetGlobalServiceData, GetGlobalServiceResponses, GetHelmRepositoryByUrlData, GetHelmRepositoryByUrlResponses, GetHelmRepositoryData, GetHelmRepositoryResponses, GetPipelineData, GetPipelineResponses, GetPrAutomationData, GetPrAutomationResponses, GetProjectData, GetProjectResponses, GetPullRequestData, GetPullRequestResponses, GetScmConnectionData, GetScmConnectionResponses, GetSentinelData, GetSentinelResponses, GetSentinelRunData, GetSentinelRunResponses, GetServiceAccountByEmailData, GetServiceAccountByEmailResponses, GetServiceAccountData, GetServiceAccountResponses, GetServiceData, GetServiceResponses, GetStackData, GetStackResponses, GetWorkbenchByNameData, GetWorkbenchByNameResponses, GetWorkbenchData, GetWorkbenchJobData, GetWorkbenchJobResponses, GetWorkbenchResponses, InvokePrAutomationData, InvokePrAutomationResponses, ListAgentRunsData, ListAgentRunsResponses, ListAgentRuntimesData, ListAgentRuntimesResponses, ListAgentSessionsData, ListAgentSessionsResponses, ListCatalogsData, ListCatalogsResponses, ListClustersData, ListClustersResponses, ListGitRepositoriesData, ListGitRepositoriesResponses, ListGlobalServicesData, ListGlobalServicesResponses, ListHelmRepositoriesData, ListHelmRepositoriesResponses, ListPipelinesData, ListPipelinesResponses, ListPrAutomationsData, ListPrAutomationsForCatalogData, ListPrAutomationsForCatalogResponses, ListPrAutomationsResponses, ListProjectsData, ListProjectsResponses, ListPullRequestsData, ListPullRequestsResponses, ListScmConnectionsData, ListScmConnectionsResponses, ListSentinelRunsData, ListSentinelRunsResponses, ListSentinelsData, ListSentinelsResponses, ListServiceAccountsData, ListServiceAccountsResponses, ListServicesData, ListServicesResponses, ListStacksData, ListStacksResponses, ListWorkbenchesData, ListWorkbenchesResponses, ListWorkbenchJobsData, ListWorkbenchJobsResponses, MeData, MeResponses, RestoreStackData, RestoreStackResponses, ResyncStackData, ResyncStackResponses, SyncGlobalServiceData, SyncGlobalServiceResponses, TriggerPipelineData, TriggerPipelineResponses, TriggerSentinelData, TriggerSentinelResponses, TriggerStackRunData, TriggerStackRunResponses, UpdateCatalogData, UpdateCatalogResponses, UpdateClusterData, UpdateClusterResponses, UpdateGitRepositoryData, UpdateGitRepositoryResponses, UpdateGlobalServiceData, UpdateGlobalServiceResponses, UpdateScmConnectionData, UpdateScmConnectionResponses, UpdateServiceData, UpdateServiceResponses, UpdateStackData, UpdateStackResponses, UpsertCatalogData, UpsertCatalogResponses, UpsertHelmRepositoryData, UpsertHelmRepositoryResponses } from './types.gen.js';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -102,6 +102,46 @@ export const getAgentSession = <ThrowOnError extends boolean = false>(options: O
     responseType: 'json',
     url: '/v1/api/ai/sessions/{id}',
     ...options
+});
+
+export const listWorkbenches = <ThrowOnError extends boolean = false>(options?: Options<ListWorkbenchesData, ThrowOnError>) => (options?.client ?? client).get<ListWorkbenchesResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/workbenches',
+    ...options
+});
+
+export const getWorkbenchJob = <ThrowOnError extends boolean = false>(options: Options<GetWorkbenchJobData, ThrowOnError>) => (options.client ?? client).get<GetWorkbenchJobResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/workbenches/jobs/{id}',
+    ...options
+});
+
+export const getWorkbenchByName = <ThrowOnError extends boolean = false>(options: Options<GetWorkbenchByNameData, ThrowOnError>) => (options.client ?? client).get<GetWorkbenchByNameResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/workbenches/name',
+    ...options
+});
+
+export const getWorkbench = <ThrowOnError extends boolean = false>(options: Options<GetWorkbenchData, ThrowOnError>) => (options.client ?? client).get<GetWorkbenchResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/workbenches/{id}',
+    ...options
+});
+
+export const listWorkbenchJobs = <ThrowOnError extends boolean = false>(options: Options<ListWorkbenchJobsData, ThrowOnError>) => (options.client ?? client).get<ListWorkbenchJobsResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/workbenches/{id}/jobs',
+    ...options
+});
+
+export const createWorkbenchJob = <ThrowOnError extends boolean = false>(options: Options<CreateWorkbenchJobData, ThrowOnError>) => (options.client ?? client).post<CreateWorkbenchJobResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/v1/api/ai/workbenches/{id}/jobs',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 export const listClusters = <ThrowOnError extends boolean = false>(options?: Options<ListClustersData, ThrowOnError>) => (options?.client ?? client).get<ListClustersResponses, unknown, ThrowOnError>({
