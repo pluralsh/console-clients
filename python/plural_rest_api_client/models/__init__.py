@@ -39,6 +39,8 @@ from .console_open_apiai_agent_runtime_list import ConsoleOpenAPIAIAgentRuntimeL
 from .console_open_apiai_agent_session_list import ConsoleOpenAPIAIAgentSessionList
 from .console_open_apiai_sentinel_list import ConsoleOpenAPIAISentinelList
 from .console_open_apiai_sentinel_run_list import ConsoleOpenAPIAISentinelRunList
+from .console_open_apiai_workbench_job_list import ConsoleOpenAPIAIWorkbenchJobList
+from .console_open_apiai_workbench_list import ConsoleOpenAPIAIWorkbenchList
 from .console_open_apicd_cluster_list import ConsoleOpenAPICDClusterList
 from .console_open_apicd_git_repository_list import ConsoleOpenAPICDGitRepositoryList
 from .console_open_apicd_global_service_list import ConsoleOpenAPICDGlobalServiceList
@@ -144,6 +146,12 @@ from .stage_service import StageService
 from .tag import Tag
 from .tag_input import TagInput
 from .user import User
+from .workbench import Workbench
+from .workbench_job import WorkbenchJob
+from .workbench_job_input import WorkbenchJobInput
+from .workbench_job_result import WorkbenchJobResult
+from .workbench_job_result_todo import WorkbenchJobResultTodo
+from .workbench_job_status import WorkbenchJobStatus
 
 __all__ = (
     "AccessToken",
@@ -181,6 +189,8 @@ __all__ = (
     "ConsoleOpenAPIAIAgentSessionList",
     "ConsoleOpenAPIAISentinelList",
     "ConsoleOpenAPIAISentinelRunList",
+    "ConsoleOpenAPIAIWorkbenchJobList",
+    "ConsoleOpenAPIAIWorkbenchList",
     "ConsoleOpenAPICDClusterList",
     "ConsoleOpenAPICDGitRepositoryList",
     "ConsoleOpenAPICDGlobalServiceList",
@@ -288,4 +298,10 @@ __all__ = (
     "Tag",
     "TagInput",
     "User",
+    "Workbench",
+    "WorkbenchJob",
+    "WorkbenchJobInput",
+    "WorkbenchJobResult",
+    "WorkbenchJobResultTodo",
+    "WorkbenchJobStatus",
 )

@@ -334,6 +334,15 @@ const (
 	StackRunTypeTerraform StackRunType = "terraform"
 )
 
+// Defines values for WorkbenchJobStatus.
+const (
+	WorkbenchJobStatusCancelled  WorkbenchJobStatus = "cancelled"
+	WorkbenchJobStatusFailed     WorkbenchJobStatus = "failed"
+	WorkbenchJobStatusPending    WorkbenchJobStatus = "pending"
+	WorkbenchJobStatusRunning    WorkbenchJobStatus = "running"
+	WorkbenchJobStatusSuccessful WorkbenchJobStatus = "successful"
+)
+
 // Defines values for ListAgentRuntimesParamsType.
 const (
 	Claude   ListAgentRuntimesParamsType = "claude"
@@ -364,8 +373,8 @@ const (
 
 // Defines values for ListHelmRepositoriesParamsHealth.
 const (
-	Failed   ListHelmRepositoriesParamsHealth = "failed"
-	Pullable ListHelmRepositoriesParamsHealth = "pullable"
+	ListHelmRepositoriesParamsHealthFailed   ListHelmRepositoriesParamsHealth = "failed"
+	ListHelmRepositoriesParamsHealthPullable ListHelmRepositoriesParamsHealth = "pullable"
 )
 
 // AccessToken An access token
@@ -846,6 +855,16 @@ type ConsoleOpenAPIAISentinelList struct {
 // ConsoleOpenAPIAISentinelRunList A paginated list of sentinel runs
 type ConsoleOpenAPIAISentinelRunList struct {
 	Data *[]SentinelRun `json:"data,omitempty"`
+}
+
+// ConsoleOpenAPIAIWorkbenchList A paginated list of workbenches
+type ConsoleOpenAPIAIWorkbenchList struct {
+	Data *[]Workbench `json:"data,omitempty"`
+}
+
+// ConsoleOpenAPIAIWorkbenchJobList A paginated list of workbench jobs
+type ConsoleOpenAPIAIWorkbenchJobList struct {
+	Data *[]WorkbenchJob `json:"data,omitempty"`
 }
 
 // ConsoleOpenAPIAccessTokenScope A scope entry for an access token
@@ -2108,6 +2127,105 @@ type User struct {
 	UpdatedAt      *time.Time               `json:"updated_at,omitempty"`
 }
 
+// Workbench A workbench for running AI jobs with configurable tools and prompts
+type Workbench struct {
+	// AgentRuntimeId ID of the agent runtime for this workbench
+	AgentRuntimeId *string `json:"agent_runtime_id,omitempty"`
+
+	// Description Description of the workbench
+	Description *string `json:"description,omitempty"`
+
+	// Id Unique identifier for the workbench
+	Id         *string    `json:"id,omitempty"`
+	InsertedAt *time.Time `json:"inserted_at,omitempty"`
+
+	// Name Human-readable name of the workbench
+	Name *string `json:"name,omitempty"`
+
+	// ProjectId ID of the project this workbench belongs to
+	ProjectId *string `json:"project_id,omitempty"`
+
+	// RepositoryId ID of the git repository for this workbench
+	RepositoryId *string `json:"repository_id,omitempty"`
+
+	// SystemPrompt The system prompt for the workbench
+	SystemPrompt *string    `json:"system_prompt,omitempty"`
+	UpdatedAt    *time.Time `json:"updated_at,omitempty"`
+}
+
+// WorkbenchJob A single run of a workbench
+type WorkbenchJob struct {
+	// CompletedAt When the run completed
+	CompletedAt *time.Time `json:"completed_at,omitempty"`
+
+	// Error Error message when the job failed
+	Error *string `json:"error,omitempty"`
+
+	// Id Unique identifier for the job
+	Id         *string    `json:"id,omitempty"`
+	InsertedAt *time.Time `json:"inserted_at,omitempty"`
+
+	// Prompt The prompt for this run
+	Prompt *string `json:"prompt,omitempty"`
+
+	// Result The result of a workbench job run (working theory, conclusion, todos)
+	Result *WorkbenchJobResult `json:"result,omitempty"`
+
+	// StartedAt When the run started
+	StartedAt *time.Time `json:"started_at,omitempty"`
+
+	// Status Current status (pending, running, successful, failed, cancelled)
+	Status    *WorkbenchJobStatus `json:"status,omitempty"`
+	UpdatedAt *time.Time          `json:"updated_at,omitempty"`
+
+	// UserId ID of the user who created this run
+	UserId *string `json:"user_id,omitempty"`
+
+	// WorkbenchId ID of the workbench this job belongs to
+	WorkbenchId *string `json:"workbench_id,omitempty"`
+}
+
+// WorkbenchJobStatus Current status (pending, running, successful, failed, cancelled)
+type WorkbenchJobStatus string
+
+// WorkbenchJobInput Input for creating a new workbench job
+type WorkbenchJobInput struct {
+	// Prompt The prompt for this job
+	Prompt string `json:"prompt"`
+}
+
+// WorkbenchJobResult The result of a workbench job run (working theory, conclusion, todos)
+type WorkbenchJobResult struct {
+	// Conclusion The conclusion for this result
+	Conclusion *string `json:"conclusion,omitempty"`
+
+	// Id Unique identifier for the result
+	Id         *string    `json:"id,omitempty"`
+	InsertedAt *time.Time `json:"inserted_at,omitempty"`
+
+	// Todos Todos for this result
+	Todos     *[]WorkbenchJobResultTodo `json:"todos,omitempty"`
+	UpdatedAt *time.Time                `json:"updated_at,omitempty"`
+
+	// WorkbenchJobId ID of the job this result belongs to
+	WorkbenchJobId *string `json:"workbench_job_id,omitempty"`
+
+	// WorkingTheory The working theory for this result
+	WorkingTheory *string `json:"working_theory,omitempty"`
+}
+
+// WorkbenchJobResultTodo A todo item on the job result
+type WorkbenchJobResultTodo struct {
+	// Description Description of the todo
+	Description *string `json:"description,omitempty"`
+
+	// Done Whether the todo is completed
+	Done *bool `json:"done,omitempty"`
+
+	// Title Title of the todo
+	Title *string `json:"title,omitempty"`
+}
+
 // ListAgentRunsParams defines parameters for ListAgentRuns.
 type ListAgentRunsParams struct {
 	RuntimeId *string `form:"runtime_id,omitempty" json:"runtime_id,omitempty"`
@@ -2144,6 +2262,25 @@ type ListSentinelRunsParams struct {
 
 // ListAgentSessionsParams defines parameters for ListAgentSessions.
 type ListAgentSessionsParams struct {
+	Page    *int `form:"page,omitempty" json:"page,omitempty"`
+	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
+}
+
+// ListWorkbenchesParams defines parameters for ListWorkbenches.
+type ListWorkbenchesParams struct {
+	Q         *string `form:"q,omitempty" json:"q,omitempty"`
+	ProjectId *string `form:"project_id,omitempty" json:"project_id,omitempty"`
+	Page      *int    `form:"page,omitempty" json:"page,omitempty"`
+	PerPage   *int    `form:"per_page,omitempty" json:"per_page,omitempty"`
+}
+
+// GetWorkbenchByNameParams defines parameters for GetWorkbenchByName.
+type GetWorkbenchByNameParams struct {
+	Name string `form:"name" json:"name"`
+}
+
+// ListWorkbenchJobsParams defines parameters for ListWorkbenchJobs.
+type ListWorkbenchJobsParams struct {
 	Page    *int `form:"page,omitempty" json:"page,omitempty"`
 	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
 }
@@ -2315,6 +2452,9 @@ type CreateAgentRunJSONRequestBody = AgentRunInput
 
 // CreateAgentSessionJSONRequestBody defines body for CreateAgentSession for application/json ContentType.
 type CreateAgentSessionJSONRequestBody = AgentSessionInput
+
+// CreateWorkbenchJobJSONRequestBody defines body for CreateWorkbenchJob for application/json ContentType.
+type CreateWorkbenchJobJSONRequestBody = WorkbenchJobInput
 
 // CreateClusterJSONRequestBody defines body for CreateCluster for application/json ContentType.
 type CreateClusterJSONRequestBody = ClusterInput
@@ -2488,6 +2628,26 @@ type ClientInterface interface {
 
 	// GetAgentSession request
 	GetAgentSession(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWorkbenches request
+	ListWorkbenches(ctx context.Context, params *ListWorkbenchesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWorkbenchJob request
+	GetWorkbenchJob(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWorkbenchByName request
+	GetWorkbenchByName(ctx context.Context, params *GetWorkbenchByNameParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWorkbench request
+	GetWorkbench(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWorkbenchJobs request
+	ListWorkbenchJobs(ctx context.Context, id string, params *ListWorkbenchJobsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateWorkbenchJobWithBody request with any body
+	CreateWorkbenchJobWithBody(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateWorkbenchJob(ctx context.Context, id string, body CreateWorkbenchJobJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListClusters request
 	ListClusters(ctx context.Context, params *ListClustersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -2884,6 +3044,90 @@ func (c *Client) CreateAgentSession(ctx context.Context, body CreateAgentSession
 
 func (c *Client) GetAgentSession(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetAgentSessionRequest(c.Server, id)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWorkbenches(ctx context.Context, params *ListWorkbenchesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWorkbenchesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWorkbenchJob(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWorkbenchJobRequest(c.Server, id)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWorkbenchByName(ctx context.Context, params *GetWorkbenchByNameParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWorkbenchByNameRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWorkbench(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWorkbenchRequest(c.Server, id)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWorkbenchJobs(ctx context.Context, id string, params *ListWorkbenchJobsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWorkbenchJobsRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWorkbenchJobWithBody(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWorkbenchJobRequestWithBody(c.Server, id, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWorkbenchJob(ctx context.Context, id string, body CreateWorkbenchJobJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWorkbenchJobRequest(c.Server, id, body)
 	if err != nil {
 		return nil, err
 	}
@@ -4542,6 +4786,335 @@ func NewGetAgentSessionRequest(server string, id string) (*http.Request, error) 
 	if err != nil {
 		return nil, err
 	}
+
+	return req, nil
+}
+
+// NewListWorkbenchesRequest generates requests for ListWorkbenches
+func NewListWorkbenchesRequest(server string, params *ListWorkbenchesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/api/ai/workbenches")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.Q != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "q", runtime.ParamLocationQuery, *params.Q); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.ProjectId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "project_id", runtime.ParamLocationQuery, *params.ProjectId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "page", runtime.ParamLocationQuery, *params.Page); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "per_page", runtime.ParamLocationQuery, *params.PerPage); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWorkbenchJobRequest generates requests for GetWorkbenchJob
+func NewGetWorkbenchJobRequest(server string, id string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "id", runtime.ParamLocationPath, id)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/api/ai/workbenches/jobs/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWorkbenchByNameRequest generates requests for GetWorkbenchByName
+func NewGetWorkbenchByNameRequest(server string, params *GetWorkbenchByNameParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/api/ai/workbenches/name")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "name", runtime.ParamLocationQuery, params.Name); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWorkbenchRequest generates requests for GetWorkbench
+func NewGetWorkbenchRequest(server string, id string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "id", runtime.ParamLocationPath, id)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/api/ai/workbenches/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListWorkbenchJobsRequest generates requests for ListWorkbenchJobs
+func NewListWorkbenchJobsRequest(server string, id string, params *ListWorkbenchJobsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "id", runtime.ParamLocationPath, id)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/api/ai/workbenches/%s/jobs", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "page", runtime.ParamLocationQuery, *params.Page); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "per_page", runtime.ParamLocationQuery, *params.PerPage); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateWorkbenchJobRequest calls the generic CreateWorkbenchJob builder with application/json body
+func NewCreateWorkbenchJobRequest(server string, id string, body CreateWorkbenchJobJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateWorkbenchJobRequestWithBody(server, id, "application/json", bodyReader)
+}
+
+// NewCreateWorkbenchJobRequestWithBody generates requests for CreateWorkbenchJob with any type of body
+func NewCreateWorkbenchJobRequestWithBody(server string, id string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "id", runtime.ParamLocationPath, id)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/api/ai/workbenches/%s/jobs", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -7979,6 +8552,26 @@ type ClientWithResponsesInterface interface {
 	// GetAgentSessionWithResponse request
 	GetAgentSessionWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetAgentSessionResponse, error)
 
+	// ListWorkbenchesWithResponse request
+	ListWorkbenchesWithResponse(ctx context.Context, params *ListWorkbenchesParams, reqEditors ...RequestEditorFn) (*ListWorkbenchesResponse, error)
+
+	// GetWorkbenchJobWithResponse request
+	GetWorkbenchJobWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetWorkbenchJobResponse, error)
+
+	// GetWorkbenchByNameWithResponse request
+	GetWorkbenchByNameWithResponse(ctx context.Context, params *GetWorkbenchByNameParams, reqEditors ...RequestEditorFn) (*GetWorkbenchByNameResponse, error)
+
+	// GetWorkbenchWithResponse request
+	GetWorkbenchWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetWorkbenchResponse, error)
+
+	// ListWorkbenchJobsWithResponse request
+	ListWorkbenchJobsWithResponse(ctx context.Context, id string, params *ListWorkbenchJobsParams, reqEditors ...RequestEditorFn) (*ListWorkbenchJobsResponse, error)
+
+	// CreateWorkbenchJobWithBodyWithResponse request with any body
+	CreateWorkbenchJobWithBodyWithResponse(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWorkbenchJobResponse, error)
+
+	CreateWorkbenchJobWithResponse(ctx context.Context, id string, body CreateWorkbenchJobJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWorkbenchJobResponse, error)
+
 	// ListClustersWithResponse request
 	ListClustersWithResponse(ctx context.Context, params *ListClustersParams, reqEditors ...RequestEditorFn) (*ListClustersResponse, error)
 
@@ -8484,6 +9077,138 @@ func (r GetAgentSessionResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r GetAgentSessionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ListWorkbenchesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ConsoleOpenAPIAIWorkbenchList
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWorkbenchesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWorkbenchesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetWorkbenchJobResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WorkbenchJob
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWorkbenchJobResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWorkbenchJobResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetWorkbenchByNameResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Workbench
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWorkbenchByNameResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWorkbenchByNameResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetWorkbenchResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Workbench
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWorkbenchResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWorkbenchResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ListWorkbenchJobsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ConsoleOpenAPIAIWorkbenchJobList
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWorkbenchJobsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWorkbenchJobsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type CreateWorkbenchJobResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WorkbenchJob
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateWorkbenchJobResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateWorkbenchJobResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -9987,6 +10712,68 @@ func (c *ClientWithResponses) GetAgentSessionWithResponse(ctx context.Context, i
 	return ParseGetAgentSessionResponse(rsp)
 }
 
+// ListWorkbenchesWithResponse request returning *ListWorkbenchesResponse
+func (c *ClientWithResponses) ListWorkbenchesWithResponse(ctx context.Context, params *ListWorkbenchesParams, reqEditors ...RequestEditorFn) (*ListWorkbenchesResponse, error) {
+	rsp, err := c.ListWorkbenches(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWorkbenchesResponse(rsp)
+}
+
+// GetWorkbenchJobWithResponse request returning *GetWorkbenchJobResponse
+func (c *ClientWithResponses) GetWorkbenchJobWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetWorkbenchJobResponse, error) {
+	rsp, err := c.GetWorkbenchJob(ctx, id, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWorkbenchJobResponse(rsp)
+}
+
+// GetWorkbenchByNameWithResponse request returning *GetWorkbenchByNameResponse
+func (c *ClientWithResponses) GetWorkbenchByNameWithResponse(ctx context.Context, params *GetWorkbenchByNameParams, reqEditors ...RequestEditorFn) (*GetWorkbenchByNameResponse, error) {
+	rsp, err := c.GetWorkbenchByName(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWorkbenchByNameResponse(rsp)
+}
+
+// GetWorkbenchWithResponse request returning *GetWorkbenchResponse
+func (c *ClientWithResponses) GetWorkbenchWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetWorkbenchResponse, error) {
+	rsp, err := c.GetWorkbench(ctx, id, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWorkbenchResponse(rsp)
+}
+
+// ListWorkbenchJobsWithResponse request returning *ListWorkbenchJobsResponse
+func (c *ClientWithResponses) ListWorkbenchJobsWithResponse(ctx context.Context, id string, params *ListWorkbenchJobsParams, reqEditors ...RequestEditorFn) (*ListWorkbenchJobsResponse, error) {
+	rsp, err := c.ListWorkbenchJobs(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWorkbenchJobsResponse(rsp)
+}
+
+// CreateWorkbenchJobWithBodyWithResponse request with arbitrary body returning *CreateWorkbenchJobResponse
+func (c *ClientWithResponses) CreateWorkbenchJobWithBodyWithResponse(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWorkbenchJobResponse, error) {
+	rsp, err := c.CreateWorkbenchJobWithBody(ctx, id, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWorkbenchJobResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateWorkbenchJobWithResponse(ctx context.Context, id string, body CreateWorkbenchJobJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWorkbenchJobResponse, error) {
+	rsp, err := c.CreateWorkbenchJob(ctx, id, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWorkbenchJobResponse(rsp)
+}
+
 // ListClustersWithResponse request returning *ListClustersResponse
 func (c *ClientWithResponses) ListClustersWithResponse(ctx context.Context, params *ListClustersParams, reqEditors ...RequestEditorFn) (*ListClustersResponse, error) {
 	rsp, err := c.ListClusters(ctx, params, reqEditors...)
@@ -11025,6 +11812,162 @@ func ParseGetAgentSessionResponse(rsp *http.Response) (*GetAgentSessionResponse,
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest AgentSession
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWorkbenchesResponse parses an HTTP response from a ListWorkbenchesWithResponse call
+func ParseListWorkbenchesResponse(rsp *http.Response) (*ListWorkbenchesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWorkbenchesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ConsoleOpenAPIAIWorkbenchList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWorkbenchJobResponse parses an HTTP response from a GetWorkbenchJobWithResponse call
+func ParseGetWorkbenchJobResponse(rsp *http.Response) (*GetWorkbenchJobResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWorkbenchJobResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WorkbenchJob
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWorkbenchByNameResponse parses an HTTP response from a GetWorkbenchByNameWithResponse call
+func ParseGetWorkbenchByNameResponse(rsp *http.Response) (*GetWorkbenchByNameResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWorkbenchByNameResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Workbench
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWorkbenchResponse parses an HTTP response from a GetWorkbenchWithResponse call
+func ParseGetWorkbenchResponse(rsp *http.Response) (*GetWorkbenchResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWorkbenchResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Workbench
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWorkbenchJobsResponse parses an HTTP response from a ListWorkbenchJobsWithResponse call
+func ParseListWorkbenchJobsResponse(rsp *http.Response) (*ListWorkbenchJobsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWorkbenchJobsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ConsoleOpenAPIAIWorkbenchJobList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateWorkbenchJobResponse parses an HTTP response from a CreateWorkbenchJobWithResponse call
+func ParseCreateWorkbenchJobResponse(rsp *http.Response) (*CreateWorkbenchJobResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateWorkbenchJobResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WorkbenchJob
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
